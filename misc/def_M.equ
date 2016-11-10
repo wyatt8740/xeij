@@ -1,0 +1,35 @@
+;========================================================================================
+;  def_M.equ
+;  Copyright (C) 2003-2016 Makoto Kamada
+;
+;  This file is part of the XEiJ (X68000 Emulator in Java).
+;  You can use, modify and redistribute the XEiJ if the conditions are met.
+;  Read the XEiJ License for more details.
+;  http://stdkmd.com/xeij/
+;========================================================================================
+
+	.nlist
+
+	.ifndef	__DEF_M_EQU__
+__DEF_M_EQU__	equ	1
+
+;----------------------------------------------------------------
+;
+;	ビットマップデータを見やすくするためのシンボル
+;
+;----------------------------------------------------------------
+
+def_M	.macro	m,n,a
+  .if m<256
+	def_M	m*2,n,_&a
+	def_M	m*2,m+n,M&a
+  .else
+a	equ	n
+  .endif
+	.endm
+
+	def_M	1,0
+
+	.endif				;__DEF_M_EQU__
+
+	.list

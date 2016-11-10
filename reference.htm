@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>参考資料</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="stylesheet" type="text/css" href="http://stdkmd.com/stdkmd.css">
+    <script type="text/javascript" charset="UTF-8" src="http://stdkmd.com/stdkmd.js"></script>
+  </head>
+  <body>
+<div id="head">
+  <span id="title">参考資料</span>
+  <span id="back">- <a href="http://stdkmd.com/xeij/">XEiJ</a> - <a href="http://stdkmd.com/">STUDIO KAMADA</a></span>
+</div>
+<div id="body">
+
+    <h3>目次</h3>
+      <ol>
+	<li><a href="#x68000">X68000 関連</a><ol>
+		<li><a href="#x68000_general">X68000 全般</a></li>
+		<li><a href="#x68000_mpufpu">MPU/FPU</a></li>
+		<li><a href="#x68000_floatingpoint">浮動小数点演算</a></li>
+		<li><a href="#x68000_ym2151">FM 音源</a></li>
+		<li><a href="#x68000_adpcm">ADPCM 音源</a></li>
+		<li><a href="#x68000_disassembled">逆アセンブルリスト</a></li>
+		<li><a href="#x68000_misc">その他</a></li>
+	</ol></li>
+	<li><a href="#java">Java 関連</a><ol>
+		<li><a href="#java_javase">Java SE</a></li>
+		<li><a href="#java_javaapplet">Java アプレット</a></li>
+		<li><a href="#java_javaws">Java Web Start</a></li>
+		<li><a href="#java_soundapi">Java Sound API</a></li>
+	</ol></li>
+      </ol>
+
+  <h2><a href="#x68000" id="x68000">1. X68000 関連</a></h2>
+
+    <h3><a href="#x68000_general" id="x68000_general">1.1. X68000 全般</a></h3>
+      <ul>
+	<li>Inside X68000 (桑野雅彦著)</li>
+	<li>CZ-674C サービスマニュアル (シャープ)</li>
+	<li>#1000 技術資料 (シャープ)</li>
+      </ul>
+
+    <h3><a href="#x68000_mpufpu" id="x68000_mpufpu">1.2. MPU/FPU</a></h3>
+      <ul>
+	<li><a href="http://cache.freescale.com/files/archives/doc/ref_manual/M68000PRM.pdf" target="_blank">M68000PRM: M68000 Family Programmer&#39;s Reference Manual (Includes CPU32 Instructions)</a> (Freescale Semiconductor, Inc.)</li>
+	<li><a href="http://cache.freescale.com/files/32bit/doc/ref_manual/MC68000UM.pdf" target="_blank">MC68000UM: M68000 8-/16-/32-Bit Microprocessors User&#39;s Manual</a> (Freescale Semiconductor, Inc.)</li>
+	<li><a href="http://cache.freescale.com/files/32bit/doc/ref_manual/MC68030UM.pdf" target="_blank">MC68030UM: MC68030 Enhanced 32-Bit Microprocessor User&#39;s Manual Third Edition</a> (Freescale Semiconductor, Inc.)</li>
+	<li><a href="http://cache.freescale.com/files/32bit/doc/ref_manual/MC68040UM.pdf" target="_blank">MC68040UM: M68040 User&#39;s Manual Including the MC68040, MC68040V, MC68LC040, MC68EC040, and MC68EC040V</a> (Freescale Semiconductor, Inc.)</li>
+	<li><a href="http://cache.freescale.com/files/32bit/doc/ref_manual/MC68060UM.pdf" target="_blank">MC68060UM: M68060 User&#39;s Manual Including the MC68060, MC68LC060, and MC68EC060</a> (Freescale Semiconductor, Inc.)</li>
+	<li><a href="http://cache.freescale.com/files/32bit/doc/ref_manual/MC68881UM.pdf" target="_blank">MC68881UM: MC68881/882 Floating-Point Coprocessor User&#39;s Manual Second Edition</a> (Freescale Semiconductor, Inc.)</li>
+	<li><a href="http://www.nxp.com/files/dsp/doc/ref_manual/CFPRM.pdf" target="_blank">CFPRM: ColdFire Family Programmer&#39;s Reference Manual Third Edition</a> (NXPセミコンダクターズ)</li>
+	<li>060ISP, 060FPSP (Motorola)</li>
+      </ul>
+
+    <h3><a href="#x68000_floatingpoint" id="x68000_floatingpoint">1.3. 浮動小数点演算</a></h3>
+      <ul>
+	<li><a href="http://repository.dl.itc.u-tokyo.ac.jp/dspace/handle/2261/31404" target="_blank">研究解説 : チェビシェフ多項式による関数近似について</a> (岡本通子著)</li>
+	<li><a href="https://web.archive.org/web/*/http://www.made.gifu-u.ac.jp/~tanaka/LectureNote/numerical_analysis.pdf" target="_blank">基礎数値解析‐偏微分方程式の数値シミュレーション技法入門‐</a> (田中光宏著)</li>
+	<li><a href="http://www.fujitsu.com/jp/solutions/business-technology/tc/catalog/" target="_blank">HPC カタログ・資料 : 富士通 - Fujitsu Japan</a> (富士通)</li>
+	<li><a href="https://web.archive.org/web/*/http://teamcoil.sp.u-tokai.ac.jp/calculator/100224/" target="_blank">サルでも分かるCORDICアルゴリズム</a> (遠藤雅守さん)</li>
+	<li>「高速4倍精度演算パッケージASLQUADの開発とその有用性」　緒方 隆盛（NEC HPC販売推進本部）</li>
+      </ul>
+
+    <h3><a href="#x68000_ym2151" id="x68000_ym2151">1.4. FM 音源</a></h3>
+      <ul>
+	<li><a href="http://mamedev.org/" target="_blank">MAME | Multiple Arcade Machine Emulator</a> (Nicola Salmoria and the MAME team)</li>
+      </ul>
+
+    <h3><a href="#x68000_adpcm" id="x68000_adpcm">1.5. ADPCM 音源</a></h3>
+      <ul>
+	<li><a href="http://retropc.net/x68000/software/sound/adpcm/pcm8a/" target="_blank">PCM8A.X</a></li>
+	<li><a href="http://retropc.net/x68000/software/sound/stereopcm/s44play/" target="_blank">S44PLAY.X</a></li>
+      </ul>
+
+    <h3><a href="#x68000_disassembled" id="x68000_disassembled">1.6. 逆アセンブルリスト</a></h3>
+      <ul>
+	<li>FDDEVICE.X, FLOAT2.X, FLOAT4.X, FORMAT.X, HUMAN.SYS など</li>
+      </ul>
+
+    <h3><a href="#x68000_misc" id="x68000_misc">1.7. その他</a></h3>
+      <ul>
+	<li>いろいろ</li>
+      </ul>
+
+  <h2><a href="#java" id="java">2. Java 関連</a></h2>
+
+    <h3><a href="#java_javase" id="java_javase">2.1. Java SE</a></h3>
+      <ul>
+	<li><a href="http://docs.oracle.com/javase/jp/8/" target="_blank">Java Platform Standard Edition 8ドキュメント</a> (Oracle)</li>
+      </ul>
+
+    <h3><a href="#java_javaapplet" id="java_javaapplet">2.2. Java アプレット</a></h3>
+      <ul>
+	<li><a href="http://docs.oracle.com/javase/jp/7/technotes/guides/plugin/developer_guide/using_tags.html" target="_blank">applet、object、および embed タグの使用</a> (Oracle)</li>
+	<li><a href="http://docs.oracle.com/javase/jp/6/technotes/guides/jweb/applet/liveconnect_support.html" target="_blank">LiveConnect のサポート</a> (Oracle)</li>
+	<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/LiveConnect_Overview" target="_blank">LiveConnect の概要 - JavaScript | MDN</a> (Mozilla)</li>
+      </ul>
+
+    <h3><a href="#java_javaws" id="java_javaws">2.3. Java Web Start</a></h3>
+      <ul>
+	<li><a href="http://www.java.com/ja/download/faq/java_webstart.xml" target="_blank">Java Web Startとは何ですか。また、どうやって起動しますか。</a> (Oracle)</li>
+	<li><a href="http://docs.oracle.com/javase/jp/8/docs/technotes/guides/javaws/index.html" target="_blank">Java(TM) Web Start</a> (Oracle)</li>
+      </ul>
+
+    <h3><a href="#java_soundapi" id="java_soundapi">2.4. Java Sound API</a></h3>
+      <ul>
+	<li><a href="http://docs.oracle.com/javase/jp/8/docs/technotes/guides/sound/index.html" target="_blank">Java Sound Technology</a> (Oracle)</li>
+      </ul>
+
+</div>
+<div id="foot"><a href="http://stdkmd.com/">STUDIO KAMADA</a><br>Copyright &copy; 1999-2016 Makoto Kamada<div></div></div>
+  </body>
+</html>

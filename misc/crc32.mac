@@ -1,0 +1,383 @@
+;========================================================================================
+;  crc32.mac
+;  Copyright (C) 2003-2016 Makoto Kamada
+;
+;  This file is part of the XEiJ (X68000 Emulator in Java).
+;  You can use, modify and redistribute the XEiJ if the conditions are met.
+;  Read the XEiJ License for more details.
+;  http://stdkmd.com/xeij/
+;========================================================================================
+
+	.nlist
+
+	.ifndef	__CRC32_MAC__
+__CRC32_MAC__	equ	1
+
+  .if 0
+
+;----------------------------------------------------------------
+;	文法
+;		~~crc32init
+;	機能
+;		CRC32のテーブルを作る
+;----------------------------------------------------------------
+~~crc32init	.macro
+@i = 0
+  .rept 256
+@x = @i
+    .rept 8
+@t = @x.and.1
+@x = (@x.shr.1).and.$7FFFFFFF
+@x = @x.eor.($EDB88320.and.(-@t))
+    .endm
+~~CRC32_%@i	equ	@x
+@i = @i+1
+  .endm
+	.endm
+
+	~~crc32init
+
+  .else
+
+~~CRC32_0	equ	$00000000
+~~CRC32_1	equ	$77073096
+~~CRC32_2	equ	$EE0E612C
+~~CRC32_3	equ	$990951BA
+~~CRC32_4	equ	$076DC419
+~~CRC32_5	equ	$706AF48F
+~~CRC32_6	equ	$E963A535
+~~CRC32_7	equ	$9E6495A3
+~~CRC32_8	equ	$0EDB8832
+~~CRC32_9	equ	$79DCB8A4
+~~CRC32_10	equ	$E0D5E91E
+~~CRC32_11	equ	$97D2D988
+~~CRC32_12	equ	$09B64C2B
+~~CRC32_13	equ	$7EB17CBD
+~~CRC32_14	equ	$E7B82D07
+~~CRC32_15	equ	$90BF1D91
+~~CRC32_16	equ	$1DB71064
+~~CRC32_17	equ	$6AB020F2
+~~CRC32_18	equ	$F3B97148
+~~CRC32_19	equ	$84BE41DE
+~~CRC32_20	equ	$1ADAD47D
+~~CRC32_21	equ	$6DDDE4EB
+~~CRC32_22	equ	$F4D4B551
+~~CRC32_23	equ	$83D385C7
+~~CRC32_24	equ	$136C9856
+~~CRC32_25	equ	$646BA8C0
+~~CRC32_26	equ	$FD62F97A
+~~CRC32_27	equ	$8A65C9EC
+~~CRC32_28	equ	$14015C4F
+~~CRC32_29	equ	$63066CD9
+~~CRC32_30	equ	$FA0F3D63
+~~CRC32_31	equ	$8D080DF5
+~~CRC32_32	equ	$3B6E20C8
+~~CRC32_33	equ	$4C69105E
+~~CRC32_34	equ	$D56041E4
+~~CRC32_35	equ	$A2677172
+~~CRC32_36	equ	$3C03E4D1
+~~CRC32_37	equ	$4B04D447
+~~CRC32_38	equ	$D20D85FD
+~~CRC32_39	equ	$A50AB56B
+~~CRC32_40	equ	$35B5A8FA
+~~CRC32_41	equ	$42B2986C
+~~CRC32_42	equ	$DBBBC9D6
+~~CRC32_43	equ	$ACBCF940
+~~CRC32_44	equ	$32D86CE3
+~~CRC32_45	equ	$45DF5C75
+~~CRC32_46	equ	$DCD60DCF
+~~CRC32_47	equ	$ABD13D59
+~~CRC32_48	equ	$26D930AC
+~~CRC32_49	equ	$51DE003A
+~~CRC32_50	equ	$C8D75180
+~~CRC32_51	equ	$BFD06116
+~~CRC32_52	equ	$21B4F4B5
+~~CRC32_53	equ	$56B3C423
+~~CRC32_54	equ	$CFBA9599
+~~CRC32_55	equ	$B8BDA50F
+~~CRC32_56	equ	$2802B89E
+~~CRC32_57	equ	$5F058808
+~~CRC32_58	equ	$C60CD9B2
+~~CRC32_59	equ	$B10BE924
+~~CRC32_60	equ	$2F6F7C87
+~~CRC32_61	equ	$58684C11
+~~CRC32_62	equ	$C1611DAB
+~~CRC32_63	equ	$B6662D3D
+~~CRC32_64	equ	$76DC4190
+~~CRC32_65	equ	$01DB7106
+~~CRC32_66	equ	$98D220BC
+~~CRC32_67	equ	$EFD5102A
+~~CRC32_68	equ	$71B18589
+~~CRC32_69	equ	$06B6B51F
+~~CRC32_70	equ	$9FBFE4A5
+~~CRC32_71	equ	$E8B8D433
+~~CRC32_72	equ	$7807C9A2
+~~CRC32_73	equ	$0F00F934
+~~CRC32_74	equ	$9609A88E
+~~CRC32_75	equ	$E10E9818
+~~CRC32_76	equ	$7F6A0DBB
+~~CRC32_77	equ	$086D3D2D
+~~CRC32_78	equ	$91646C97
+~~CRC32_79	equ	$E6635C01
+~~CRC32_80	equ	$6B6B51F4
+~~CRC32_81	equ	$1C6C6162
+~~CRC32_82	equ	$856530D8
+~~CRC32_83	equ	$F262004E
+~~CRC32_84	equ	$6C0695ED
+~~CRC32_85	equ	$1B01A57B
+~~CRC32_86	equ	$8208F4C1
+~~CRC32_87	equ	$F50FC457
+~~CRC32_88	equ	$65B0D9C6
+~~CRC32_89	equ	$12B7E950
+~~CRC32_90	equ	$8BBEB8EA
+~~CRC32_91	equ	$FCB9887C
+~~CRC32_92	equ	$62DD1DDF
+~~CRC32_93	equ	$15DA2D49
+~~CRC32_94	equ	$8CD37CF3
+~~CRC32_95	equ	$FBD44C65
+~~CRC32_96	equ	$4DB26158
+~~CRC32_97	equ	$3AB551CE
+~~CRC32_98	equ	$A3BC0074
+~~CRC32_99	equ	$D4BB30E2
+~~CRC32_100	equ	$4ADFA541
+~~CRC32_101	equ	$3DD895D7
+~~CRC32_102	equ	$A4D1C46D
+~~CRC32_103	equ	$D3D6F4FB
+~~CRC32_104	equ	$4369E96A
+~~CRC32_105	equ	$346ED9FC
+~~CRC32_106	equ	$AD678846
+~~CRC32_107	equ	$DA60B8D0
+~~CRC32_108	equ	$44042D73
+~~CRC32_109	equ	$33031DE5
+~~CRC32_110	equ	$AA0A4C5F
+~~CRC32_111	equ	$DD0D7CC9
+~~CRC32_112	equ	$5005713C
+~~CRC32_113	equ	$270241AA
+~~CRC32_114	equ	$BE0B1010
+~~CRC32_115	equ	$C90C2086
+~~CRC32_116	equ	$5768B525
+~~CRC32_117	equ	$206F85B3
+~~CRC32_118	equ	$B966D409
+~~CRC32_119	equ	$CE61E49F
+~~CRC32_120	equ	$5EDEF90E
+~~CRC32_121	equ	$29D9C998
+~~CRC32_122	equ	$B0D09822
+~~CRC32_123	equ	$C7D7A8B4
+~~CRC32_124	equ	$59B33D17
+~~CRC32_125	equ	$2EB40D81
+~~CRC32_126	equ	$B7BD5C3B
+~~CRC32_127	equ	$C0BA6CAD
+~~CRC32_128	equ	$EDB88320
+~~CRC32_129	equ	$9ABFB3B6
+~~CRC32_130	equ	$03B6E20C
+~~CRC32_131	equ	$74B1D29A
+~~CRC32_132	equ	$EAD54739
+~~CRC32_133	equ	$9DD277AF
+~~CRC32_134	equ	$04DB2615
+~~CRC32_135	equ	$73DC1683
+~~CRC32_136	equ	$E3630B12
+~~CRC32_137	equ	$94643B84
+~~CRC32_138	equ	$0D6D6A3E
+~~CRC32_139	equ	$7A6A5AA8
+~~CRC32_140	equ	$E40ECF0B
+~~CRC32_141	equ	$9309FF9D
+~~CRC32_142	equ	$0A00AE27
+~~CRC32_143	equ	$7D079EB1
+~~CRC32_144	equ	$F00F9344
+~~CRC32_145	equ	$8708A3D2
+~~CRC32_146	equ	$1E01F268
+~~CRC32_147	equ	$6906C2FE
+~~CRC32_148	equ	$F762575D
+~~CRC32_149	equ	$806567CB
+~~CRC32_150	equ	$196C3671
+~~CRC32_151	equ	$6E6B06E7
+~~CRC32_152	equ	$FED41B76
+~~CRC32_153	equ	$89D32BE0
+~~CRC32_154	equ	$10DA7A5A
+~~CRC32_155	equ	$67DD4ACC
+~~CRC32_156	equ	$F9B9DF6F
+~~CRC32_157	equ	$8EBEEFF9
+~~CRC32_158	equ	$17B7BE43
+~~CRC32_159	equ	$60B08ED5
+~~CRC32_160	equ	$D6D6A3E8
+~~CRC32_161	equ	$A1D1937E
+~~CRC32_162	equ	$38D8C2C4
+~~CRC32_163	equ	$4FDFF252
+~~CRC32_164	equ	$D1BB67F1
+~~CRC32_165	equ	$A6BC5767
+~~CRC32_166	equ	$3FB506DD
+~~CRC32_167	equ	$48B2364B
+~~CRC32_168	equ	$D80D2BDA
+~~CRC32_169	equ	$AF0A1B4C
+~~CRC32_170	equ	$36034AF6
+~~CRC32_171	equ	$41047A60
+~~CRC32_172	equ	$DF60EFC3
+~~CRC32_173	equ	$A867DF55
+~~CRC32_174	equ	$316E8EEF
+~~CRC32_175	equ	$4669BE79
+~~CRC32_176	equ	$CB61B38C
+~~CRC32_177	equ	$BC66831A
+~~CRC32_178	equ	$256FD2A0
+~~CRC32_179	equ	$5268E236
+~~CRC32_180	equ	$CC0C7795
+~~CRC32_181	equ	$BB0B4703
+~~CRC32_182	equ	$220216B9
+~~CRC32_183	equ	$5505262F
+~~CRC32_184	equ	$C5BA3BBE
+~~CRC32_185	equ	$B2BD0B28
+~~CRC32_186	equ	$2BB45A92
+~~CRC32_187	equ	$5CB36A04
+~~CRC32_188	equ	$C2D7FFA7
+~~CRC32_189	equ	$B5D0CF31
+~~CRC32_190	equ	$2CD99E8B
+~~CRC32_191	equ	$5BDEAE1D
+~~CRC32_192	equ	$9B64C2B0
+~~CRC32_193	equ	$EC63F226
+~~CRC32_194	equ	$756AA39C
+~~CRC32_195	equ	$026D930A
+~~CRC32_196	equ	$9C0906A9
+~~CRC32_197	equ	$EB0E363F
+~~CRC32_198	equ	$72076785
+~~CRC32_199	equ	$05005713
+~~CRC32_200	equ	$95BF4A82
+~~CRC32_201	equ	$E2B87A14
+~~CRC32_202	equ	$7BB12BAE
+~~CRC32_203	equ	$0CB61B38
+~~CRC32_204	equ	$92D28E9B
+~~CRC32_205	equ	$E5D5BE0D
+~~CRC32_206	equ	$7CDCEFB7
+~~CRC32_207	equ	$0BDBDF21
+~~CRC32_208	equ	$86D3D2D4
+~~CRC32_209	equ	$F1D4E242
+~~CRC32_210	equ	$68DDB3F8
+~~CRC32_211	equ	$1FDA836E
+~~CRC32_212	equ	$81BE16CD
+~~CRC32_213	equ	$F6B9265B
+~~CRC32_214	equ	$6FB077E1
+~~CRC32_215	equ	$18B74777
+~~CRC32_216	equ	$88085AE6
+~~CRC32_217	equ	$FF0F6A70
+~~CRC32_218	equ	$66063BCA
+~~CRC32_219	equ	$11010B5C
+~~CRC32_220	equ	$8F659EFF
+~~CRC32_221	equ	$F862AE69
+~~CRC32_222	equ	$616BFFD3
+~~CRC32_223	equ	$166CCF45
+~~CRC32_224	equ	$A00AE278
+~~CRC32_225	equ	$D70DD2EE
+~~CRC32_226	equ	$4E048354
+~~CRC32_227	equ	$3903B3C2
+~~CRC32_228	equ	$A7672661
+~~CRC32_229	equ	$D06016F7
+~~CRC32_230	equ	$4969474D
+~~CRC32_231	equ	$3E6E77DB
+~~CRC32_232	equ	$AED16A4A
+~~CRC32_233	equ	$D9D65ADC
+~~CRC32_234	equ	$40DF0B66
+~~CRC32_235	equ	$37D83BF0
+~~CRC32_236	equ	$A9BCAE53
+~~CRC32_237	equ	$DEBB9EC5
+~~CRC32_238	equ	$47B2CF7F
+~~CRC32_239	equ	$30B5FFE9
+~~CRC32_240	equ	$BDBDF21C
+~~CRC32_241	equ	$CABAC28A
+~~CRC32_242	equ	$53B39330
+~~CRC32_243	equ	$24B4A3A6
+~~CRC32_244	equ	$BAD03605
+~~CRC32_245	equ	$CDD70693
+~~CRC32_246	equ	$54DE5729
+~~CRC32_247	equ	$23D967BF
+~~CRC32_248	equ	$B3667A2E
+~~CRC32_249	equ	$C4614AB8
+~~CRC32_250	equ	$5D681B02
+~~CRC32_251	equ	$2A6F2B94
+~~CRC32_252	equ	$B40BBE37
+~~CRC32_253	equ	$C30C8EA1
+~~CRC32_254	equ	$5A05DF1B
+~~CRC32_255	equ	$2D02EF8D
+
+  .endif
+
+;----------------------------------------------------------------
+;	文法
+;		CRC32
+;	内容
+;		CRC32の計算結果
+;----------------------------------------------------------------
+CRC32 = 0
+
+;----------------------------------------------------------------
+;	文法
+;		crc32b	整数
+;	機能
+;		CRC32に1バイト追加する
+;----------------------------------------------------------------
+crc32b	.macro	num
+  .rept 1
+@x = CRC32.eor.$FFFFFFFF		;追加
+@i = (@x.eor.num).and.$FF
+@x = ((@x.shr.8).and.$00FFFFFF).eor.~~CRC32_%@i
+CRC32 = @x.eor.$FFFFFFFF
+  .endm
+	.endm
+
+;----------------------------------------------------------------
+;	文法
+;		crc32w	整数
+;	機能
+;		CRC32に1ワード追加する
+;----------------------------------------------------------------
+crc32w	.macro	num
+  .rept 1
+@x = CRC32.eor.$FFFFFFFF		;追加
+@i = (@x.eor.(num.shr.8)).and.$FF
+@x = ((@x.shr.8).and.$00FFFFFF).eor.~~CRC32_%@i
+@i = (@x.eor.num).and.$FF
+@x = ((@x.shr.8).and.$00FFFFFF).eor.~~CRC32_%@i
+CRC32 = @x.eor.$FFFFFFFF
+  .endm
+	.endm
+
+;----------------------------------------------------------------
+;	文法
+;		crc32l	整数
+;	機能
+;		CRC32に1ロング追加する
+;----------------------------------------------------------------
+crc32l	.macro	num
+  .rept 1
+@x = CRC32.eor.$FFFFFFFF		;追加
+@i = (@x.eor.(num.shr.24)).and.$FF
+@x = ((@x.shr.8).and.$00FFFFFF).eor.~~CRC32_%@i
+@i = (@x.eor.(num.shr.16)).and.$FF
+@x = ((@x.shr.8).and.$00FFFFFF).eor.~~CRC32_%@i
+@i = (@x.eor.(num.shr.8)).and.$FF
+@x = ((@x.shr.8).and.$00FFFFFF).eor.~~CRC32_%@i
+@i = (@x.eor.num).and.$FF
+@x = ((@x.shr.8).and.$00FFFFFF).eor.~~CRC32_%@i
+CRC32 = @x.eor.$FFFFFFFF
+  .endm
+	.endm
+
+;----------------------------------------------------------------
+;	文法
+;		crc32str	'文字列'
+;	機能
+;		文字列のCRC32を計算する
+;----------------------------------------------------------------
+crc32str	.macro	str
+@x = $FFFFFFFF				;新規
+  .irpc c,str
+    .if '&c'>=$FF
+@i = (@x.eor.('&c'.shr.8)).and.$FF
+@x = ((@x.shr.8).and.$00FFFFFF).eor.~~CRC32_%@i
+    .endif
+@i = (@x.eor.'&c').and.$FF
+@x = ((@x.shr.8).and.$00FFFFFF).eor.~~CRC32_%@i
+  .endm
+CRC32 = @x.eor.$FFFFFFFF
+	.endm
+
+	.endif				;__CRC32_MAC__
+
+	.list

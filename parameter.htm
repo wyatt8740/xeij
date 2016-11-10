@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パラメータ</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="stylesheet" type="text/css" href="http://stdkmd.com/stdkmd.css">
+    <script type="text/javascript" charset="UTF-8" src="http://stdkmd.com/stdkmd.js"></script>
+  </head>
+  <body>
+<div id="head">
+  <span id="title">パラメータ</span>
+  <span id="back">- <a href="http://stdkmd.com/xeij/">XEiJ</a> - <a href="http://stdkmd.com/">STUDIO KAMADA</a></span>
+</div>
+<div id="body">
+
+    <h3>目次</h3>
+      <ol>
+	<li><a href="#syntax">パラメータの書き方</a><ol>
+		<li><a href="#syntax_command">コマンドライン</a></li>
+		<li><a href="#syntax_applet">Java アプレット</a></li>
+		<li><a href="#syntax_jnlp">Java Web Start</a></li>
+		<li><a href="#syntax_inifile">設定ファイル</a></li>
+	</ol></li>
+	<li><a href="#param">パラメータの説明</a><ol>
+		<li><a href="#param_boot">boot</a></li>
+		<li><a href="#param_cgrom">cgrom</a></li>
+		<li><a href="#param_clock">clock</a></li>
+		<li><a href="#param_config">config</a></li>
+		<li><a href="#param_cutfc2pin">cutfc2pin</a></li>
+		<li><a href="#param_edgeaccel">edgeaccel</a></li>
+		<li><a href="#param_fdn">fdN (N=0～3)</a></li>
+		<li><a href="#param_fefunc">fefunc</a></li>
+		<li><a href="#param_fitinwindow">fitinwindow</a></li>
+		<li><a href="#param_fixedscale">fixedscale</a></li>
+		<li><a href="#param_fpumode">fpumode</a></li>
+		<li><a href="#param_fullspecfpu">fullspecfpu</a></li>
+		<li><a href="#param_fullscreen">fullscreen</a></li>
+		<li><a href="#param_hdn">hdN (N=0～15)</a></li>
+		<li><a href="#param_hfn">hfN (N=0～15)</a></li>
+		<li><a href="#param_highmemory">highmemory</a></li>
+		<li><a href="#param_highmemorydata">highmemorydata</a></li>
+		<li><a href="#param_highmemorysave">highmemorysave</a></li>
+		<li><a href="#param_hhssbb">hhssbb</a></li>
+		<li><a href="#param_hostspixelunits">hostspixelunits</a></li>
+		<li><a href="#param_intermittent">intermittent</a></li>
+		<li><a href="#param_interpolation">interpolation</a></li>
+		<li><a href="#param_iplrom">iplrom</a></li>
+		<li><a href="#param_joyauto">joyauto</a></li>
+		<li><a href="#param_joyblock">joyblock</a></li>
+		<li><a href="#param_joykey">joykey</a></li>
+		<li><a href="#param_joymap">joymap</a></li>
+		<li><a href="#param_keyboard">keyboard</a></li>
+		<li><a href="#param_keydly">keydly</a></li>
+		<li><a href="#param_keyrep">keyrep</a></li>
+		<li><a href="#param_lang">lang</a></li>
+		<li><a href="#param_localmemory">localmemory</a></li>
+		<li><a href="#param_localmemorydata">localmemorydata</a></li>
+		<li><a href="#param_localmemorysave">localmemorysave</a></li>
+		<li><a href="#param_memory">memory</a></li>
+		<li><a href="#param_memorydata">memorydata</a></li>
+		<li><a href="#param_memorysave">memorysave</a></li>
+		<li><a href="#param_mhz">mhz</a></li>
+		<li><a href="#param_model">model</a></li>
+		<li><a href="#param_mousespeed">mousespeed</a></li>
+		<li><a href="#param_mpu">mpu</a></li>
+		<li><a href="#param_opmoutput">opmoutput</a></li>
+		<li><a href="#param_pcminterpolation">pcminterpolation</a></li>
+		<li><a href="#param_pcmoscfreq">pcmoscfreq</a></li>
+		<li><a href="#param_pcmoutput">pcmoutput</a></li>
+		<li><a href="#param_ratio">ratio</a></li>
+		<li><a href="#param_rejectfloat">rejectfloat</a></li>
+		<li><a href="#param_rom">rom</a></li>
+		<li><a href="#param_rom30">rom30</a></li>
+		<li><a href="#param_romdb">romdb</a></li>
+		<li><a href="#param_saveonexit">saveonexit</a></li>
+		<li><a href="#param_scn">scN (N=0～15)</a></li>
+		<li><a href="#param_scsiex">scsiex</a></li>
+		<li><a href="#param_scsiexrom">scsiexrom</a></li>
+		<li><a href="#param_scsiinrom">scsiinrom</a></li>
+		<li><a href="#param_seamless">seamless</a></li>
+		<li><a href="#param_sound">sound</a></li>
+		<li><a href="#param_soundinterpolation">soundinterpolation</a></li>
+		<li><a href="#param_sram">sram</a></li>
+		<li><a href="#param_sramdata">sramdata</a></li>
+		<li><a href="#param_util">util</a></li>
+		<li><a href="#param_verbose">verbose</a></li>
+		<li><a href="#param_volume">volume</a></li>
+		<li><a href="#param_xxxopen">*open</a></li>
+		<li><a href="#param_xxxrect">*rect</a></li>
+		<li><a href="#param_xxxstat">*stat</a></li>
+	</ol></li>
+      </ol>
+
+  <h2><a href="#syntax" id="syntax">1. パラメータの書き方</a></h2>
+	<p>コマンドライン、Java アプレットの &lt;param&gt;、Java Web Start の &lt;argument&gt; および設定ファイルで共通のキーワードを用いてパラメータを設定します。</p>
+
+    <h3><a href="#syntax_command" id="syntax_command">1.1. コマンドライン</a></h3>
+	<pre>-<i>キーワード</i>=<i>設定値</i></pre>
+
+    <h3><a href="#syntax_applet" id="syntax_applet">1.2. Java アプレット</a></h3>
+	<pre>&lt;param name=&#34;<i>キーワード</i>&#34; value=&#34;<i>設定値</i>&#34;&gt;</pre>
+
+    <h3><a href="#syntax_jnlp" id="syntax_jnlp">1.3. Java Web Start</a></h3>
+	<pre>&lt;argument&gt;-<i>キーワード</i>=<i>設定値</i>&lt;/argument&gt;</pre>
+
+    <h3><a href="#syntax_inifile" id="syntax_inifile">1.4. 設定ファイル</a></h3>
+	<pre><i>キーワード</i>=<i>設定値</i></pre>
+
+  <h2><a href="#param" id="param">2. パラメータの説明</a></h2>
+
+    <h3><a href="#param_boot" id="param_boot">2.1. boot</a></h3>
+	<p>起動デバイスを指定します。ファイル名またはディレクトリ名を指定すると種類に応じて該当するデバイスの空いているユニットに割り当てられます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>std | fdN | hdN | scN | hfN | rom$～ | ram$～ | ファイル名 | ディレクトリ名</p>
+      <ul>
+	<li>std … 標準 (FDD → 内蔵 SASI または 内蔵 SCSI → 拡張 SCSI を含む ROM → SRAM)</li>
+	<li>fdN … フロッピーディスク</li>
+	<li>hdN … SASI ハードディスク</li>
+	<li>scN … SCSI ハードディスク / CD-ROM</li>
+	<li>hfN … ホストファイルシステム</li>
+	<li>rom$～ … ROM 起動アドレス</li>
+	<li>ram$～ … RAM 起動アドレス</li>
+	<li>ファイル名 … フロッピーディスク、SASI ハードディスク、SCSI ハードディスク / CD-ROM のいずれかに割り当てるイメージファイル</li>
+	<li>ディレクトリ名 … ホストファイルシステムに割り当てるディレクトリ</li>
+      </ul>
+
+    <h3><a href="#param_cgrom" id="param_cgrom">2.2. cgrom</a></h3>
+	<p>CGROM ($00F00000～$00FBFFFF、768KB) のイメージファイルを指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ファイル名 [CGROM_XEiJ.DAT,CGROM.DAT]</p>
+
+    <h3><a href="#param_clock" id="param_clock">2.3. clock</a></h3>
+	<p>MPU の動作周波数 (MHz) を指定します。model を書いたときはその動作周波数になります。指定がなければ <a href="#param_model">model</a> に従います。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>1～1000 | EXPERT | SUPER | XVI | Compact | Hybrid | X68030 | 060turbo</p>
+      <ul>
+	<li>1～1000 … 1MHz～1000MHz</li>
+	<li>EXPERT … 10MHz</li>
+	<li>SUPER … 10MHz</li>
+	<li>XVI … 16.7MHz</li>
+	<li>Compact … 25MHz</li>
+	<li>Hybrid … 33.3MHz</li>
+	<li>X68030 … 25MHz</li>
+	<li>060turbo … 50MHz</li>
+      </ul>
+
+    <h3><a href="#param_config" id="param_config">2.4. config</a></h3>
+	<p>設定をデフォルトに戻すときに指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[&#34;&#34;] | default</p>
+      <ul>
+	<li>default … 設定をデフォルトに戻す</li>
+      </ul>
+
+    <h3><a href="#param_cutfc2pin" id="param_cutfc2pin">2.5. cutfc2pin</a></h3>
+	<p>FC2 ピンをカットするかどうか指定します。FC2 ピンをカットすると物理アドレス空間全体がユーザモードでアクセスできるようになります。NetBSD/x68k で X Window System を動かすときに使います。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … FC2 ピンをカットする</li>
+	<li>off … FC2 ピンをカットしない</li>
+      </ul>
+
+    <h3><a href="#param_edgeaccel" id="param_edgeaccel">2.6. edgeaccel</a></h3>
+	<p><a href="feature.htm#edgeacceleration">縁部加速</a> するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … 縁部加速する</li>
+	<li>off … 縁部加速しない</li>
+      </ul>
+
+    <h3><a href="#param_fdn" id="param_fdn">2.7. fdN (N=0～3)</a></h3>
+	<p>フロッピーディスクのイメージファイルを指定します。ファイル名の末尾に :R を付けると書き込み禁止になります。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ファイル名</p>
+
+    <h3><a href="#param_fefunc" id="param_fefunc">2.8. fefunc</a></h3>
+	<p>Human68k が動作しているとき FE ファンクションコールを <a href="feature.htm#fefunction">FE ファンクション命令</a> として処理するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … FE ファンクションコールを命令として処理する</li>
+	<li>off … FE ファンクションコールを命令として処理しない</li>
+      </ul>
+
+    <h3><a href="#param_fitinwindow" id="param_fitinwindow">2.9. fitinwindow</a></h3>
+	<p>X68000 の画面の大きさをウインドウに合わせて拡大縮小するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … X68000 の画面の大きさをウインドウに合わせて拡大縮小する</li>
+	<li>off … X68000 の画面の大きさをウインドウに合わせない</li>
+      </ul>
+
+    <h3><a href="#param_fixedscale" id="param_fixedscale">2.10. fixedscale</a></h3>
+	<p>X68000 の画面を表示する大きさを倍率 (%) で指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>10～[100]～1000</p>
+      <ul>
+	<li>10 … X68000 の画面を 1/10 に縮小して表示する</li>
+	<li>100 … X68000 の画面を等倍で表示する</li>
+	<li>1000 … X68000 の画面を 10 倍に拡大して表示する</li>
+      </ul>
+
+    <h3><a href="#param_fpumode" id="param_fpumode">2.11. fpumode</a></h3>
+	<p>FPU の動作モードを指定します。<a href="feature.htm#tripleprecision">三倍精度浮動小数点数</a> を選択できます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>0 | [1] | 2</p>
+      <ul>
+	<li>0 … FPU なし</li>
+	<li>1 … 拡張精度浮動小数点数</li>
+	<li>2 … <a href="feature.htm#tripleprecision">三倍精度浮動小数点数</a></li>
+      </ul>
+
+    <h3><a href="#param_fullspecfpu" id="param_fullspecfpu">2.12. fullspecfpu</a></h3>
+	<p>FPU および FPCP を MC68882 と MC68060 のすべての浮動小数点命令を実行できるフルスペック版にするかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … FPU および FPCP をフルスペック版にする</li>
+	<li>off … FPU および FPCP を通常版にする</li>
+      </ul>
+
+    <h3><a href="#param_fullscreen" id="param_fullscreen">2.13. fullscreen</a></h3>
+	<p>全画面表示にするかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … 全画面表示にする</li>
+	<li>off … 全画面表示にしない</li>
+      </ul>
+
+    <h3><a href="#param_hdn" id="param_hdn">2.14. hdN (N=0～15)</a></h3>
+	<p>SASI ハードディスクのイメージファイルを指定します。ファイル名の末尾に :R を付けると書き込み禁止になります。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ファイル名</p>
+
+    <h3><a href="#param_hfn" id="param_hfn">2.15. hfN (N=0～15)</a></h3>
+	<p><a href="feature.htm#hostfilesystem">ホストファイルシステム</a> に割り当てるディレクトリを指定します。ディレクトリ名の末尾に :R を付けると書き込み禁止になります。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ディレクトリ名</p>
+
+    <h3><a href="#param_highmemory" id="param_highmemory">2.16. highmemory</a></h3>
+	<p>X68030 のハイメモリ $01000000-$01FFFFFF (16MB) の容量を指定します。九十九電気 (ツクモ) の TS-6BE16 に相当します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[0] | 16</p>
+      <ul>
+	<li>0 … ハイメモリなし</li>
+	<li>16 … ハイメモリ $01000000-$01FFFFFF (16MB)</li>
+      </ul>
+
+    <h3><a href="#param_highmemorydata" id="param_highmemorydata">2.17. highmemorydata</a></h3>
+	<p>X68030 のハイメモリの内容を gzip+base64 で変換した文字列です。 <a href="#param_highmemorysave">highmemorysave</a> が on のとき自動的に保存されます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[&#34;&#34;]</p>
+
+    <h3><a href="#param_highmemorysave" id="param_highmemorysave">2.18. highmemorysave</a></h3>
+	<p>X68030 のハイメモリの内容を設定ファイルに保存するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … X68030 のハイメモリの内容を設定ファイルに保存する</li>
+	<li>off … X68030 のハイメモリの内容を設定ファイルに保存しない</li>
+      </ul>
+
+    <h3><a href="#param_hhssbb" id="param_hhssbb">2.19. hhssbb</a></h3>
+	<p>ウインドウやキーボードの色を指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>Hmin,Hmax,Smin,Smax,Bmin,Bmax [667,667,700,300,0,1000]</p>
+      <ul>
+	<li>Hmin … 色相 (hue) の下限 (0～1000)</li>
+	<li>Hmax … 色相 (hue) の上限 (0～1000)</li>
+	<li>Smin … 彩度 (saturation) の下限 (0～1000)</li>
+	<li>Smax … 彩度 (saturation) の上限 (0～1000)</li>
+	<li>Bmin … 明度 (brightness) の下限 (0～1000)</li>
+	<li>Bmax … 明度 (brightness) の上限 (0～1000)</li>
+      </ul>
+
+    <h3><a href="#param_hostspixelunits" id="param_hostspixelunits">2.20. hostspixelunits</a></h3>
+	<p><a href="feature.htm#exclusivemouse">エクスクルーシブマウスモード</a> のときマウスカーソルの移動速度をホストマシンの画素単位に合わせるかどうか指定します。ホストマシンの画素単位に合わせると、マウスカーソルの移動速度が X68000 の画面の表示倍率の影響を受けにくくなります。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … ホストマシンの画素単位に合わせる</li>
+	<li>off … X68000 の画素単位に合わせる</li>
+      </ul>
+
+    <h3><a href="#param_intermittent" id="param_intermittent">2.21. intermittent</a></h3>
+	<p>間欠描画の間隔を指定します。描画の頻度を下げると表示がぎこちなくなりますが動作は軽くなります。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[0] | 1 | 2 | 3 | 4</p>
+      <ul>
+	<li>0 … 変化したフレームをすべて描画する</li>
+	<li>1 … 変化したフレームを 1/2 描画する</li>
+	<li>2 … 変化したフレームを 1/3 描画する</li>
+	<li>3 … 変化したフレームを 1/4 描画する</li>
+	<li>4 … 変化したフレームを 1/5 描画する</li>
+      </ul>
+
+    <h3><a href="#param_interpolation" id="param_interpolation">2.22. interpolation</a></h3>
+	<p>画面の補間アルゴリズムを指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>nearest | [bilinear] | bicubic</p>
+      <ul>
+	<li>nearest … 最近傍補間</li>
+	<li>bilinear … 線形補間</li>
+	<li>bicubic … 三次補間</li>
+      </ul>
+
+    <h3><a href="#param_iplrom" id="param_iplrom">2.23. iplrom</a></h3>
+	<p>IPLROM ($00FE0000～$00FFFFFF、128KB) のイメージファイルを指定します。 <a href="#param_model">model</a> で指定した機種に応じて IPLROM.DAT、IPLROMXV.DAT、IPLROMCO.DAT、IPLROM30.DAT のいずれかがリソースから読み込まれるので、通常は指定する必要はありません。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ファイル名</p>
+
+    <h3><a href="#param_joyauto" id="param_joyauto">2.24. joyauto</a></h3>
+	<p>ジョイスティックポートが継続的にアクセスされている間だけ割り当てられたキーの操作をジョイスティックの操作と見なすかどうか指定します。ジョイスティックポートが継続的にアクセスされているかどうかで割り当てられたキーの操作をジョイスティックの操作とキーボードの操作に自動的に振り分けることができます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … ジョイスティックポートが継続的にアクセスされている間だけ割り当てられたキーの操作をジョイスティックの操作と見なす</li>
+	<li>off … 割り当てられたキーの操作を常にジョイスティックの操作と見なす</li>
+      </ul>
+
+    <h3><a href="#param_joyblock" id="param_joyblock">2.25. joyblock</a></h3>
+	<p>ジョイスティックの操作と見なされたキーの操作をキーボードの入力から取り除くかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … ジョイスティックの操作と見なされたキーの操作をキーボードの入力から取り除く</li>
+	<li>off … ジョイスティックの操作と見なされたキーの操作をキーボードの入力から取り除かない</li>
+      </ul>
+
+    <h3><a href="#param_joykey" id="param_joykey">2.26. joykey</a></h3>
+	<p>キーにジョイスティックのボタンを割り当てるかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … キーにジョイスティックのボタンを割り当てる</li>
+	<li>off … キーにジョイスティックのボタンを割り当てない</li>
+      </ul>
+
+    <h3><a href="#param_joymap" id="param_joymap">2.27. joymap</a></h3>
+	<p>ジョイスティックのボタンを割り当てるキーと連射の設定を行います。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>key-code:repeat:delay:interval,… [38,40,37,39,,90,88,,83,68]</p>
+      <ul>
+	<li>key-code … キーコード</li>
+	<li>repeat … 連射する (1)</li>
+	<li>delay … 連射開始 (ms)</li>
+	<li>interval … 連射間隔 (ms)</li>
+      </ul>
+	<p>ボタンは上、下、左、右、C、A、B、D、SELECT、RUN の 10 個。ジョイスティック 1 と 2 を合わせて 20 個。</p>
+
+    <h3><a href="#param_keyboard" id="param_keyboard">2.28. keyboard</a></h3>
+	<p>キーボードの種類を指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>none | [standard] | compact</p>
+      <ul>
+	<li>none … キーボードなし</li>
+	<li>standard … 標準キーボード</li>
+	<li>compact … コンパクトキーボード</li>
+      </ul>
+
+    <h3><a href="#param_keydly" id="param_keydly">2.29. keydly</a></h3>
+	<p>キーボードのリピート開始時間を指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[-1] | 0～15</p>
+      <ul>
+	<li>-1 … 既定</li>
+	<li>0～15 … 200+100*n (ms)</li>
+      </ul>
+
+    <h3><a href="#param_keyrep" id="param_keyrep">2.30. keyrep</a></h3>
+	<p>キーボードのリピート間隔を指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[-1] | 0～15</p>
+      <ul>
+	<li>-1 … 既定</li>
+	<li>0～15 … 30+5*n*n (ms)</li>
+      </ul>
+
+    <h3><a href="#param_lang" id="param_lang">2.31. lang</a></h3>
+	<p>表示言語を指定します。指定がなければ実行環境が日本語のときだけ日本語になります。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>en | ja</p>
+      <ul>
+	<li>en … 英語</li>
+	<li>ja … 日本語</li>
+      </ul>
+
+    <h3><a href="#param_localmemory" id="param_localmemory">2.32. localmemory</a></h3>
+	<p>060turbo のローカルメモリ $10000000-$1FFFFFFF (16MB～256MB) の容量を指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>0 | 16 | 32 | 64 | [128] | 256</p>
+      <ul>
+	<li>0 … ローカルメモリなし</li>
+	<li>16 … ローカルメモリ $10000000-$10FFFFFF (16MB)</li>
+	<li>32 … ローカルメモリ $10000000-$11FFFFFF (32MB)</li>
+	<li>64 … ローカルメモリ $10000000-$13FFFFFF (64MB)</li>
+	<li>128 … ローカルメモリ $10000000-$17FFFFFF (128MB)</li>
+	<li>256 … ローカルメモリ $10000000-$1FFFFFFF (256MB)</li>
+      </ul>
+
+    <h3><a href="#param_localmemorydata" id="param_localmemorydata">2.33. localmemorydata</a></h3>
+	<p>060turbo のローカルメモリの内容を gzip+base64 で変換した文字列です。 <a href="#param_localmemorysave">localmemorysave</a> が on のとき自動的に保存されます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[&#34;&#34;]</p>
+
+    <h3><a href="#param_localmemorysave" id="param_localmemorysave">2.34. localmemorysave</a></h3>
+	<p>060turbo のローカルメモリの内容を設定ファイルに保存するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … 060turbo のローカルメモリの内容を設定ファイルに保存する</li>
+	<li>off … 060turbo のローカルメモリの内容を設定ファイルに保存しない</li>
+      </ul>
+
+    <h3><a href="#param_memory" id="param_memory">2.35. memory</a></h3>
+	<p>メインメモリ $00000000-$00BFFFFF (1MB～12MB) の容量を指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>1 | 2 | 4 | 6 | 8 | 10 | [12]</p>
+      <ul>
+	<li>1 … メインメモリ $00000000-$000FFFFF (1MB)</li>
+	<li>2 … メインメモリ $00000000-$001FFFFF (2MB)</li>
+	<li>4 … メインメモリ $00000000-$003FFFFF (4MB)</li>
+	<li>6 … メインメモリ $00000000-$005FFFFF (6MB)</li>
+	<li>8 … メインメモリ $00000000-$007FFFFF (8MB)</li>
+	<li>10 … メインメモリ $00000000-$009FFFFF (10MB)</li>
+	<li>12 … メインメモリ $00000000-$00BFFFFF (12MB)</li>
+	<li>
+      </ul>
+
+    <h3><a href="#param_memorydata" id="param_memorydata">2.36. memorydata</a></h3>
+	<p>メインメモリの内容を gzip+base64 で変換した文字列です。 <a href="#param_memorysave">memorysave</a> が on のとき自動的に保存されます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[&#34;&#34;]</p>
+
+    <h3><a href="#param_memorysave" id="param_memorysave">2.37. memorysave</a></h3>
+	<p>メインメモリの内容を設定ファイルに保存するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … メインメモリの内容を設定ファイルに保存する</li>
+	<li>off … メインメモリの内容を設定ファイルに保存しない</li>
+      </ul>
+
+    <h3><a href="#param_mhz" id="param_mhz">2.38. mhz</a></h3>
+	<p>MPU の任意の周波数 (MHz) のスピナーの初期値を指定します。model にある動作周波数で起動したときスピナーに設定されます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>1～[100]～1000</p>
+      <ul>
+	<li>1 … 1MHz</li>
+	<li>100 … 100MHz</li>
+	<li>1000 … 1000MHz</li>
+      </ul>
+
+    <h3><a href="#param_model" id="param_model">2.39. model</a></h3>
+	<p>機種を指定します。デフォルトの X68000 Hybrid は X68000 に X68030 の ROM を載せた架空の機種です。機種に応じて IPLROM のバージョン、内蔵ハードディスクの種類、MPU の種類および動作周波数が設定されます。IPLROM*.DAT ファイルはリソースから読み込まれるので別途用意する必要はありません。060turbo のときも 1.3 にパッチを当てて起動するので実機の ROM は不要です。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>EXPERT | SUPER | XVI | Compact | [Hybrid] | X68030 | 060turbo</p>
+      <ul>
+	<li>EXPERT … X68000 EXPERT。IPLROM は 1.0、内蔵ハードディスクは SASI、MPU は MC68000、動作周波数は 10MHz</li>
+	<li>SUPER … X68000 SUPER。IPLROM は 1.0、内蔵ハードディスクは SCSI、MPU は MC68000、動作周波数は 10MHz</li>
+	<li>XVI … X68000 XVI。IPLROM は 1.1、内蔵ハードディスクは SCSI、MPU は MC68000、動作周波数は 16.7MHz</li>
+	<li>Compact … X68000 XVI Compact。IPLROM は 1.2、内蔵ハードディスクは SCSI、MPU は MC68000、動作周波数は 25MHz</li>
+	<li>Hybrid … X68000 Hybrid。IPLROM は 1.3、内蔵ハードディスクは SCSI、MPU は MC68000、動作周波数は 33.3MHz</li>
+	<li>X68030 … X68030。IPLROM は 1.3、内蔵ハードディスクは SCSI、MPU は MC68EC030、動作周波数は 25MHz</li>
+	<li>060turbo … X68030+060turbo。IPLROM は 1.6、内蔵ハードディスクは SCSI、MPU は MC68060、動作周波数は 50MHz</li>
+      </ul>
+
+    <h3><a href="#param_mousespeed" id="param_mousespeed">2.40. mousespeed</a></h3>
+	<p><a href="feature.htm#exclusivemouse">エクスクルーシブマウスモード</a> のときのマウスカーソルの速度を指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>0～[20]～40</p>
+      <ul>
+	<li>0 … 遅い</li>
+	<li>20 … 普通</li>
+	<li>40 … 速い</li>
+      </ul>
+
+    <h3><a href="#param_mpu" id="param_mpu">2.41. mpu</a></h3>
+	<p>MPU の種類を指定します。指定がなければ <a href="#param_model">model</a> に従います。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>0 | 3 | 6</p>
+      <ul>
+	<li>0 … MC68000</li>
+	<li>3 … MC68EC030</li>
+	<li>6 … MC68060</li>
+      </ul>
+
+    <h3><a href="#param_opmoutput" id="param_opmoutput">2.42. opmoutput</a></h3>
+	<p>OPM を出力するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … OPM を出力する</li>
+	<li>off … OPM を出力しない</li>
+      </ul>
+
+    <h3><a href="#param_pcminterpolation" id="param_pcminterpolation">2.43. pcminterpolation</a></h3>
+	<p>ADPCM の補間アルゴリズムを指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>constant | [linear] | hermite</p>
+      <ul>
+	<li>constant … 区分定数補間</li>
+	<li>linear … 線形補間</li>
+	<li>hermite … エルミート補間</li>
+      </ul>
+
+    <h3><a href="#param_pcmoscfreq" id="param_pcmoscfreq">2.44. pcmoscfreq</a></h3>
+	<p><a href="feature.htm#sourcefrequency">原発振周波数</a> を指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[0] | 1</p>
+      <ul>
+	<li>0 … 8MHz/4MHz</li>
+	<li>1 … 8MHz/16MHz</li>
+      </ul>
+
+    <h3><a href="#param_pcmoutput" id="param_pcmoutput">2.45. pcmoutput</a></h3>
+	<p>ADPCM を出力するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … ADPCM を出力する</li>
+	<li>off … ADPCM を出力しない</li>
+      </ul>
+
+    <h3><a href="#param_ratio" id="param_ratio">2.46. ratio</a></h3>
+	<p>MPU の任意の負荷率 (%) を指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>1～[100]</p>
+      <ul>
+	<li>1 … 負荷率 1%</li>
+	<li>100 … 負荷率 100%</li>
+      </ul>
+
+    <h3><a href="#param_rejectfloat" id="param_rejectfloat">2.47. rejectfloat</a></h3>
+	<p>Human68k が動作していて <a href="feature.htm#fefunction">FE ファンクション命令</a> が ON のとき CONFIG.SYS に FLOATn.X が書かれていても組み込まれないようにするかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … FLOATn.X を組み込まない</li>
+	<li>off … FLOATn.X を組み込む</li>
+      </ul>
+
+    <h3><a href="#param_rom" id="param_rom">2.48. rom</a></h3>
+	<p>ROM 全体 ($00F00000～$00FFFFFF、1MB) のイメージファイルを指定します。実機から吸い出した ROM イメージを丸ごと取り込みます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ファイル名</p>
+
+    <h3><a href="#param_rom30" id="param_rom30">2.49. rom30</a></h3>
+	<p>X68030 の ROM の拡張部分 ($00FC0000～$00FDFFFF、128KB) のイメージファイルを指定します。ROM30.DAT など。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ファイル名</p>
+
+    <h3><a href="#param_romdb" id="param_romdb">2.50. romdb</a></h3>
+	<p>SRAM のスイッチや OPT.2 キーの押し下げ状態に関係なく ROM デバッガを起動するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … ROM デバッガを起動する</li>
+	<li>off … ROM デバッガを起動しない</li>
+      </ul>
+
+    <h3><a href="#param_saveonexit" id="param_saveonexit">2.51. saveonexit</a></h3>
+	<p>終了時に設定を保存するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … 終了時に設定を保存する</li>
+	<li>off … 終了時に設定を保存しない</li>
+      </ul>
+
+    <h3><a href="#param_scn" id="param_scn">2.52. scN (N=0～15)</a></h3>
+	<p>SCSI ハードディスク / CD-ROM のイメージファイルを指定します。ファイル名の末尾に :R を付けると書き込み禁止になります。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ファイル名</p>
+
+    <h3><a href="#param_scsiex" id="param_scsiex">2.53. scsiex</a></h3>
+	<p>拡張 SCSI ボードを取り付けるかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … 拡張 SCSI ボードを取り付ける</li>
+	<li>off … 拡張 SCSI ボードを取り付けない</li>
+      </ul>
+
+    <h3><a href="#param_scsiexrom" id="param_scsiexrom">2.54. scsiexrom</a></h3>
+	<p>拡張 SCSI ROM ($00EA0000～$00EA1FFF、8KB) のイメージファイルを指定します。SCSIEXROM.DAT など。指定がなければリソースから読み込んだ IPLROM30.DAT を使って自動生成するので、通常は指定する必要はありません。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ファイル名</p>
+
+    <h3><a href="#param_scsiinrom" id="param_scsiinrom">2.55. scsiinrom</a></h3>
+	<p>内蔵 SCSI ROM ($00FC0000～$00FC1FFF、8KB) のイメージファイルを指定します。SCSIINROM.DAT など。指定がなければリソースから読み込んだ IPLROM30.DAT を使って自動生成するので、通常は指定する必要はありません。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ファイル名</p>
+
+    <h3><a href="#param_seamless" id="param_seamless">2.56. seamless</a></h3>
+	<p><a href="feature.htm#seamlessmouse">シームレスマウスモード</a> にするかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … <a href="feature.htm#seamlessmouse">シームレスマウスモード</a></li>
+	<li>off … <a href="feature.htm#exclusivemouse">エクスクルーシブマウスモード</a></li>
+      </ul>
+
+    <h3><a href="#param_sound" id="param_sound">2.57. sound</a></h3>
+	<p>音声を出力するかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … 音声を出力する</li>
+	<li>off … 音声を出力しない</li>
+      </ul>
+
+    <h3><a href="#param_soundinterpolation" id="param_soundinterpolation">2.58. soundinterpolation</a></h3>
+	<p>音声出力の補間アルゴリズムを指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>thinning | [linear] | constant-area | linear-area</p>
+      <ul>
+	<li>thinning … 間引き</li>
+	<li>linear … 線形補間</li>
+	<li>constant-area … 区分定数面積補間</li>
+	<li>linear-area … 線形面積補間</li>
+      </ul>
+
+    <h3><a href="#param_sram" id="param_sram">2.59. sram</a></h3>
+	<p>SRAM ($00ED0000～$00ED3FFF、16KB) のイメージファイルを指定します。SRAM.DAT など。このファイルは終了時に更新されません。SRAM の内容は終了時に設定ファイルに保存されます。SRAM のイメージファイルの読み書きはメニューで行います。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>ファイル名</p>
+
+    <h3><a href="#param_sramdata" id="param_sramdata">2.60. sramdata</a></h3>
+	<p>SRAM の内容を gzip+base64 で変換した文字列です。終了時に自動的に保存されます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[&#34;&#34;]</p>
+
+    <h3><a href="#param_util" id="param_util">2.61. util</a></h3>
+	<p><a href="feature.htm#fixedutilizationmode">負荷率固定モード</a> にするかどうか指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … 負荷率固定モードにする</li>
+	<li>off … 負荷率固定モードにしない</li>
+      </ul>
+
+    <h3><a href="#param_verbose" id="param_verbose">2.62. verbose</a></h3>
+	<p>冗長表示するかどうか指定します。冗長表示のとき情報がターミナルに出力されます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>[on] | off</p>
+      <ul>
+	<li>on … 冗長表示する</li>
+	<li>off … 冗長表示しない</li>
+      </ul>
+
+    <h3><a href="#param_volume" id="param_volume">2.63. volume</a></h3>
+	<p>音量を指定します。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>0～[20]～40</p>
+      <ul>
+	<li>0 … 最小</li>
+	<li>20 … 標準</li>
+	<li>40 … 最大</li>
+      </ul>
+
+    <h3><a href="#param_xxxopen" id="param_xxxopen">2.64. *open</a></h3>
+	<p>ウインドウが開いているかどうか。* はウインドウの種類 (下記)。終了時に自動的に保存されます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>on | [off]</p>
+      <ul>
+	<li>on … ウインドウが開いている</li>
+	<li>off … ウインドウが閉じている</li>
+      </ul>
+
+    <h3><a href="#param_xxxrect" id="param_xxxrect">2.65. *rect</a></h3>
+	<p>ウインドウの位置と大きさ。* はウインドウの種類 (下記)。終了時に自動的に保存されます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>x,y,width,height [0,0,0,0]</p>
+      <ul>
+	<li>x … x 座標</li>
+	<li>y … y 座標</li>
+	<li>width … 幅</li>
+	<li>height … 高さ</li>
+      </ul>
+
+    <h3><a href="#param_xxxstat" id="param_xxxstat">2.66. *stat</a></h3>
+	<p>ウインドウの状態。* はウインドウの種類 (下記)。終了時に自動的に保存されます。</p>
+
+      <h4>設定値 [初期値]</h4>
+	<p>iconified | maximized | h-maximized | v-maximized | [normal]</p>
+      <ul>
+	<li>iconified … アイコン化</li>
+	<li>maximized … 最大化</li>
+	<li>h-maximized … 水平方向に最大化</li>
+	<li>normal … 普通</li>
+	<li>v-maximized … 垂直方向に最大化</li>
+      </ul>
+
+      <h4>*open、*rect、*stat のウインドウの種類</h4>
+      <ul>
+	<li>atw … 論理空間モニタ</li>
+	<li>blg … 分岐ログ</li>
+	<li>dbp … データブレークポイント</li>
+	<li>ddp … 逆アセンブルリスト</li>
+	<li>dgt … コンソールウインドウ</li>
+	<li>dmp … メモリダンプリスト</li>
+	<li>drp … レジスタ</li>
+	<li>fnt … フォント</li>
+	<li>frm … メインウインドウ</li>
+	<li>paa … 物理空間モニタ</li>
+	<li>pfv … プログラムフロービジュアライザ</li>
+	<li>ppi … ジョイスティック</li>
+	<li>prf … プロファイリング</li>
+	<li>rbp … ラスタブレークポイント</li>
+	<li>rtl … ルートポインタリスト</li>
+	<li>smn … 音声モニタ</li>
+	<li>smt … 表示モードテスト</li>
+	<li>spv … スプライトパターンビュア</li>
+	<li>trm … ターミナル</li>
+      </ul>
+
+</div>
+<div id="foot"><a href="http://stdkmd.com/">STUDIO KAMADA</a><br>Copyright &copy; 1999-2016 Makoto Kamada<div></div></div>
+  </body>
+</html>

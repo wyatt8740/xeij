@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コンパイル手順</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="stylesheet" type="text/css" href="http://stdkmd.com/stdkmd.css">
+    <script type="text/javascript" charset="UTF-8" src="http://stdkmd.com/stdkmd.js"></script>
+  </head>
+  <body>
+<div id="head">
+  <span id="title">コンパイル手順</span>
+  <span id="back">- <a href="http://stdkmd.com/xeij/">XEiJ</a> - <a href="http://stdkmd.com/">STUDIO KAMADA</a></span>
+</div>
+<div id="body">
+
+    <h3>目次</h3>
+      <ol>
+	<li><a href="#jdk">Java SE 開発環境を用意する</a></li>
+	<li><a href="#path">環境変数 Path を設定する</a></li>
+	<li><a href="#compile">コンパイルする</a><ol>
+		<li><a href="#compile_cmd">コマンドプロンプトの場合</a></li>
+		<li><a href="#compile_cygwin">Cygwin64 Terminal の場合</a></li>
+	</ol></li>
+      </ol>
+
+	<p>以下は Windows 10 Pro (64 ビット) の場合です。</p>
+
+  <h2><a href="#jdk" id="jdk">1. Java SE 開発環境を用意する</a></h2>
+	<p>JDK を使用します。<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank">Java SE Development Kit 8 - Downloads</a> で Accept License Agreement のラジオボタンをクリックしてから jdk-8u102-windows-x64.exe をダウンロードしてインストールします。</p>
+
+  <h2><a href="#path" id="path">2. 環境変数 Path を設定する</a></h2>
+	<p>環境変数 Path に JDK の bin ディレクトリのパスを追加します。コントロールパネル→システム→システムの詳細設定→環境変数と進み、システム環境変数の Path を選択して編集、変数値の末尾に JDK の bin ディレクトリ <code><kbd>;C:\Program Files\Java\jdk1.8.0_102\bin</kbd></code> を追加します。このとき既存のパスを壊さないように注意します。Windows 10 はディレクトリ毎に編集できます。JDK の bin ディレクトリのパスは JDK のバージョンによって異なります。JDK を更新したときは Path も更新します。</p>
+
+  <h2><a href="#compile" id="compile">3. コンパイルする</a></h2>
+	<p>JDK 8 で LiveConnect を使うため、netscape/javascript/JSObject.class が jfxrt.jar ではなく plugin.jar から読み込まれるようにする必要があります。-extdirs &#34;&#34; を指定して jfxrt.jar を外し、代わりにクラスパスに plugin.jar と javaws.jar と deploy.jar を加えます。</p>
+	<p>XEiJ_0160817.zip を展開したディレクトリ (index.htm があるところ) をカレントディレクトリにして以下のような手順でコンパイルします。</p>
+
+    <h3><a href="#compile_cmd" id="compile_cmd">3.1. コマンドプロンプトの場合</a></h3>
+	<pre>&gt;<kbd>mkdir class</kbd>
+&gt;<kbd>mkdir class\xeij</kbd>
+&gt;<kbd>del /q class\xeij\*.class</kbd>
+&gt;<kbd>javac -encoding UTF-8 -d class xeij\*.java -extdirs &#34;&#34; -cp &#34;C:\Program Files\Java\jre1.8.0_102\lib\plugin.jar;C:\Program Files\Java\jre1.8.0_102\lib\javaws.jar;C:\Program Files\Java\jre1.8.0_102\lib\deploy.jar&#34;</kbd>
+&gt;<kbd>del /q XEiJ.jar</kbd>
+&gt;<kbd>jar cfe XEiJ.jar xeij.XEiJ -C class . -C . xeij\IPLROM.DAT xeij\IPLROMXV.DAT xeij\IPLROMCO.DAT xeij\IPLROM30.DAT xeij\CGROM_XEiJ.DAT xeij\HUMAN.SYS xeij\COMMAND.X xeij\license_XEiJ.txt xeij\license_FSHARP.txt xeij\license_MAME.txt</kbd></pre>
+
+    <h3><a href="#compile_cygwin" id="compile_cygwin">3.2. Cygwin64 Terminal の場合</a></h3>
+	<pre>$ <kbd>mkdir -p class/xeij</kbd>
+$ <kbd>rm -f class/xeij/*.class</kbd>
+$ <kbd>javac -encoding UTF-8 -d class xeij/*.java -extdirs &#34;&#34; -cp &#34;C:/Program Files/Java/jre1.8.0_102/lib/plugin.jar;C:/Program Files/Java/jre1.8.0_102/lib/javaws.jar;C:/Program Files/Java/jre1.8.0_102/lib/deploy.jar&#34;</kbd>
+$ <kbd>rm -f XEiJ.jar</kbd>
+$ <kbd>jar cfe XEiJ.jar xeij.XEiJ -C class . -C . xeij/IPLROM.DAT xeij/IPLROMXV.DAT xeij/IPLROMCO.DAT xeij/IPLROM30.DAT xeij/CGROM_XEiJ.DAT xeij/HUMAN.SYS xeij/COMMAND.X xeij/license_XEiJ.txt xeij/license_FSHARP.txt xeij/license_MAME.txt</kbd></pre>
+
+</div>
+<div id="foot"><a href="http://stdkmd.com/">STUDIO KAMADA</a><br>Copyright &copy; 1999-2016 Makoto Kamada<div></div></div>
+  </body>
+</html>

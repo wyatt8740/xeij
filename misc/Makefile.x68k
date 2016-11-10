@@ -1,0 +1,98 @@
+#========================================================================================
+#  Makefile.x68k
+#  Copyright (C) 2003-2016 Makoto Kamada
+#
+#  This file is part of the XEiJ (X68000 Emulator in Java).
+#  You can use, modify and redistribute the XEiJ if the conditions are met.
+#  Read the XEiJ License for more details.
+#  http://stdkmd.com/xeij/
+#========================================================================================
+
+
+#  COMMAND.X
+#    http://retropc.net/x68000/software/sharp/human302/
+SHELL = command
+RM = del
+
+#  HAS060.X
+#    http://retropc.net/x68000/software/develop/as/has060/
+#  NOTE: Use HAS060.X version 3.09+89 or later.
+AS = has060
+
+#  LK.X
+#    http://retropc.net/x68000/software/sharp/xc21/
+LK = lk
+#  NOTE: Don't use HLK evolution version 3.01+14 that generates a broken executable file.
+
+#  LZX.X
+#    http://retropc.net/x68000/software/tools/archiver/italzx/
+LZX = lzx
+#  NOTE: ITA lzx is critically dependent on a FAT file system. You have to remove the object file before overwriting.
+
+#  MAKE.X
+#    http://retropc.net/x68000/software/sharp/xc21/
+MAKE = make
+
+
+all: rompat13.x omusubifont.x cir.x fputest.x vcntest.x vcntest2.x instructiontest.x
+
+
+rompat13.x: rompat13.o
+	$(LK) -b fff000 -x -o $@ $^
+
+rompat13.o: rompat13.s iocscall.mac def_M.equ rompat.mac
+	$(AS) -w -o $@ $<
+
+
+omusubifont.x: omusubifont.o
+	$(LK) -o $@ $^
+
+omusubifont.o: omusubifont.s def_M.equ
+	$(AS) -w -o $@ $<
+
+
+cir.x: cir.o
+	$(LK) -o $@ $^
+
+cir.o: cir.s doscall.mac
+	$(AS) -w -o $@ $<
+
+
+#  fputest
+#    Step 1: Execute 'make -f Makefile.host fputestdata.s' on the host computer.
+#    Step 2: Execute 'make -f Makefile.x68k fputest.x' on X68030.
+#    Step 3: Execute 'fputest' on X68030.
+
+fputest.x: fputestbig.x
+	-$(RM) $@
+	$(LZX) -o $@ $<
+
+fputestbig.x: fputest.o fputestdata.o
+	$(LK) -o $@ $^
+
+fputest.o: fputest.s doscall.mac iocscall.mac stresc.mac crc32.mac
+	$(AS) -w -o $@ $<
+
+fputestdata.o: fputestdata.s
+	$(AS) -w -o $@ $<
+
+
+vcntest.x: vcntest.o
+	$(LK) -o $@ $^
+
+vcntest.o: vcntest.s doscall.mac iocscall.mac
+	$(AS) -w -o $@ $<
+
+
+vcntest2.x: vcntest2.o
+	$(LK) -o $@ $^
+
+vcntest2.o: vcntest2.s doscall.mac iocscall.mac
+	$(AS) -w -o $@ $<
+
+
+instructiontest.x: instructiontest.o
+	$(LK) -o $@ $^
+
+instructiontest.o: instructiontest.s doscall.mac iocscall.mac
+	$(AS) -w -o $@ $<

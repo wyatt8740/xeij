@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メニューの説明</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="stylesheet" type="text/css" href="http://stdkmd.com/stdkmd.css">
+    <script type="text/javascript" charset="UTF-8" src="http://stdkmd.com/stdkmd.js"></script>
+  </head>
+  <body>
+<div id="head">
+  <span id="title">メニューの説明</span>
+  <span id="back">- <a href="http://stdkmd.com/xeij/">XEiJ</a> - <a href="http://stdkmd.com/">STUDIO KAMADA</a></span>
+</div>
+<div id="body">
+
+    <h3>目次</h3>
+      <ol>
+	<li><a href="#file">ファイルメニュー</a><ol>
+		<li><a href="#file_icon">共通のアイコン</a></li>
+		<li><a href="#file_fdd">FDD</a></li>
+		<li><a href="#file_sasi">SASI</a></li>
+		<li><a href="#file_scsi">SCSI メニュー</a></li>
+		<li><a href="#file_hfs">HFS</a></li>
+		<li><a href="#file_quit">終了</a></li>
+	</ol></li>
+	<li><a href="#mpu">MPU メニュー</a><ol>
+		<li><a href="#mpu_reset">リセット</a></li>
+		<li><a href="#mpu_opt1">OPT.1 を押しながらリセット</a></li>
+		<li><a href="#mpu_interrupt">インタラプト</a></li>
+		<li><a href="#mpu_model">機種を変更してリセット</a></li>
+		<li><a href="#mpu_10mhz">10MHz</a></li>
+		<li><a href="#mpu_16mhz">16.7MHz</a></li>
+		<li><a href="#mpu_25mhz">25MHz</a></li>
+		<li><a href="#mpu_33mhz">33.3MHz</a></li>
+		<li><a href="#mpu_50mhz">50MHz</a></li>
+		<li><a href="#mpu_freq">任意の周波数</a></li>
+		<li><a href="#mpu_util">任意の負荷率</a></li>
+		<li><a href="#mpu_nofpu">FPU なし</a></li>
+		<li><a href="#mpu_extendedprecision">拡張精度 (19 桁)</a></li>
+		<li><a href="#mpu_tripleprecision">三倍精度 (24 桁)</a></li>
+		<li><a href="#mpu_fullspecfpu">フルスペック FPU</a></li>
+		<li><a href="#mpu_fefunc">FE ファンクション命令</a></li>
+		<li><a href="#mpu_rejectfloat">FLOATn.X を組み込まない</a></li>
+		<li><a href="#mpu_cutfc2pin">FC2 ピンをカットする</a></li>
+	</ol></li>
+	<li><a href="#display">画面メニュー</a><ol>
+		<li><a href="#display_fullscreen">全画面表示 (F11)</a></li>
+		<li><a href="#display_fitinwindow">ウインドウに合わせる</a></li>
+		<li><a href="#display_fixedsize">固定サイズ</a></li>
+		<li><a href="#display_nearestneighbor">最近傍補間</a></li>
+		<li><a href="#display_bilinear">線形補間</a></li>
+		<li><a href="#display_bicubic">三次補間</a></li>
+		<li><a href="#display_paintall">変化したフレームをすべて描画</a></li>
+		<li><a href="#display_intermittent">変化したフレームを 1/2～1/5 描画</a></li>
+		<li><a href="#display_spritepatternviewer">スプライトパターンビュア</a></li>
+		<li><a href="#display_screenmodetest">表示モードテスト</a></li>
+	</ol></li>
+	<li><a href="#sound">音声メニュー</a><ol>
+		<li><a href="#sound_play">音声出力</a></li>
+		<li><a href="#sound_volume">音量</a></li>
+		<li><a href="#sound_interpolation">音声補間</a></li>
+		<li><a href="#sound_monitor">音声モニタ</a></li>
+		<li><a href="#sound_opmoutput">OPM 出力</a></li>
+		<li><a href="#sound_pcmoutput">PCM 出力</a></li>
+		<li><a href="#sound_pcminterpolation">PCM 補間</a></li>
+		<li><a href="#sound_pcmoscfreq">PCM 原発振周波数</a></li>
+	</ol></li>
+	<li><a href="#input">入力メニュー</a><ol>
+		<li><a href="#input_paste">貼り付け</a></li>
+		<li><a href="#input_nokeyboard">キーボードなし</a></li>
+		<li><a href="#input_standardkeyboard">標準キーボード</a></li>
+		<li><a href="#input_compactkeyboard">コンパクトキーボード</a></li>
+		<li><a href="#input_repeatdelay">リピート開始</a></li>
+		<li><a href="#input_repeatinterval">リピート間隔</a></li>
+		<li><a href="#input_seamlessmouse">シームレスマウス (F12)</a></li>
+		<li><a href="#input_edgeacceleration">縁部加速</a></li>
+		<li><a href="#input_mousespeed">マウスカーソルの速度</a></li>
+		<li><a href="#input_hostpixel">ホストの画素単位を使う</a></li>
+		<li><a href="#input_joystick">ジョイスティックの設定</a></li>
+	</ol></li>
+	<li><a href="#config">設定メニュー</a><ol>
+		<li><a href="#config_terminal">ターミナル</a></li>
+		<li><a href="#config_debug">デバッグ</a></li>
+		<li><a href="#config_romdebugger">ROM デバッガ起動フラグ</a></li>
+		<li><a href="#config_sram">SRAM</a></li>
+		<li><a href="#config_mainmemory">メインメモリ</a></li>
+		<li><a href="#config_highmemory">ハイメモリ</a></li>
+		<li><a href="#config_localmemory">ローカルメモリ</a></li>
+		<li><a href="#config_bootdevice">起動デバイス</a></li>
+		<li><a href="#config_inifile">設定ファイル</a></li>
+		<li><a href="#config_misc">その他</a></li>
+		<li><a href="#config_java">Java 実行環境の情報</a></li>
+		<li><a href="#config_version">バージョン情報</a></li>
+		<li><a href="#config_license">使用許諾条件</a></li>
+	</ol></li>
+	<li><a href="#language">言語メニュー</a><ol>
+		<li><a href="#language_english">English</a></li>
+		<li><a href="#language_japanese">日本語</a></li>
+	</ol></li>
+      </ol>
+
+  <h2><a href="#file" id="file">1. ファイルメニュー</a></h2>
+
+    <h3><a href="#file_icon" id="file_icon">1.1. 共通のアイコン</a></h3>
+      <ul>
+	<li><img alt="number 0 disabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAK0lEQVR42mMwMcn9Tw5mABMMDCRhFI1E20R1jficN6qRXI30i0eykhw5GADHfSPQ50bIdQAAAABJRU5ErkJggg==">～<img alt="number 15 disabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAMklEQVR42mMwMcn9Tw5mABMMDCRhFI1wk5DYWG2iqUaynToE/IjLebTTSB8/kpXkyMEAoaQozr4/MwkAAAAASUVORK5CYII="> … ユニット未接続 → 接続する</li>
+	<li><img alt="number 0 enabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAK0lEQVR42mPo7b39nxzMACYYGEjCKBqJtonqGvE5b1QjuRrpF49kJTlyMABwraZQf6WyDQAAAABJRU5ErkJggg==">～<img alt="number 15 enabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAMklEQVR42mPo7b39nxzMACYYGEjCKBrhJiGxsdpEU41kO3UI+BGX82inkT5+JCvJkYMB6gyyDptcFM4AAAAASUVORK5CYII="> … ユニット接続済み → 切り離す</li>
+	<li><img alt="hd disabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAATklEQVR42mNgYGD4D8MmJrlEYwZkTciG4MNwjeiasJiOqRGbJhw24NaIz7kY6mACuJyLTTNOjYTY1NdIklPJDhyKooOiBEB0kiMlYSNjAHzVBrH5mf+LAAAAAElFTkSuQmCC"> … ハードディスクモード</li>
+	<li><img alt="hd enabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAANElEQVR42mNgYGD4TyZGFejtvY0VY9VIQMF/rGrwKcZnCPkaqeZUYgJn1KmEnEpRkiMHAwA2HTi4Up4qFAAAAABJRU5ErkJggg=="> … ハードディスクモード → CD-ROM モード</li>
+	<li><img alt="cd disabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAASUlEQVR42mNgYGD4j45NTHJRMDY1DNg04DIIq0Y8Jv/HoYY4TVg0M5DiPIQYXkk8hmJoJGQQ9TUS7VSyA4ei6CA7AVCU5EhN5ACGg+strcSkZQAAAABJRU5ErkJggg=="> … CD-ROM モード</li>
+	<li><img alt="cd enabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAASUlEQVR42mNgYGD4j457e2+jYGxqGLBpwGUQVo14TP6PQw1xmrBoZiDFeQgxvJJ4DMXQSMgg6msk2qlkBw5F0UF2AqAoyZGayAHMfyE8yv3o1gAAAABJRU5ErkJggg=="> … CD-ROM モード → ハードディスクモード</li>
+	<li><img alt="eject disabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAP0lEQVR42mNgYGD4TybGLmFikgvGJGlE1oBHM25NBDQzEGM6NjnCmnCoIU4TFs0UaiQF441HohIA2TYOjcABAIVO8CvOpPapAAAAAElFTkSuQmCC"> … イジェクト不可</li>
+	<li><img alt="eject enabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAP0lEQVR42mNgYGD4TybGLtHbexuMSdKIrAGPZtyaCGhmIMZ0bHKENeFQQ5wmLJop1EgKxhuPRCUAsm0cGoEDAILgLPozEBaWAAAAAElFTkSuQmCC"> … イジェクト可 → イジェクトする</li>
+	<li><img alt="open disabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAANklEQVR42mNgYGD4D8MmJrlEYwZ0jch8XJgyjSQ6D1UjCc4b1Uh1jShRQ46NYEyRRlJTDggDAM9i+VL1cgWtAAAAAElFTkSuQmCC"> … 挿入不可</li>
+	<li><img alt="open enabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAANklEQVR42mNgYGD4D8O9vbeJxgzoGpH5uDBlGkl0HqpGEpw3qpHqGlGihhwbwZgijaSmHBAGAKNVQoF+YoXlAAAAAElFTkSuQmCC"> … 挿入可 → 挿入する</li>
+	<li><img alt="protected disabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAK0lEQVR42mMwMcn9Tw5mABMMDCTh4aIRHgikaEQWwylPVY1kO3U4aiQHAwCNifvRo5md8gAAAABJRU5ErkJggg=="> … 書き込み禁止</li>
+	<li><img alt="protected enabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAK0lEQVR42mPo7b39nxzMACYYGEjCw0UjPBBI0YgshlOeqhrJdupw1EgOBgDsNkhg5+vHaAAAAABJRU5ErkJggg=="> … 書き込み禁止 → 書き込み許可</li>
+	<li><img alt="notprotected enabled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAMUlEQVR42mPo7b39nxzMACYYGEjCJGsk20YUtVTXCHcSKU5FFsMpT1WNuJw6IjWSgwHgr1A0edYESwAAAABJRU5ErkJggg=="> … 書き込み許可 → 書き込み禁止</li>
+      </ul>
+
+    <h3><a href="#file_fdd" id="file_fdd">1.2. FDD</a></h3>
+	<p>フロッピーディスクを操作します。ユニット 0 と 1 は切り離せません。ユニット 2 と 3 を追加できます。</p>
+	<p>フロッピーディスクのメディアのイメージファイルは挿入するときに丸ごと読み込まれ、イジェクトまたは終了するときに丸ごと書き出されます。操作中は更新されません。</p>
+
+      <h4>開く</h4>
+      <ul>
+	<li>ファイル一覧 … ユニットに挿入するメディアのイメージファイルを選択します。複数選択できます。</li>
+	<li>ファイル名 … ユニットに挿入するメディアのイメージファイルを指定します。コンマで区切って複数指定できます。</li>
+	<li>書き込み禁止 … メディアへの書き込みを禁止します。イジェクトするまで書き込めません。</li>
+	<li>ここから再起動 … ユニットにメディアを挿入して起動デバイスをフロッピーディスクに切り替えてリセットするところまで自動で行います。</li>
+	<li>開く … イメージファイルを開いてユニットにメディアを挿入します。イメージファイルを複数指定すると空いているユニットに順番に挿入されます。
+      </ul>
+
+      <h4>フロッピーディスクイメージの新規作成</h4>
+      <ul>
+	<li>2HD (1232KB) … 2HD モード (1024 * 8 * 2 * 77 = 1261568 バイト) でフォーマットします。(FORMAT.X B:)</li>
+	<li>2HC (1200KB) … 2HC モード (512 * 15 * 2 * 80 = 1228800 バイト) でフォーマットします。(FORMAT.X /5 B:)</li>
+	<li>2DD (640KB) … 2DD (640KB) モード (512 * 8 * 2 * 80 = 655360 バイト) でフォーマットします。(FORMAT.X /8 B:)</li>
+	<li>2DD (720KB) … 2DD (720KB) モード (512 * 9 * 2 * 80 = 737280 バイト) でフォーマットします。(FORMAT.X /9 B:)</li>
+	<li>2HQ (1440KB) … 2HQ モード (512 * 18 * 2 * 80 = 1474560 バイト) でフォーマットします。(FORMAT.X /4 B:)</li>
+	<li>2DD (800KB) … 2DD (800KB) モード (512 * 10 * 2 * 80 = 819200 バイト) でフォーマットします。(9SCFMT.X /R0)</li>
+	<li>2HDE (1440KB) … 2HDE モード (1024 * 9 * 2 * 80 = 1474560 バイト) でフォーマットします。(9SCFMT.X /E0)</li>
+	<li>2HS (1440KB) … 2HS モード (1024 * 9 * 2 * 80 = 1474560 バイト) でフォーマットします。(9SCFMT.X /S0)</li>
+	<li>x86 セーフ<ul>
+		<li>ON … 2HQ モードのとき IPL の先頭 3 バイトが $EB,$FE,$90 になります。(FORMAT.X /4 B:)</li>
+		<li>OFF … 2HQ モードのとき IPL の先頭 3 バイトが $60,$3C,$90 になります。(FORMAT.X /4 /I B:)</li>
+	</ul></li>
+	<li>HUMAN.SYS … HUMAN.SYS を転送します。(FORMAT.X /S B:)</li>
+	<li>COMMAND.X … COMMAND.X も転送します。</li>
+	<li>フォーマットを開始する … フォーマットを実行します。すぐに終わります。</li>
+      </ul>
+
+    <h3><a href="#file_sasi" id="file_sasi">1.3. SASI</a></h3>
+	<p>SASI ハードディスクを操作します。SASI ハードディスクは機種が EXPERT のときだけ認識されます。</p>
+	<p>SASI ハードディスクのメディアのイメージファイルは挿入するときに丸ごと読み込まれ、イジェクトまたは終了するときに丸ごと書き出されます。操作中は更新されません。</p>
+
+      <h4>開く</h4>
+      <ul>
+	<li>ファイル一覧 … ユニットに挿入するメディアのイメージファイルを選択します。複数選択できます。</li>
+	<li>ファイル名 … ユニットに挿入するメディアのイメージファイルを指定します。コンマで区切って複数指定できます。</li>
+	<li>書き込み禁止 … メディアへの書き込みを禁止します。イジェクトするまで書き込めません。</li>
+	<li>ここから再起動 … ユニットにメディアを挿入して起動デバイスを SASI ハードディスクに切り替えてリセットするところまで自動で行います。</li>
+	<li>開く … イメージファイルを開いてユニットにメディアを挿入します。イメージファイルを複数指定すると空いているユニットに順番に挿入されます。
+      </ul>
+
+      <h4>内蔵 SASI ポート</h4>
+	<p>内蔵 SASI ポートの有無。機種が EXPERT のときは ON、それ以外は OFF に固定されています。</p>
+
+      <h4>SASI ハードディスクイメージの新規作成</h4>
+      <ul>
+	<li>10MB … 10MB の SASI ハードディスクイメージ (256 * 33 * 4 * 309 = 10441728 バイト) を作ります。</li>
+	<li>20MB … 20MB の SASI ハードディスクイメージ (256 * 33 * 4 * 614 = 20748288 バイト) を作ります。</li>
+	<li>40MB … 40MB の SASI ハードディスクイメージ (256 * 33 * 8 * 614 = 41496576 バイト) を作ります。</li>
+	<li>システムファイルを転送する … HUMAN.SYS と COMMAND.X を転送します。</li>
+	<li>フォーマットを開始する … フォーマットを実行します。すぐに終わります。</li>
+      </ul>
+
+    <h3><a href="#file_scsi" id="file_scsi">1.4. SCSI メニュー</a></h3>
+	<p>SCSI ハードディスク / CD-ROM を操作します。コマンドラインから起動したときだけ利用できます。</p>
+
+      <h4>開く</h4>
+      <ul>
+	<li>ファイル一覧 … ユニットに挿入するメディアのイメージファイルを選択します。複数選択できます。</li>
+	<li>ファイル名 … ユニットに挿入するメディアのイメージファイルを指定します。コンマで区切って複数指定できます。</li>
+	<li>書き込み禁止 … メディアへの書き込みを禁止します。イジェクトするまで書き込めません。</li>
+	<li>ここから再起動 … ユニットにメディアを挿入して起動デバイスを SCSI ハードディスク / CD-ROM に切り替えてリセットするところまで自動で行います。</li>
+	<li>開く … イメージファイルを開いてユニットにメディアを挿入します。イメージファイルを複数指定すると空いているユニットに順番に挿入されます。
+      </ul>
+
+      <h4>内蔵 SCSI ポート</h4>
+	<p>内蔵 SCSI ポートの有無。機種が EXPERT のときは OFF、それ以外は ON に固定されています。</p>
+
+      <h4>拡張 SCSI ポート</h4>
+	<p>ON のとき拡張 SCSI ボードを接続します。EXPERT のときは内蔵 SASI と拡張 SCSI の両方が使える状態になります。SUPER 以降は SCSI ポートが 2 つある状態になります。Human68k は両方あるとき拡張 SCSI だけを認識しますが、<a href="http://retropc.net/x68000/software/disk/scsi/twoscsi/" target="_blank">TWOSCSI.x</a> を使えば内蔵 SCSI と拡張 SCSI を併用できるかも知れません。</p>
+
+      <h4>SCSI ハードディスクイメージの新規作成</h4>
+      <ul>
+	<li>容量 … 1MB から 2047MB まで 1MB 単位で設定できます。デフォルトは 100MB です。</li>
+	<li>256 バイト … セクタサイズ (1 セクタあたりのバイト数) を 256 バイトにします。</li>
+	<li>512 バイト … セクタサイズ (1 セクタあたりのバイト数) を 512 バイトにします。デフォルトです。</li>
+	<li>領域確保 … OFF のときは装置初期化のみ、ON のときは Human68k のパーティションを領域確保します。デフォルトは ON です。NetBSD 用のハードディスクイメージを作るときは OFF にします。</li>
+	<li>HUMAN.SYS … HUMAN.SYS を転送します。</li>
+	<li>COMMAND.X … COMMAND.X も転送します。</li>
+	<li>フォーマットを開始する … フォーマットを実行します。すぐに終わります。</li>
+      </ul>
+
+    <h3><a href="#file_hfs" id="file_hfs">1.5. HFS</a></h3>
+	<p>ホストファイルシステムのユニットにホストマシンのディレクトリを割り当てます。コマンドラインから起動したときだけ利用できます。</p>
+
+    <h3><a href="#file_quit" id="file_quit">1.6. 終了</a></h3>
+	<p>設定を保存して XEiJ を終了します。クローズボタンなどと同じです。</p>
+
+  <h2><a href="#mpu" id="mpu">2. MPU メニュー</a></h2>
+
+    <h3><a href="#mpu_reset" id="mpu_reset">2.1. リセット</a></h3>
+	<p>リセットボタンを押します。</p>
+
+    <h3><a href="#mpu_opt1" id="mpu_opt1">2.2. OPT.1 を押しながらリセット</a></h3>
+	<p>OPT.1 キーを押しながらリセットボタンを押します。起動デバイスの設定を無視して FD から起動したいときに使います。</p>
+
+    <h3><a href="#mpu_interrupt" id="mpu_interrupt">2.3. インタラプト</a></h3>
+	<p>インタラプトスイッチを押します。ROM デバッガが起動しているときはターミナルに ROM デバッガのプロンプトが出てきます。</p>
+
+    <h3><a href="#mpu_model" id="mpu_model">2.4. 機種を変更してリセット</a></h3>
+      <ul>
+	<li>X68000 EXPERT (10MHz) … EXPERT に切り替えて再起動します。SASI が使えます。</li>
+	<li>X68000 SUPER (10MHz) … SUPER に切り替えて再起動します。</li>
+	<li>X68000 XVI (16.7MHz) … XVI に切り替えて再起動します。</li>
+	<li>X68000 Compact (25MHz) … Compact に切り替えて再起動します。</li>
+	<li>X68000 Hybrid (33.3MHz) … Hybrid に切り替えて再起動します。Hybrid は X68000 に X68030 の ROM を載せた架空の機種です。</li>
+	<li>X68030 (25MHz) … X68030 に切り替えて再起動します。MPU が MC68EC030 になります。</li>
+	<li>060turbo (50MHz) … 060turbo に切り替えて再起動します。MPU が MC68060 になります。</li>
+      </ul>
+
+    <h3><a href="#mpu_10mhz" id="mpu_10mhz">2.5. 10MHz</a></h3>
+	<p><a href="feature.htm#fixedfrequencymode">周波数固定モード</a> にします。MPU の動作周波数を 10MHz にします。</p>
+
+    <h3><a href="#mpu_16mhz" id="mpu_16mhz">2.6. 16.7MHz</a></h3>
+	<p><a href="feature.htm#fixedfrequencymode">周波数固定モード</a> にします。MPU の動作周波数を 16.7MHz にします。</p>
+
+    <h3><a href="#mpu_25mhz" id="mpu_25mhz">2.7. 25MHz</a></h3>
+	<p><a href="feature.htm#fixedfrequencymode">周波数固定モード</a> にします。MPU の動作周波数を 25MHz にします。</p>
+
+    <h3><a href="#mpu_33mhz" id="mpu_33mhz">2.8. 33.3MHz</a></h3>
+	<p><a href="feature.htm#fixedfrequencymode">周波数固定モード</a> にします。MPU の動作周波数を 33.3MHz にします。</p>
+
+    <h3><a href="#mpu_50mhz" id="mpu_50mhz">2.9. 50MHz</a></h3>
+	<p><a href="feature.htm#fixedfrequencymode">周波数固定モード</a> にします。MPU の動作周波数を 50MHz にします。</p>
+
+    <h3><a href="#mpu_freq" id="mpu_freq">2.10. 任意の周波数</a></h3>
+	<p><a href="feature.htm#fixedfrequencymode">周波数固定モード</a> にします。MPU の動作周波数を 1MHz から 1MHz 刻みで 1000MHz まで設定できます。</p>
+
+    <h3><a href="#mpu_util" id="mpu_util">2.11. 任意の負荷率</a></h3>
+	<p><a href="feature.htm#fixedutilizationmode">負荷率固定モード</a> にします。MPU の動作周波数を自動的に変化させて負荷率を一定に保ちます。負荷率を 1% から 1% 刻みで 100% まで設定できます。</p>
+
+    <h3><a href="#mpu_nofpu" id="mpu_nofpu">2.12. FPU なし</a></h3>
+	<p>MPU に FPU または FPCP を接続しません。</p>
+
+    <h3><a href="#mpu_extendedprecision" id="mpu_extendedprecision">2.13. 拡張精度 (19 桁)</a></h3>
+	<p>MC68882 と同じ拡張精度浮動小数点数を使用します。</p>
+
+    <h3><a href="#mpu_tripleprecision" id="mpu_tripleprecision">2.14. 三倍精度 (24 桁)</a></h3>
+	<p>拡張精度浮動小数点数の代わりに <a href="feature.htm#tripleprecision">三倍精度浮動小数点数</a> を使用します。</p>
+
+    <h3><a href="#mpu_fullspecfpu" id="mpu_fullspecfpu">2.15. フルスペック FPU</a></h3>
+	<p>FPU および FPCP を MC68882 と MC68060 のすべての浮動小数点命令を実行できるフルスペック版にします。</p>
+
+    <h3><a href="#mpu_fefunc" id="mpu_fefunc">2.16. FE ファンクション命令</a></h3>
+	<p><a href="feature.htm#fefunction">FE ファンクション命令</a> を有効にします。</p>
+
+    <h3><a href="#mpu_rejectfloat" id="mpu_rejectfloat">2.17. FLOATn.X を組み込まない</a></h3>
+	<p><a href="feature.htm#fefunction">FE ファンクション命令</a> が有効なとき、CONFIG.SYS に FLOATn.X が書かれていても組み込まれないようにします。</p>
+
+    <h3><a href="#mpu_cutfc2pin" id="mpu_cutfc2pin">2.18. FC2 ピンをカットする</a></h3>
+	<p>FC2 ピンをカットします。物理アドレス空間全体がユーザモードでアクセスできるようになります。</p>
+
+  <h2><a href="#display" id="display">3. 画面メニュー</a></h2>
+
+    <h3><a href="#display_fullscreen" id="display_fullscreen">3.1. 全画面表示 (F11)</a></h3>
+	<p>全画面表示に切り替えます。全画面表示になっているときは元に戻します。アプレットのときは「全画面表示に切り替えますか？」というダイアログが出てきて、「はい」を選択すると切り替わります。</p>
+
+    <h3><a href="#display_fitinwindow" id="display_fitinwindow">3.2. ウインドウに合わせる</a></h3>
+	<p>X68000 の画面をウインドウの大きさに合わせて拡大または縮小して表示します。</p>
+
+    <h3><a href="#display_fixedsize" id="display_fixedsize">3.3. 固定サイズ</a></h3>
+	<p>X68000 の画面を一定の大きさで表示します。10% から 1% 刻みで 1000% まで設定できます。</p>
+
+    <h3><a href="#display_nearestneighbor" id="display_nearestneighbor">3.4. 最近傍補間</a></h3>
+	<p>画面を最近傍補間 (nearest neighbor) で拡大または縮小します。</p>
+
+    <h3><a href="#display_bilinear" id="display_bilinear">3.5. 線形補間</a></h3>
+	<p>画面を線形補間 (bilinear) で拡大または縮小します。</p>
+
+    <h3><a href="#display_bicubic" id="display_bicubic">3.6. 三次補間</a></h3>
+	<p>画面を三次補間 (bicubic) で拡大または縮小します。</p>
+
+    <h3><a href="#display_paintall" id="display_paintall">3.7. 変化したフレームをすべて描画</a></h3>
+	<p>間欠描画を行わず変化したフレームをすべて描画します。</p>
+
+    <h3><a href="#display_intermittent" id="display_intermittent">3.8. 変化したフレームを 1/2～1/5 描画</a></h3>
+	<p>間欠描画の間隔を指定します。</p>
+
+    <h3><a href="#display_spritepatternviewer" id="display_spritepatternviewer">3.9. スプライトパターンビュア</a></h3>
+	<p><a href="feature.htm#spritepatternviewer">スプライトパターンビュア</a> を表示します。</p>
+
+    <h3><a href="#display_screenmodetest" id="display_screenmodetest">3.10. 表示モードテスト</a></h3>
+	<p>表示モードテストウインドウを表示します。</p>
+
+  <h2><a href="#sound" id="sound">4. 音声メニュー</a></h2>
+
+    <h3><a href="#sound_play" id="sound_play">4.1. 音声出力</a></h3>
+	<p>音声出力の ON/OFF。</p>
+
+    <h3><a href="#sound_volume" id="sound_volume">4.2. 音量</a></h3>
+	<p>音量を調節します。</p>
+
+    <h3><a href="#sound_interpolation" id="sound_interpolation">4.3. 音声補間</a></h3>
+	<p>音声を内部サンプリング周波数の 62.5kHz から出力サンプリング周波数の 48kHz に変換する方法を選択します。</p>
+      <ul>
+	<li>音声 間引き … データを間引きます。</li>
+	<li>音声 線形補間 … 線形補間してから出力サンプリング周波数で再サンプリングします。</li>
+	<li>音声 区分定数面積補間 … 区分定数補間してから出力サンプリング間隔で刻み、各断片の平均の変位を出力します。</li>
+	<li>音声 線形面積補間 … 線形補間してから出力サンプリング間隔で刻み、各断片の平均の変位を出力します。</li>
+      </ul>
+
+    <h3><a href="#sound_monitor" id="sound_monitor">4.4. 音声モニタ</a></h3>
+	<p><a href="feature.htm#soundmonitor">音声モニタ</a> を表示します。</p>
+
+    <h3><a href="#sound_opmoutput" id="sound_opmoutput">4.5. OPM 出力</a></h3>
+	<p>FM 音源の ON/OFF。</p>
+
+    <h3><a href="#sound_pcmoutput" id="sound_pcmoutput">4.6. PCM 出力</a></h3>
+	<p>ADPCM 音源の ON/OFF。</p>
+
+    <h3><a href="#sound_pcminterpolation" id="sound_pcminterpolation">4.7. PCM 補間</a></h3>
+	<p>ADPCM 音源のサンプリング周波数 3.9kHz～31.3kHz を内部サンプリング周波数の 62.5kHz に変換する方法を選択します。</p>
+      <ul>
+	<li>PCM 区分定数補間 … 同じ値を繰り返します。単純で高速ですが、波形が階段状になるのでノイズが増えます。</li>
+	<li>PCM 線形補間 … 前後 2 つのサンプリングデータを直線で結んで補間します。</li>
+	<li>PCM エルミート補間 … 前後 4 つのサンプリングデータを用いて前後 2 つのサンプリングデータを曲線で結んで補間します。</li>
+      </ul>
+
+    <h3><a href="#sound_pcmoscfreq" id="sound_pcmoscfreq">4.8. PCM 原発振周波数</a></h3>
+	<p><a href="feature.htm#sourcefrequency">原発振周波数</a> を選択します。</p>
+
+      <h4>PCM 8MHz/4MHz</h4>
+	<p>無改造の ADPCM 音源を使用します。原発振周波数は 8MHz と 4MHz で、サンプリング周波数は 3.9kHz、5.2kHz、7.8kHz、10.4kHz、15.6kHz の 5 種類です。</p>
+
+      <h4>PCM 8MHz/16MHz</h4>
+	<p>改造された ADPCM 音源を使用します。原発振周波数は 8MHz と 16MHz で、サンプリング周波数は 7.8kHz、10.4kHz、15.6kHz、20.8kHz、31.3kHz の 5 種類です。</p>
+
+  <h2><a href="#input" id="input">5. 入力メニュー</a></h2>
+
+    <h3><a href="#input_paste" id="input_paste">5.1. 貼り付け</a></h3>
+	<p><a href="feature.htm#paste">貼り付け</a> を行います。</p>
+
+    <h3><a href="#input_nokeyboard" id="input_nokeyboard">5.2. キーボードなし</a></h3>
+	<p>キーボードを表示しません。</p>
+
+    <h3><a href="#input_standardkeyboard" id="input_standardkeyboard">5.3. 標準キーボード</a></h3>
+	<p>テンキーのある標準キーボードを表示します。</p>
+
+    <h3><a href="#input_compactkeyboard" id="input_compactkeyboard">5.4. コンパクトキーボード</a></h3>
+	<p>テンキーのないコンパクトキーボードを表示します。</p>
+
+    <h3><a href="#input_repeatdelay" id="input_repeatdelay">5.5. リピート開始</a></h3>
+	<p>リピート開始までの時間を設定します。既定以外の設定は SRAM に書き込まれます。</p>
+      <ul>
+	<li>既定の開始</li>
+	<li>200ms～1700ms</li>
+      </ul>
+
+    <h3><a href="#input_repeatinterval" id="input_repeatinterval">5.6. リピート間隔</a></h3>
+	<p>リピートの間隔の時間を設定します。既定以外の設定は SRAM に書き込まれます。</p>
+      <ul>
+	<li>既定の間隔</li>
+	<li>30ms～1155ms</li>
+      </ul>
+
+    <h3><a href="#input_seamlessmouse" id="input_seamlessmouse">5.7. シームレスマウス (F12)</a></h3>
+	<p><a href="feature.htm#mousemode">シームレスとエクスクルーシブ</a> を切り替えます。</p>
+
+    <h3><a href="#input_edgeacceleration" id="input_edgeacceleration">5.8. 縁部加速</a></h3>
+	<p><a href="feature.htm#edgeacceleration">縁部加速</a> を有効にします。</p>
+
+    <h3><a href="#input_mousespeed" id="input_mousespeed">5.9. マウスカーソルの速度</a></h3>
+	<p>エクスクルーシブのとき X68000 のマウスカーソルの速度を調節します。</p>
+
+    <h3><a href="#input_hostpixel" id="input_hostpixel">5.10. ホストの画素単位を使う</a></h3>
+	<p>エクスクルーシブで X68000 のマウスカーソルの移動速度を決めるとき X68000 とホストマシンのどちらの画素単位を基準にするか選択します。</p>
+
+    <h3><a href="#input_joystick" id="input_joystick">5.11. ジョイスティックの設定</a></h3>
+	<p>ジョイスティックの設定ウインドウを表示します。</p>
+
+  <h2><a href="#config" id="config">6. 設定メニュー</a></h2>
+
+    <h3><a href="#config_terminal" id="config_terminal">6.1. ターミナル</a></h3>
+	<p>RS-232C の端末を開きます。ROM デバッガのコンソールとして使います。コマンドプロンプトで CTTY AUX としてコンソールをターミナルに移せば ROM デバッガ以外のデバッガやコマンドのログも簡単にコピーできます。XEiJ のメッセージもここに表示されます。</p>
+
+    <h3><a href="#config_debug" id="config_debug">6.2. デバッグ</a></h3>
+      <ul>
+	<li>コンソール … デバッグコンソールを表示します。</li>
+	<li>レジスタ … レジスタウインドウを表示します。</li>
+	<li>逆アセンブルリスト … 逆アセンブルリストを表示します。命令ブレークポイントはここで設定します。</li>
+	<li>メモリダンプリスト … メモリダンプリストを表示します。</li>
+	<li>論理空間モニタ … 論理アドレスに割り当てられている物理アドレスを表示します。</li>
+	<li>物理空間モニタ … 物理アドレスに割り当てられているデバイスを表示します。</li>
+	<li>分岐ログ … <a href="feature.htm#branchlog">分岐ログ</a> を表示します。</li>
+	<li>プログラムフロービジュアライザ … <a href="feature.htm#flowvisualizer">プログラムフロービジュアライザ</a> を表示します。</li>
+	<li>ラスタブレークポイント … <a href="feature.htm#rasterbreakpoint">ラスタブレークポイント</a> の設定を表示します。</li>
+	<li>データブレークポイント … <a href="feature.htm#databreakpoint">データブレークポイント</a> の設定を表示します。</li>
+	<li>ルートポインタリスト … マルチタスク環境で停止させるタスクを選択できます。</li>
+      </ul>
+
+    <h3><a href="#config_romdebugger" id="config_romdebugger">6.3. ROM デバッガ起動フラグ</a></h3>
+	<p>ON のとき SRAM のスイッチや OPT.2 キーの押し下げ状態に関係なく ROM デバッガが起動します。</p>
+
+    <h3><a href="#config_sram" id="config_sram">6.4. SRAM</a></h3>
+      <ul>
+	<li>SRAM クリア … SRAM をゼロクリアします。</li>
+	<li>SRAM 読み込み … SRAM のイメージファイル (16KB) を読み込みます。実機や他のエミュレータから SRAM の内容をインポートするときに使います。</li>
+	<li>SRAM 書き出し … SRAM のイメージファイル (16KB) を書き出します。SRAM の内容を実機や他のエミュレータにエクスポートするときに使います。</li>
+      </ul>
+
+    <h3><a href="#config_mainmemory" id="config_mainmemory">6.5. メインメモリ</a></h3>
+      <ul>
+	<li>メインメモリ 1MB～12MB … メインメモリの容量を選択します。この設定は SRAM に書き込まれます。</li>
+	<li>メインメモリの内容を保存する … 終了時にメインメモリの内容を <a href="inifile.htm">設定ファイル</a> に保存します。</li>
+      </ul>
+
+    <h3><a href="#config_highmemory" id="config_highmemory">6.6. ハイメモリ</a></h3>
+      <ul>
+	<li>ハイメモリ なし～16MB … X68030 のハイメモリの容量を選択します。</li>
+	<li>ハイメモリの内容を保存する … 終了時に X68030 のハイメモリの内容を <a href="inifile.htm">設定ファイル</a> に保存します。</li>
+      </ul>
+
+    <h3><a href="#config_localmemory" id="config_localmemory">6.7. ローカルメモリ</a></h3>
+      <ul>
+	<li>ローカルメモリ なし～256MB … 060turbo のローカルメモリの容量を選択します。</li>
+	<li>ローカルメモリの内容を保存する … 終了時に 060turbo のローカルメモリの内容を <a href="inifile.htm">設定ファイル</a> に保存します。</li>
+      </ul>
+
+    <h3><a href="#config_bootdevice" id="config_bootdevice">6.8. 起動デバイス</a></h3>
+	<p>起動デバイスを設定します。既定以外の設定は SRAM に書き込まれます。</p>
+      <ul>
+	<li>既定 … 現在の SRAM のスイッチに従います。</li>
+	<li>STD … 標準 (FDD → 内蔵 SASI または 内蔵 SCSI → 拡張 SCSI を含む ROM → SRAM)</li>
+	<li>FDD … フロッピーディスク</li>
+	<li>SASI … SASI ハードディスク</li>
+	<li>SCSI … SCSI ハードディスク / CD-ROM</li>
+	<li>HFS … ホストファイルシステム</li>
+      </ul>
+
+    <h3><a href="#config_inifile" id="config_inifile">6.9. 設定ファイル</a></h3>
+      <ul>
+	<li>終了時に設定を保存 … 終了時に <a href="inifile.htm">設定ファイル</a> に設定を保存します。</li>
+	<li>今すぐ設定を保存 … 今すぐ <a href="inifile.htm">設定ファイル</a> に設定を保存します。</li>
+	<li>すべての設定を削除 … <a href="inifile.htm">設定ファイル</a> を削除します。終了時に設定を保存が OFF になるのでそのまま終了してください。</li>
+      </ul>
+
+    <h3><a href="#config_misc" id="config_misc">6.10. その他</a></h3>
+      <ul>
+	<li>フォントエディタ … <a href="feature.htm#fonteditor">フォントエディタ</a> を開きます。</li>
+	<li>鈍化テスト … 遅いマシンでしか発生しない問題を見つけるためにコアのスレッドに負荷をかけてみるテスト。</li>
+      </ul>
+
+    <h3><a href="#config_java" id="config_java">6.11. Java 実行環境の情報</a></h3>
+	<p>Java 実行環境のバージョンと 64 ビットモードで動作しているかどうかを表示します。</p>
+
+    <h3><a href="#config_version" id="config_version">6.12. バージョン情報</a></h3>
+	<p>XEiJ のバージョンを表示します。</p>
+
+    <h3><a href="#config_license" id="config_license">6.13. 使用許諾条件</a></h3>
+      <ul>
+	<li>XEiJ 使用許諾条件</li>
+	<li>無償公開された X68000 の基本ソフトウェア製品の許諾条件</li>
+	<li>MAME License</li>
+      </ul>
+
+  <h2><a href="#language" id="language">7. 言語メニュー</a></h2>
+
+    <h3><a href="#language_english" id="language_english">7.1. English</a></h3>
+	<p>メニューを英語で表示します。ターミナルに出力されるメッセージも英語になります。</p>
+
+    <h3><a href="#language_japanese" id="language_japanese">7.2. 日本語</a></h3>
+	<p>メニューを日本語で表示します。ターミナルに出力されるメッセージも日本語になります。</p>
+
+</div>
+<div id="foot"><a href="http://stdkmd.com/">STUDIO KAMADA</a><br>Copyright &copy; 1999-2016 Makoto Kamada<div></div></div>
+  </body>
+</html>

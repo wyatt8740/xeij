@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>実行環境</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="stylesheet" type="text/css" href="http://stdkmd.com/stdkmd.css">
+    <script type="text/javascript" charset="UTF-8" src="http://stdkmd.com/stdkmd.js"></script>
+  </head>
+  <body>
+<div id="head">
+  <span id="title">実行環境</span>
+  <span id="back">- <a href="http://stdkmd.com/xeij/">XEiJ</a> - <a href="http://stdkmd.com/">STUDIO KAMADA</a></span>
+</div>
+<div id="body">
+
+    <h3>目次</h3>
+      <ol>
+	<li><a href="#spec">システム要件</a></li>
+	<li><a href="#jre">Java SE 実行環境</a></li>
+	<li><a href="#browser">推奨ブラウザ</a><ol>
+		<li><a href="#browser_waterfox">Waterfox</a></li>
+		<li><a href="#browser_firefox">Mozilla Firefox</a></li>
+		<li><a href="#browser_ie">Internet Explorer</a></li>
+		<li><a href="#browser_others">その他</a></li>
+	</ol></li>
+      </ol>
+
+  <h2><a href="#spec" id="spec">1. システム要件</a></h2>
+	<p>動作確認を Intel Core i7-3770 3.4GHz (4 コア 8 スレッド)、Intel HD Graphics 4000、RAM 8GB、Windows 10 Pro (64 ビット) のデスクトップ PC で行っています。64 ビット、2GHz 以上、2 コア以上、RAM 2GB 以上の環境で動作させることを推奨します。</p>
+
+  <h2><a href="#jre" id="jre">2. Java SE 実行環境</a></h2>
+	<p>XEiJ は Java SE 実行環境の JRE 8 で動作します。GUI は Swing を使用しています。これを書いている時点で JRE 8 の最新版は JRE 8u102 (1.8.0_102) です。<a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html" target="_blank">Java SE Runtime Environment 8 - Downloads</a> で Accept License Agreement のラジオボタンをクリックしてから OS の種類とアーキテクチャに合った JRE の最新版をダウンロードしてインストールしてください。</p>
+
+  <h2><a href="#browser" id="browser">3. 推奨ブラウザ</a></h2>
+	<p>XEiJ を Java アプレットとして起動するときはモダンブラウザと JRE に含まれている Java プラグインが必要です。64 ビットの OS を使用している場合は 64 ビットモードで動作するブラウザで動かすことをお勧めします。OS が 64 ビットでもブラウザが 32 ビットモードで動いていると組み込まれる Java プラグインも 32 ビット版になるため、64 ビット版のブラウザで 64 ビット版の Java プラグインを使用した場合と比較して 2～3 倍の負荷がかかり、処理が重くなってしまいます。</p>
+
+    <h3><a href="#browser_waterfox" id="browser_waterfox">3.1. Waterfox</a></h3>
+      <ul>
+	<li><a href="https://www.waterfoxproject.org/" target="_blank">Waterfox - The best 64-Bit browser on the web</a></li>
+      </ul>
+	<p>64 ビットモードで動作します。Waterfox と Mozilla Firefox は共存させない方が無難です。</p>
+	<p>Waterfox のメニューは英語表示です。日本語表示にしたいときは以下の手順で日本語の言語パックを適用します。</p>
+      <ol>
+	<li>Waterfox で <a href="https://waterfoxproject.org/downloads" target="_blank">Waterfox - Downloads - The best 64-Bit browser on the web</a> を開いて Language Packs の「Japanese - 日本語」の右にある Download をクリックする。</li>
+	<li>Japanese Language Pack と書かれたダイアログが表示されるので Install をクリックする。</li>
+	<li>Waterfox のロケーションバー (アドレスバー) に about:config と入力して I&#39;ll be careful, I promise! (細心の注意を払って使用する) をクリックする。</li>
+	<li>general.useragent.locale を右クリックして Modify を選択し、値を en-US から ja-JP に変更して OK をクリックする。</li>
+	<li>Waterfox を一旦閉じて開き直す。</li>
+      </ol>
+	<p>補足: これを書いている時点で Waterfox のダウンロード中にネットワークエラーが頻発してダウンロードに時間がかかる状態が続いています。</p>
+
+    <h3><a href="#browser_firefox" id="browser_firefox">3.2. Mozilla Firefox</a></h3>
+      <ul>
+	<li><a href="https://www.mozilla.org/ja/firefox/new/" target="_blank">Firefox のダウンロード — 自由な Web ブラウザ — Mozilla</a></li>
+      </ul>
+	<p>32 ビットモードで動作します。Waterfox と Mozilla Firefox は共存させない方が無難です。</p>
+	<p>Mozilla Firefox の Windows 64 ビット版は Java プラグインに対応していません。参考: <a href="https://support.mozilla.org/ja/kb/use-java-plugin-to-view-interactive-content" target="_blank">Java プラグイン利用ガイド | Firefox ヘルプ</a></p>
+
+    <h3><a href="#browser_ie" id="browser_ie">3.3. Internet Explorer</a></h3>
+      <ul>
+	<li><a href="https://www.microsoft.com/ja-jp/download/internet-explorer-11-for-windows-7-details.aspx" target="_blank">Download Internet Explorer 11 for Windows 7 from Official Microsoft Download Center</a></li>
+      </ul>
+	<p>インターネットオプションのセキュリティタブのインターネットゾーンの「保護モードを有効にする」と詳細設定タブの「拡張保護モードを有効にする」と (もしもあれば) 「拡張保護モードで 64 ビット プロセッサを有効にする」にチェックを入れて IE を再起動すると 64 ビットモードになります。ローカルでは常に 32 ビットモードになってしまうようです。</p>
+	<p>アプレットの大きさを変更しようとすると IE がクラッシュしてしまうのでアプレットの大きさを変更できないようにしてあります。</p>
+	<p>補足: IE11 は Windows 7 から Windows 10 に更新した後も使用できますが、Windows 10 では 64 ビットモードで Java アプレットを起動できなくなってしまいました。32 ビットモードのときは起動できています。</p>
+
+    <h3><a href="#browser_others" id="browser_others">3.4. その他</a></h3>
+	<p>以下のブラウザは Java プラグインに対応していません。</p>
+      <ul>
+	<li>Google Chrome</li>
+	<li>Microsoft Edge</li>
+	<li>Mozilla Firefox (Windows 64 ビット版)</li>
+      </ul>
+
+</div>
+<div id="foot"><a href="http://stdkmd.com/">STUDIO KAMADA</a><br>Copyright &copy; 1999-2016 Makoto Kamada<div></div></div>
+  </body>
+</html>

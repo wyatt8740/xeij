@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>起動方法</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="stylesheet" type="text/css" href="http://stdkmd.com/stdkmd.css">
+    <script type="text/javascript" charset="UTF-8" src="http://stdkmd.com/stdkmd.js"></script>
+  </head>
+  <body>
+<div id="head">
+  <span id="title">起動方法</span>
+  <span id="back">- <a href="http://stdkmd.com/xeij/">XEiJ</a> - <a href="http://stdkmd.com/">STUDIO KAMADA</a></span>
+</div>
+<div id="body">
+
+    <h3>目次</h3>
+      <ol>
+	<li><a href="#command">コマンドライン</a><ol>
+		<li><a href="#command_human68k">例: Human68k version 3.02 のシステムディスクを起動する</a></li>
+		<li><a href="#command_dennouclub">例: CD-ROM 版の電脳倶楽部を起動する</a></li>
+	</ol></li>
+	<li><a href="#applet">Java アプレット</a><ol>
+		<li><a href="#applet_human68k">例: human.htm (抜粋)</a></li>
+	</ol></li>
+	<li><a href="#javaws">Java Web Start</a><ol>
+		<li><a href="#javaws_human68k">例: human.jnlp</a></li>
+	</ol></li>
+      </ol>
+
+  <h2><a href="#command" id="command">1. コマンドライン</a></h2>
+	<p>XEiJ.jar を実行します。main のクラスは jar ファイルのマニフェストに書いてあるので指定する必要はありません。<a href="parameter.htm">パラメータ</a> で起動デバイスを指定できます。</p>
+
+    <h3><a href="#command_human68k" id="command_human68k">1.1. 例: Human68k version 3.02 のシステムディスクを起動する</a></h3>
+	<p>HUMAN302.XDF は <a href="http://retropc.net/x68000/software/sharp/human302/" target="_blank">Human68k version 3.02 のシステムディスク</a> の HUMN302I.LZH に入っています。</p>
+	<pre>&gt;<kbd>java -jar XEiJ.jar -boot=HUMAN302.XDF:R</kbd></pre>
+
+    <h3><a href="#command_dennouclub" id="command_dennouclub">1.2. 例: CD-ROM 版の電脳倶楽部を起動する</a></h3>
+	<p>XEiJ は任意のディレクトリを Human68k の起動ドライブにできるので、CD-ROM 版の <a href="http://retropc.net/x68000/book/dennou_club/" target="_blank">電脳倶楽部</a> を DVD スーパーマルチドライブ (以下は E: の場合) に放り込んで</p>
+	<pre>&gt; <kbd>java -jar XEiJ.jar -boot=E:</kbd></pre>
+	<p>とすれば電脳倶楽部が起動します。DSHELL は <a href="feature.htm#seamlessmouse">シームレスマウスモード</a> で操作できます。</p>
+
+  <h2><a href="#applet" id="applet">2. Java アプレット</a></h2>
+	<p>&lt;applet&gt; を使って HTML ファイルにアプレットを埋め込みます。必要なファイルをすべて jar ファイルに入れ、archive の値の XEiJ.jar の後にコンマで区切って並べます。HTML ファイルをモダンブラウザで開いて Java アプレットの実行を許可すると XEiJ が起動します。</p>
+
+    <h3><a href="#applet_human68k" id="applet_human68k">2.1. 例: human.htm (抜粋)</a></h3>
+	<p>&lt;applet&gt; を二重にしてあるのは IE のクラッシュ対策です。</p>
+	<pre>&lt;div&gt;
+  &lt;div style=&#34;text-align:center&#34;&gt;
+    &lt;applet archive=&#34;XEiJ.jar,HUMAN302.jar,SXWIN315.jar&#34;
+            code=&#34;xeij.XEiJApplet.class&#34;
+            height=&#34;639&#34;
+            id=&#34;XEiJAppletOuter&#34;
+            mayscript
+            width=&#34;768&#34;&gt;
+      &lt;param name=&#34;elementid&#34; value=&#34;XEiJAppletOuter&#34;&gt;
+      &lt;param name=&#34;boxbgcolor&#34; value=&#34;#000&#34;&gt;
+      &lt;param name=&#34;boot&#34; value=&#34;HUMAN302.XDF&#34;&gt;
+      &lt;param name=&#34;fd1&#34; value=&#34;SXWIN315.XDF&#34;&gt;
+      &lt;param name=&#34;model&#34; value=&#34;Hybrid&#34;&gt;
+&lt;div&gt;
+  &lt;div style=&#34;text-align:center&#34;&gt;
+    &lt;applet archive=&#34;XEiJ.jar,HUMAN302.jar,SXWIN315.jar&#34;
+            code=&#34;xeij.XEiJApplet.class&#34;
+            height=&#34;639&#34;
+            id=&#34;XEiJAppletInner&#34;
+            mayscript
+            width=&#34;768&#34;&gt;
+      &lt;param name=&#34;elementid&#34; value=&#34;XEiJAppletInner&#34;&gt;
+      &lt;param name=&#34;boxbgcolor&#34; value=&#34;#000&#34;&gt;
+      &lt;param name=&#34;boot&#34; value=&#34;HUMAN302.XDF&#34;&gt;
+      &lt;param name=&#34;fd1&#34; value=&#34;SXWIN315.XDF&#34;&gt;
+      &lt;param name=&#34;model&#34; value=&#34;Hybrid&#34;&gt;
+&lt;div class=&#34;noscript&#34;&gt;Java がインストールされていないか、ブラウザが対応していないか、実行が許可されていません。&lt;/div&gt;
+    &lt;/applet&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+    &lt;/applet&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+
+  <h2><a href="#javaws" id="javaws">3. Java Web Start</a></h2>
+	<p>*.jnlp ファイルへのリンクをクリックすると XEiJ が起動します。Google Chrome の場合は *.jnlp ファイルをダウンロードすると画面下に表示されるダウンロードバーまたは chrome://downloads/ で *.jnlp ファイルをクリックすると XEiJ が起動します。デフォルトのセキュリティ設定では全画面表示が使えません。</p>
+
+    <h3><a href="#javaws_human68k" id="javaws_human68k">3.1. 例: human.jnlp</a></h3>
+	<pre>&lt;?xml version=&#34;1.0&#34; encoding=&#34;utf-8&#34;?&gt;
+&lt;jnlp spec=&#34;1.0+&#34;
+      codebase=&#34;http://stdkmd.com/xeij/sample&#34;
+      href=&#34;human.jnlp&#34;&gt;
+  &lt;information&gt;
+    &lt;title&gt;Human68k version 3.02 のシステムディスク&lt;/title&gt;
+    &lt;vendor&gt;XEiJ&lt;/vendor&gt;
+    &lt;homepage href=&#34;http://stdkmd.com/xeij/&#34;/&gt;
+    &lt;description&gt;無償公開された Human68k version 3.02 のシステムディスク です。とりあえずコマンドプロンプトが表示されるところを見たい人と X-BASIC を動かしてみたい人向け。&lt;/description&gt;
+    &lt;offline-allowed/&gt;
+  &lt;/information&gt;
+  &lt;related-content href=&#34;http://retropc.net/x68000/software/sharp/human302/&#34;/&gt;
+  &lt;resources&gt;
+    &lt;j2se version=&#34;1.8+&#34;/&gt;
+    &lt;jar href=&#34;XEiJ.jar&#34;/&gt;
+    &lt;jar href=&#34;HUMAN302.jar&#34;/&gt;
+    &lt;jar href=&#34;SXWIN315.jar&#34;/&gt;
+  &lt;/resources&gt;
+  &lt;application-desc main-class=&#34;xeij.XEiJ&#34;&gt;
+    &lt;argument&gt;-boot=HUMAN302.XDF&lt;/argument&gt;
+    &lt;argument&gt;-fd1=SXWIN315.XDF&lt;/argument&gt;
+    &lt;argument&gt;-model=Hybrid&lt;/argument&gt;
+  &lt;/application-desc&gt;
+&lt;/jnlp&gt;</pre>
+
+</div>
+<div id="foot"><a href="http://stdkmd.com/">STUDIO KAMADA</a><br>Copyright &copy; 1999-2016 Makoto Kamada<div></div></div>
+  </body>
+</html>

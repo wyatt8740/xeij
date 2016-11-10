@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>機能と特徴</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="stylesheet" type="text/css" href="http://stdkmd.com/stdkmd.css">
+    <script type="text/javascript" charset="UTF-8" src="http://stdkmd.com/stdkmd.js"></script>
+  </head>
+  <body>
+<div id="head">
+  <span id="title">機能と特徴</span>
+  <span id="back">- <a href="http://stdkmd.com/xeij/">XEiJ</a> - <a href="http://stdkmd.com/">STUDIO KAMADA</a></span>
+</div>
+<div id="body">
+
+    <h3>目次</h3>
+      <ol>
+	<li><a href="#atcmonitor">アドレス変換キャッシュモニタ</a></li>
+	<li><a href="#exclusivemouse">エクスクルーシブマウスモード</a></li>
+	<li><a href="#fefunction">FE ファンクション命令</a><ol>
+		<li><a href="#fefunction_sample">例: X-BASIC を使って atan(x) を 0 から 1 まで長方形近似で数値積分する</a></li>
+	</ol></li>
+	<li><a href="#fc2pin">FC2 ピン</a></li>
+	<li><a href="#edgeacceleration">縁部加速</a></li>
+	<li><a href="#soundmonitor">音声モニタ</a></li>
+	<li><a href="#disassemblelist">逆アセンブルリスト</a></li>
+	<li><a href="#sourcefrequency">原発振周波数</a></li>
+	<li><a href="#tripleprecision">三倍精度浮動小数点数</a><ol>
+		<li><a href="#tripleprecision_sample">例: 円周率 π = 3.141592653589793238462643383... の内部表現を見る</a></li>
+	</ol></li>
+	<li><a href="#cdrom">CD-ROM</a></li>
+	<li><a href="#seamlessmouse">シームレスマウスモード</a><ol>
+		<li><a href="#seamlessmouse_mechanism">シームレスマウスモードの作り方</a></li>
+	</ol></li>
+	<li><a href="#fixedfrequencymode">周波数固定モード</a></li>
+	<li><a href="#javalanguage">Java 言語</a></li>
+	<li><a href="#scsirom">SCSI ROM</a></li>
+	<li><a href="#spritepatternviewer">スプライトパターンビュア</a></li>
+	<li><a href="#databreakpoint">データブレークポイント</a><ol>
+		<li><a href="#databreakpoint_mechanism">データブレークポイントの仕組み</a></li>
+	</ol></li>
+	<li><a href="#debugconsole">デバッグコンソール</a></li>
+	<li><a href="#highmemory">ハイメモリ</a></li>
+	<li><a href="#paste">貼り付け</a></li>
+	<li><a href="#screenmodetest">表示モードテスト</a><ol>
+		<li><a href="#screenmodetest_patterntest">パターンテスト</a></li>
+	</ol></li>
+	<li><a href="#fonteditor">フォントエディタ</a></li>
+	<li><a href="#fixedutilizationmode">負荷率固定モード</a></li>
+	<li><a href="#coproboard">浮動小数点プロセッサボード</a></li>
+	<li><a href="#physicalspacemonitor">物理空間モニタ</a></li>
+	<li><a href="#branchlog">分岐ログ</a></li>
+	<li><a href="#flowvisualizer">プログラムフロービジュアライザ</a></li>
+	<li><a href="#hostfilesystem">ホストファイルシステム</a></li>
+	<li><a href="#motherboardcoprocessor">マザーボードコプロセッサ</a></li>
+	<li><a href="#instructionbreakpoint">命令ブレークポイント</a></li>
+	<li><a href="#memorydumplist">メモリダンプリスト</a></li>
+	<li><a href="#rasterbreakpoint">ラスタブレークポイント</a></li>
+	<li><a href="#rootpointerlist">ルートポインタリスト</a></li>
+	<li><a href="#registerwindow">レジスタウィンドウ</a></li>
+	<li><a href="#localmemory">ローカルメモリ</a></li>
+	<li><a href="#logicalspacemonitor">論理空間モニタ</a></li>
+      </ol>
+
+  <h2><a href="#atcmonitor" id="atcmonitor">1. アドレス変換キャッシュモニタ</a> <small>(あどれすへんかんきゃっしゅもにた)</small></h2>
+	<p><img alt="atcmonitor.png" src="atcmonitor.png" style="float:left;margin:0em 0.5em 0.5em 0em">MMU のアドレス変換キャッシュの内容を表示します。XEiJ の MMU のアドレス変換キャッシュは独自仕様です。</p>
+	<p style="clear:both"></p>
+
+  <h2><a href="#exclusivemouse" id="exclusivemouse">2. エクスクルーシブマウスモード</a> <small>(えくすくるぅしぶまうすもぉど)</small></h2>
+	<p>エクスクルーシブマウスモードは XEiJ がホストマシンのマウスカーソルを占有するモードです。他の X68000 エミュレータでは単にマウスモードと呼ばれることがあります。IOCS を経由しない独自のマウスドライバを使用するソフトウェアも操作できますが、マウスカーソルを占有してしまうのでホストマシンの他のアプリケーションと併用しにくい (行き来する度にいちいちマウスモードを切り替えなければならない) という欠点があります。</p>
+	<p>エクスクルーシブマウスモードはコマンドラインから起動したときだけ使えます。<a href="#seamlessmouse">シームレスマウスモード</a> のとき F12 キーを押すかホイール (中ボタン) をクリックするとエクスクルーシブマウスモードに切り替わります。</p>
+
+  <h2><a href="#fefunction" id="fefunction">3. FE ファンクション命令</a> <small>(えふいぃふぁんくしょんめいれい)</small></h2>
+	<p>FE ファンクションコールは Human68k の環境で浮動小数点演算や数値と文字列の変換を行うサービスコールです。通常は FLOAT2.X、FLOAT3.X、FLOAT4.X のいずれかを用いてシステムに登録し、DOS コールの $FFxx と同様に $FExx という形の未実装命令コードを配置することで F ライン例外を経由して呼び出します。X-BASIC や C 言語で書かれたプログラムで使われています。</p>
+	<p>XEiJ の MPU は $FExx という命令コードを「F ライン例外を発生させる未実装命令」ではなく「浮動小数点演算を行う実装済みの FE ファンクション命令」として処理することができます。FE ファンクションコールで発生する例外処理のオーバーヘッドがなくなり、浮動小数点演算も Java の演算子や API を用いて計算するので高速です。X-BASIC や浮動小数点演算を多用するソフトウェアの動作が軽くなり、さらに FLOATn.X を組み込まないことで DOS コールのオーバーヘッドも減らせます。</p>
+	<p>純正の FLOATn.X に実装されていない FE ファンクションコールおよび FE ファンクションコールの処理ルーチンを変更する __FEVECS を呼び出したときは従来通り F ライン例外が発生します。FLOATn.X を併用することで、空いている未実装命令コードに FE ファンクションコールを追加することはできますが、実装済みの FE ファンクション命令の処理を __FEVECS で差し替えることはできません。</p>
+
+    <h3><a href="#fefunction_sample" id="fefunction_sample">3.1. 例: X-BASIC を使って atan(x) を 0 から 1 まで長方形近似で数値積分する</a></h3>
+	<pre><kbd>list</kbd>
+   10 int n=100000,k,t
+   20 float a=0#,b=1#,d,s
+   30 t=time():d=(b-a)/n:a=a-d*0.5#:s=0#:for k=1 to n:s=s+atan(a+d*k):next:s=d*s:t=time()-t
+   40 print s,t;&#34;sec&#34;
+   50 end
+   60 func time()
+   70   str c$,d$,s$,t$
+   80   int y,m,d
+   90   d$=date$:t$=time$
+  100   repeat
+  110     c$=d$:s$=t$
+  120     d$=date$:t$=time$
+  130   until c$=d$ and s$=t$
+  140   y=((atoi(left$(d$,2))+50) mod 100)+1950:m=atoi(mid$(d$,4,2)):d=atoi(right$(d$,2))
+  150   if m&lt;3 then { y=y-1:m=m+12 }
+  160   c=floor(365.25#*y)+floor(30.59#*(m-2))+d-719501
+  170   if -141417&lt;=c then c=c+floor(y/400)-floor(y/100)+2
+  180   return(c*86400+(atoi(left$(t$,2))-9)*3600+atoi(mid$(t$,4,2))*60+atoi(right$(t$,2)))
+  190 endfunc
+  200 func floor(x;float)
+  210   int y
+  220   y=fix(x):if x&lt;y then y=y-1
+  230   return(y)
+  240 endfunc
+Ok</pre>
+
+      <h4>X68000 Hybrid 負荷率 50% (約 200MHz)、FE ファンクション命令 OFF (FLOAT2.X) で実行したとき</h4>
+	<pre><kbd>run</kbd>
+ 0.43882457311956        18 sec
+Ok</pre>
+
+      <h4>X68000 Hybrid 負荷率 50% (約 200MHz)、FE ファンクション命令 ON で実行したとき</h4>
+	<pre><kbd>run</kbd>
+ 0.43882457311956        12 sec
+Ok</pre>
+	<p>π/4-log(2)/2 = 0.4388245731174756549…</p>
+
+  <h2><a href="#fc2pin" id="fc2pin">4. FC2 ピン</a> <small>(えふしぃつぅぴん)</small></h2>
+	<p>060turbo モードのとき FC2 ピンをカットできます。NetBSD/x68k で X Window System が動きます。</p>
+
+  <h2><a href="#edgeacceleration" id="edgeacceleration">5. 縁部加速</a> <small>(えんぶかそく)</small></h2>
+	<p><a href="#seamlessmouse">シームレスマウスモード</a> でマウスカーソルが画面の端にあるとき、マウスカーソルが画面の外方向に動いているように見えるデータを作ります。SX-Window の実画面モードでマウスカーソルを画面の端に押し付けて画面をスクロールさせることができます。</p>
+
+  <h2><a href="#soundmonitor" id="soundmonitor">6. 音声モニタ</a> <small>(おんせいもにた)</small></h2>
+	<p><img alt="soundmonitor.png" src="soundmonitor.png" style="float:left;margin:0em 0.5em 0.5em 0em">XEiJ の音声モニタには、波形、周波数分布 (スペクトラムアナライザ)、鍵盤、音色データおよび ADPCM の状態が表示されます。</p>
+	<p>波形は OPM と ADPCM の合成前の波形です。左クリックまたは右クリックで時間方向を拡大縮小、Shift キーを押しながら左クリックまたは右クリックで振幅方向を拡大縮小できます。波形の狙ったところを拡大縮小させたいときは右下のボタンで更新を停止させてから行います。</p>
+	<p>スペクトラムアナライザ (FFT アナライザ) は低音域の分解能と高音域の反応速度を両立させるために周波数の範囲を 5 分割しています。また、どこが何 Hz か数字で書く代わりに周波数を下の鍵盤に合わせてあり、単純な音色ならば白鍵でも黒鍵でも鍵の中央の真上に輝線が現れます。</p>
+	<p>鍵盤はキーオンとリリースの様子を示しています。平均律で KC (KEY CODE) と KF (KEY FRACTION) を合わせた周波数に近い鍵が反応します。</p>
+	<p>音色データは YM2151 のレジスタの内容を MML の音色定義データのフォーマットに変換したものです。レジスタの内容をそのまま表示するよりも読みやすいかも知れません。MML の音色定義データにはある瞬間の YM2151 のレジスタの内容だけでは復元できない項目もあるので、表示されたデータをそのまま用いても同じ音が出るとは限りません。</p>
+	<p>ADPCM の状態は、<a href="feature.htm#sourcefrequency">原発振周波数</a> (4MHz | 8MHz | 16MHz)、分周比 (1/1024 | 1/768 | 1/512)、サンプリング周波数 (3.9kHz | 5.2kHz | 7.8kHz | 10.4kHz | 15.6kHz | 20.8kHz | 31.3kHz)、再生中 (PLAY)、データあり (DATA)、左側出力 (LEFT)、右側出力 (RIGHT) が表示されます。</p>
+	<p style="clear:both"></p>
+
+  <h2><a href="#disassemblelist" id="disassemblelist">7. 逆アセンブルリスト</a> <small>(ぎゃくあせんぶるりすと)</small></h2>
+	<p>逆アセンブルリストや <a href="#branchlog">分岐ログ</a> で使用されているのは普通の命令単位の逆アセンブラですが、無条件分岐命令の直後などの区切りの位置にいくつかの情報が表示されます。例外ベクタが指しているアドレスにはその例外の種類が、また、Human68k が読み込まれているときはデバイス名または実行ファイル名とその先頭からのオフセットが表示されます。<a href="http://retropc.net/x68000/software/develop/as/has/" target="_blank">HAS.X</a> や <a href="http://retropc.net/x68000/software/develop/as/has060/" target="_blank">HAS060.X</a> で -p を指定して作成したアセンブルリストや <a href="http://retropc.net/x68000/software/develop/dis/diseririn/" target="_blank">dis.x</a> で作成した逆アセンブルリストと容易に照合できるので、デバッグしたい場所に先回りしてブレークポイントを仕掛けるといった作業がやりやすいと思います。</p>
+
+  <h2><a href="#sourcefrequency" id="sourcefrequency">8. 原発振周波数</a> <small>(げんはっしんしゅうはすう)</small></h2>
+	<p>ここで言う原発振周波数とは ADPCM 音源のサンプリング周波数の元となるオシレータ (水晶振動子) の発振周波数のことです。X68000 の ADPCM 音源は原発振周波数を 8MHz と 4MHz から、分周比を 1/1024、1/768、1/512 からそれぞれ選択できるので、サンプリング周波数は 3.9kHz、5.2kHz、7.8kHz、10.4kHz、15.6kHz の 5 種類となっています。</p>
+	<p>Oh!X 1994 年 8 月号の「ローテク工作実験室 第 4 回 内蔵 AD PCM 高音質化計画」(瀧康史さん) で 4MHz のオシレータを 16MHz のものに換装する方法が紹介されており、XEiJ はこの方法で ADPCM 音源を改造できます。改造後のサンプリング周波数は 7.8kHz、10.4kHz、15.6kHz、20.8kHz、31.3kHz の 5 種類になり、<a href="http://retropc.net/x68000/software/sound/adpcm/pcm8a/" target="_blank">PCM8A.X</a> に -M1 -F2 というスイッチを指定して常駐させることで PCM データがサンプリング周波数 31.3kHz で再生されるようになります。</p>
+	<p>現在の原発振周波数、分周比およびサンプリング周波数は <a href="#soundmonitor">音声モニタ</a> で確認することができます。</p>
+<table>
+<thead>
+<tr><th colspan="2" rowspan="2"></th><th colspan="3">分周比</th></tr>
+<tr><th>1/1024</th><th>1/768</th><th>1/512</th></tr>
+</thead>
+<tbody>
+<tr><th rowspan="3">原発振周波数</th><th>4MHz</th><td>3.9kHz</td><td>5.2kHz</td><td>7.8kHz</td></tr>
+<tr><th>8MHz</th><td>7.8kHz</td><td>10.4kHz</td><td>15.6kHz</td></tr>
+<tr><th>16MHz</th><td>15.6kHz</td><td>20.8kHz</td><td>31.3kHz</td></tr>
+</tbody>
+</table>
+
+  <h2><a href="#tripleprecision" id="tripleprecision">9. 三倍精度浮動小数点数</a> <small>(さんばいせいどふどうしょうすうてんすう)</small></h2>
+	<p>XEiJ は X68030 および 060turbo モードのとき浮動小数点演算を MC68882 よりも高い精度で行い、その引数や結果を MC68882 の拡張精度 (80 ビット) よりも 16 ビット多い三倍精度 (96 ビット) で読み書きすることができます。MC68882 は拡張精度浮動小数点数を 16 ビットの予約領域を挟んで 96 ビットを消費する形でメモリに書き込みますが、XEiJ はその予約領域に三倍精度浮動小数点数の仮数部の末尾の 16 ビットを格納します。予約領域が $0000 になっていないのでバイナリデータを他所の環境で利用する場合は注意してください。</p>
+
+    <h3><a href="#tripleprecision_sample" id="tripleprecision_sample">9.1. 例: 円周率 π = 3.141592653589793238462643383... の内部表現を見る</a></h3>
+	<pre>-<kbd>l200000 20000d</kbd>
+  00200000      fmovecr.x       #$00,FP0
+  00200004      fmove.x FP0,$00200010
+  0020000C      _EXIT</pre>
+
+      <h4>拡張精度のとき。0xc90fdaa22168c235/2<sup>62</sup> = 3.141592653589793238<span style="text-decoration:line-through">5128...</span> (19 桁)</h4>
+	<pre>-<kbd>g=200000</kbd>
+program terminated normally
+-<kbd>d200010 20001b</kbd>
+00200010  4000 <span style="text-decoration:underline">0000</span> C90F DAA2 2168 C23<span style="text-decoration:underline">5</span>                     @...ﾉ.ﾚ｢!hﾂ5</pre>
+
+      <h4>三倍精度のとき。0xc90fdaa22168c234c4c6/2<sup>78</sup> = 3.14159265358979323846264<span style="text-decoration:line-through">2109...</span> (24 桁)</h4>
+	<pre>-<kbd>g=200000</kbd>
+program terminated normally
+-<kbd>d200010 20001b</kbd>
+00200010  4000 <span style="text-decoration:underline">C4C6</span> C90F DAA2 2168 C23<span style="text-decoration:underline">4</span>                     @.ﾄﾆﾉ.ﾚ｢!hﾂ4</pre>
+
+  <h2><a href="#cdrom" id="cdrom">10. CD-ROM</a> <small>(しぃでぃぃろむ)</small></h2>
+	<p>*.ISO ファイルを SCSI CD-ROM と見なします。ブートセクタがあるときは「ここから再起動」で CD-ROM から直接起動できます。Human68k からは <a href="http://retropc.net/x68000/software/disk/scsi/susie/" target="_blank">susie.x</a> でアクセスできます。</p>
+
+  <h2><a href="#seamlessmouse" id="seamlessmouse">11. シームレスマウスモード</a> <small>(しぃむれすまうすもぉど)</small></h2>
+	<p>シームレスマウスモードは XEiJ のデフォルトのマウスモードです。ホストマシンのマウスカーソルが X68000 の画面に差し掛かった瞬間に X68000 のマウスカーソルに化け、X68000 の画面から出た瞬間にホストマシンのマウスカーソルに戻ります。ホストマシンのマウスカーソルは X68000 のマウスカーソルに化けている間だけ X68000 の IOCS または SX-Window の マウスカーソルとして振る舞います。X68000 用のマウスを使うソフトウェアをマウスカーソルを占有せずにホストマシンのアプリケーションに近い感覚で操作することができます。シームレスマウスモードの効果は <a href="http://stdkmd.com/xeij/sample/#jong">じょんぐ</a> を見ていただくとわかりやすいと思います。<a href="http://retropc.net/x68000/book/dennou_club/" target="_blank">電脳倶楽部</a> の DSHELL もらくらく操作できます。SX-Window (FSX.X version 3.10) の場合は <a href="#edgeacceleration">縁部加速</a> を ON にすると実画面モードもシームレスのまま操作できます。</p>
+	<p><a href="#exclusivemouse">エクスクルーシブマウスモード</a> のとき F12 キーを押すかホイール (中ボタン) をクリックするとシームレスマウスモードに戻ります。なお、エクスクルーシブマウスモードは XEiJ がフォーカスを持っていることが前提なので、Windows のときは Windows キー (なければ Ctrl+Esc キー) を押してスタートメニューを出すと XEiJ からフォーカスが奪われて強制的にシームレスマウスモードに戻すことができます。</p>
+
+    <h3><a href="#seamlessmouse_mechanism" id="seamlessmouse_mechanism">11.1. シームレスマウスモードの作り方</a></h3>
+	<p>X68000 のマウスカーソルとホストマシンのマウスカーソルの相対位置を元に逆アクセラレーション計算を行ってマウスデータを作り、X68000 のマウスカーソルをホストマシンのマウスカーソルの真下に貼り付けます。さらに、X68000 のマウスカーソルが表示されていてホストマシンのマウスカーソルが X68000 の画面の上にある間だけホストマシンのマウスカーソルを透明にします。これでホストマシンのマウスカーソルが X68000 の画面の上にある間だけ X68000 のマウスカーソルに化けたように見えます。マウスカーソルの座標とアクセラレーションの計算式が分かれば IOCS でなくても、あるいは X68000 のエミュレータでなくても、同じことができると思います。</p>
+
+  <h2><a href="#fixedfrequencymode" id="fixedfrequencymode">12. 周波数固定モード</a> <small>(しゅうはすうこていもぉど)</small></h2>
+	<p>MPU の動作周波数を 1MHz から 1MHz 刻みで 1000MHz まで設定できます。音声出力が ON のときは負荷率 90%、音声出力が OFF のときは負荷率 100% を上限としてそれ以上動作周波数が上がらないようになっています。</p>
+
+  <h2><a href="#javalanguage" id="javalanguage">13. Java 言語</a> <small>(じゃばげんご)</small></h2>
+	<p>XEiJ は Java 言語で記述されています。最新の Java SE 実行環境があれば OS に関係なく動作し、コマンドライン、Java アプレット、Java Web Start のいずれでも起動できます。</p>
+
+  <h2><a href="#scsirom" id="scsirom">14. SCSI ROM</a> <small>(すかじろむ)</small></h2>
+	<p>XEiJ はリソースから読み込んだ IPLROM30.DAT を使って内蔵 SCSI ROM ($00FC0000～$00FC1FFF、8KB) と拡張 SCSI ROM ($00EA0000～$00EA1FFF、8KB) を自動生成します。SCSIEXROM.DAT と SCSIINROM.DAT は不要です。</p>
+
+  <h2><a href="#spritepatternviewer" id="spritepatternviewer">15. スプライトパターンビュア</a> <small>(すぷらいとぱたぁんびゅあ)</small></h2>
+	<p>定義されているスプライトパターンをすべて表示します。</p>
+
+  <h2><a href="#databreakpoint" id="databreakpoint">16. データブレークポイント</a> <small>(でぇたぶれぇくぽいんと)</small></h2>
+	<p>特定の物理アドレスで特定の範囲のデータの読み書きを行った命令の直後でコアを停止させます。「プログラムの誤動作の直接的な原因がコードやデータが破壊されているためであることは分かったけれど、いつ誰が壊したのか分からない」というときにデータブレークポイントが威力を発揮します。データブレークポイントを使えばコードやデータを破壊した命令を直接捉えることができます。その命令が正しく記述されたものではなく暴走していると思われる場合は <a href="#branchlog">分岐ログ</a> を使って <a href="#disassemblelist">逆アセンブルリスト</a> で近くにデバイス名または実行ファイル名が表示されるところまで遡ります。別の場所からコピーされたデータが壊れていたときはコピー元にデータブレークポイントを仕掛けます。効率よく問題の大元を見つけることができるでしょう。</p>
+
+    <h3><a href="#databreakpoint_mechanism" id="databreakpoint_mechanism">16.1. データブレークポイントの仕組み</a></h3>
+	<p>XEiJ のメモリマップはメモリマップトデバイスの配列です。データブレークポイントが設定されたページには間接メモリマップトデバイスであるデータブレークポイントデバイスが割り当てられ、データブレークポイントデバイスが元のメモリマップトデバイスを呼び出して停止条件が成立していたらコアを止めます。この方法の利点は軽量であることです。データブレークポイントを 1 個設定しただけですべてのバスアクセスの監視が始まったのでは全体のパフォーマンスが大幅に低下してしまいますが、この方法ならばデータブレークポイントを何百個設定しようと設定されていないページのオーバーヘッドは常にゼロです。欠点はアラインメントの合っていないアクセスは分割されていて直接検出できないことと、マルチタスク環境の RAM 上のコードやデータは物理アドレスが固定されていないので監視できないことです。</p>
+
+  <h2><a href="#debugconsole" id="debugconsole">17. デバッグコンソール</a> <small>(でばっぐこんそぉる)</small></h2>
+	<p>コマンド入力で停止、実行、逆アセンブル、ダンプなどの処理を行います。</p>
+
+  <h2><a href="#highmemory" id="highmemory">18. ハイメモリ</a> <small>(はいめもり)</small></h2>
+	<p>X68030 モードのとき九十九電気 (ツクモ) の TS-6BE16 相当のハイメモリ $01000000-$01FFFFFF (16MB) を利用できます。設定ファイルにハイメモリの内容を保存することができます。</p>
+
+  <h2><a href="#paste" id="paste">19. 貼り付け</a> <small>(はりつけ)</small></h2>
+	<p>XEiJ はコマンドラインから起動したとき「貼り付け」(Shift+Alt+V) でホストマシンのクリップボードにあるテキストを X68000 の CON デバイス (ASK68K.SYS) の入力バッファに転送することができます。テキストファイルの中に書いてある文字列をコピーして X68000 のコマンドラインに貼り付けたいときなどに使います。</p>
+
+  <h2><a href="#screenmodetest" id="screenmodetest">20. 表示モードテスト</a> <small>(ひょうじもぉどてすと)</small></h2>
+	<p>CRTC、ビデオコントローラ、スプライトコントローラのレジスタに任意の値を上書きすることで、エミュレータ自身のデバッグを補助します。</p>
+
+    <h3><a href="#screenmodetest_patterntest" id="screenmodetest_patterntest">20.1. パターンテスト</a></h3>
+	<p>スプライトパターンにパターン番号を 16 進数で書いたパターンを上書きすることで、表示されているスプライトのパターン番号がわかるようにします。手前のスプライトのパターン番号は明るく、奥のスプライトとバックグラウンドのパターン番号は暗く表示されるようになっており、遊び慣れたゲームならばパターン番号を表示した状態でプレイできます。</p>
+
+  <h2><a href="#fonteditor" id="fonteditor">21. フォントエディタ</a> <small>(ふぉんとえでぃた)</small></h2>
+	<p>CGROM の内容を表示します。直接編集はドット打ちしかできませんが、CGROM*.*、*.F8、*.F12、*.FON、*.F24、*.F32 ファイルの読み書き、異なるサイズのフォントの変換、ホストマシンのフォントを使ってビットマップフォントを生成する、といったことができます。</p>
+
+  <h2><a href="#fixedutilizationmode" id="fixedutilizationmode">22. 負荷率固定モード</a> <small>(ふかりつこていもぉど)</small></h2>
+	<p>MPU の動作周波数を自動的に変化させて負荷率を一定に保ちます。負荷率を 1% から 1% 刻みで 100% まで設定できます。</p>
+
+  <h2><a href="#coproboard" id="coproboard">23. 浮動小数点プロセッサボード</a> <small>(ふどうしょうすうてんぷろせっさぼぉど)</small></h2>
+	<p>浮動小数点プロセッサボード CZ-6BP1 (通称、コプロボード) を 2 枚挿してあります。FPCP は MC68882 と命令互換のコプロセッサです。FLOAT3.X を利用できます。<a href="http://retropc.net/x68000/software/develop/c/gcc_mariko/" target="_blank">GCC（真里子版）</a> または <a href="http://retropc.net/x68000/software/develop/c/gcc2/" target="_blank">GCC2</a> でコンパイルして <a href="http://retropc.net/x68000/software/develop/lib/libc1132a/" target="_blank">libc</a> をリンクしたプログラムは FLOAT3.X を経由せずコプロセッサを直接操作します。</p>
+
+  <h2><a href="#physicalspacemonitor" id="physicalspacemonitor">24. 物理空間モニタ</a> <small>(ぶつりくうかんもにた)</small></h2>
+	<p>物理アドレスに割り当てられているデバイスを表示します。</p>
+
+  <h2><a href="#branchlog" id="branchlog">25. 分岐ログ</a> <small>(ぶんきろぐ)</small></h2>
+	<p>XEiJ はプログラムカウンタのインクリメント以外の変化すなわち割り込みを含むすべての分岐の分岐元と分岐先のアドレスを直近の 65535 回までメモリ上の分岐ログに保存しています。分岐ログウィンドウを開くとプログラムカウンタの変化を遡って逆アセンブルすることができます。</p>
+
+  <h2><a href="#flowvisualizer" id="flowvisualizer">26. プログラムフロービジュアライザ</a> <small>(ぷろぐらむふろぉびじゅあらいざ)</small></h2>
+	<p><img alt="flowvisualizer.png" src="flowvisualizer.png" style="float:left;margin:0em 0.5em 0.5em 0em">プログラムフロービジュアライザは <a href="#branchlog">分岐ログ</a> をリアルタイムに可視化するツールです。プログラムカウンタが 4GB のアドレス空間のどこを巡回しているのかがひと目でわかり、クリックで逆アセンブルさせればそこで何をやっているのかもすぐにわかります。1 命令ずつトレースするよりもプログラムの大きな構造を把握しやすいと思います。</p>
+	<p style="clear:both"></p>
+
+  <h2><a href="#hostfilesystem" id="hostfilesystem">27. ホストファイルシステム</a> <small>(ほすとふぁいるしすてむ)</small></h2>
+	<p>XEiJ はリモートデバイスから ROM 起動するための仮想拡張ボードを搭載しており、ホストマシンの任意のディレクトリを Human68k の起動ドライブにすることができます。CONFIG.SYS やデバイスドライバなどの起動シーケンスに必要なファイルがすべてホストマシンのディレクトリで検索されるので、Human68k の環境を構築するためにホストマシン側から内容を操作しにくいフロッピーディスクやハードディスクのイメージファイルを作る必要がありません。イメージファイルという箱庭から開放された X68000 に慣れると、イメージファイルの中に Human68k の環境を構築するのがとても面倒なことに思えてきます。</p>
+
+  <h2><a href="#motherboardcoprocessor" id="motherboardcoprocessor">28. マザーボードコプロセッサ</a> <small>(まざぁぼぉどこぷろせっさ)</small></h2>
+	<p>ドーターボードにある MC68060 から見てマザーボードにある MC68882 をマザーボードコプロセッサと呼んでいます。X68030 (実機) で MC68EC030 が浮動小数点命令を実行するときに使用するコプロセッサに、060turbo (実機) と同様に MC68060 からアクセスできます。起動メッセージなどでマザーボードコプロセッサの有無と種類が表示されます。</p>
+
+  <h2><a href="#instructionbreakpoint" id="instructionbreakpoint">29. 命令ブレークポイント</a> <small>(めいれいぶれぇくぽいんと)</small></h2>
+	<p>特定の物理アドレスの命令の直前でコアを停止させます。<a href="#databreakpoint">データブレークポイント</a> と同様に間接メモリマップトデバイスを使用しているので軽量です。コードを変更しないので ROM にも仕掛けられます。</p>
+
+  <h2><a href="#memorydumplist" id="memorydumplist">30. メモリダンプリスト</a> <small>(めもりだんぷりすと)</small></h2>
+	<p>メモリの内容を表示します。</p>
+
+  <h2><a href="#rasterbreakpoint" id="rasterbreakpoint">31. ラスタブレークポイント</a> <small>(らすたぶれぇくぽいんと)</small></h2>
+	<p>固定ラスタまたは IRQ ラスタの水平フロントポーチの先頭でコアを停止させます。コアが止まると同期信号も止まるので、実機では困難な V-DISP、H-SYNC、CRTC IRQ の割り込みルーチンのトレースが簡単にできます。</p>
+
+  <h2><a href="#rootpointerlist" id="rootpointerlist">32. ルートポインタリスト</a> <small>(るぅとぽいんたりすと)</small></h2>
+	<p>マルチタスク環境で停止させるタスクを選択できます。</p>
+
+  <h2><a href="#registerwindow" id="registerwindow">33. レジスタウィンドウ</a> <small>(れじすたうぃんどう)</small></h2>
+	<p>プログラムカウンタ、ステータスレジスタ、汎用レジスタ、浮動小数点レジスタなどの内容を表示します。条件の成立状況が表示されます。</p>
+
+  <h2><a href="#localmemory" id="localmemory">34. ローカルメモリ</a> <small>(ろぉかるめもり)</small></h2>
+	<p>060turbo モードのときローカルメモリ $10000000-$1FFFFFFF (16MB～256MB) を利用できます。設定ファイルにローカルメモリの内容を保存することができます。</p>
+
+  <h2><a href="#logicalspacemonitor" id="logicalspacemonitor">35. 論理空間モニタ</a> <small>(ろんりくうかんもにた)</small></h2>
+	<p>論理アドレスに割り当てられている物理アドレスを表示します。</p>
+
+</div>
+<div id="foot"><a href="http://stdkmd.com/">STUDIO KAMADA</a><br>Copyright &copy; 1999-2016 Makoto Kamada<div></div></div>
+  </body>
+</html>

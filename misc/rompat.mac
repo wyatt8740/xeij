@@ -1,0 +1,117 @@
+;========================================================================================
+;  rompat.mac
+;  Copyright (C) 2003-2016 Makoto Kamada
+;
+;  This file is part of the XEiJ (X68000 Emulator in Java).
+;  You can use, modify and redistribute the XEiJ if the conditions are met.
+;  Read the XEiJ License for more details.
+;  http://stdkmd.com/xeij/
+;========================================================================================
+
+	.nlist
+
+	.ifndef	__ROMPAT_MAC__
+__ROMPAT_MAC__	equ	1
+
+;----------------------------------------------------------------
+;
+;	パッチデータを定義するためのマクロ
+;
+;		PATCH_DATA	名前,埋め込むアドレス
+;		埋め込むコード
+;		PATCH_EXTRA
+;		追加するコード
+;		PATCH_END
+;			:
+;		PATCH_TAIL
+;
+;		.text
+;		.even
+;	名前PatchExtra:
+;		追加するコード
+;		.data
+;	名前PatchData:
+;		.dc.l	埋め込むアドレス(0=終了)
+;		.dc.l	埋め込むコードの長さ(名前PatchEnd-名前PatchStart)
+;	名前PatchStart:
+;		埋め込むコード
+;	名前PatchEnd:
+;			:
+;		.data
+;		.dc.l	0
+;
+;	.orgを使えばもっと簡単に書けるが*.xファイルのヘッダが正しく出力されないので自前でリロケートしている
+;	追加するコードの開始アドレスはリンカのオプションで設定する
+;	*.xファイルからテキストセクションとデータセクションをそれぞれ切り出して使う
+;
+;----------------------------------------------------------------
+
+~~patchNumber		set	0
+
+PATCH_DATA	.macro	name,address
+~~patchNumber		set	~~patchNumber+1
+~~patchAddress%~~patchNumber	equ	address
+name&PatchData		equ	~~patchData%~~patchNumber
+name&PatchStart		equ	~~patchStart%~~patchNumber
+name&PatchExtra		equ	~~patchExtra%~~patchNumber
+name&PatchEnd		equ	~~patchEnd%~~patchNumber
+name&PatchAddress	equ	~~patchAddress%~~patchNumber
+~~patchData0		set	~~patchData%~~patchNumber
+~~patchStart0		set	~~patchStart%~~patchNumber
+~~patchExtra0		set	~~patchExtra%~~patchNumber
+~~patchEnd0		set	~~patchEnd%~~patchNumber
+~~patchAddress0		set	~~patchAddress%~~patchNumber
+	.data
+~~patchData%~~patchNumber:
+	.dc.l	~~patchAddress%~~patchNumber
+	.dc.l	~~patchEnd%~~patchNumber-~~patchStart%~~patchNumber
+~~patchStart%~~patchNumber:
+	.endm
+
+PATCH_EXTRA	.macro
+	.text
+	.even
+~~patchExtra%~~patchNumber:
+	.endm
+
+PATCH_END	.macro
+  .if .not..defined.~~patchExtra%~~patchNumber
+	PATCH_EXTRA
+  .endif
+	.data
+~~patchEnd%~~patchNumber:
+	.endm
+
+PATCH_TAIL	.macro
+	.data
+	.dc.l	0
+	.endm
+
+;	bsr.w	(address)PatchZL
+;	pea.l	(address)PatchZL(pc)
+;	埋め込むコードの中から絶対アドレスaddressをプログラムカウンタ間接で参照できるようにする
+PatchZL		reg	-~~patchAddress0+~~patchStart0
+
+;	patchdcl	label,name
+;	patchbra	label,name
+;	patchbsr	label,name
+;	パッチデータnameの埋め込むコードの中のラベルlabelを、追加するコードまたは他のパッチデータの埋め込むコードの中から参照する
+;		埋め込むコードの中のラベルはオフセットがずれているのでリロケートする必要がある
+;	埋め込むコードの中から追加するコードの中のラベルを参照するときは絶対アドレスを用いること
+;		追加するコードが配置されるアドレスは変更される可能性がある
+;	追加するコードの中から他のパッチデータの追加するコードの中のラベルは通常通り参照できる
+patchdcl	.macro	label,name
+	.dc.l	label-name&PatchStart+name&PatchAddress
+	.endm
+patchbra	.macro	label,name
+	.sizem	sz
+	bra&sz	(label-name&PatchStart+name&PatchAddress)PatchZL
+	.endm
+patchbsr	.macro	label,name
+	.sizem	sz
+	bsr&sz	(label-name&PatchStart+name&PatchAddress)PatchZL
+	.endm
+
+	.endif				;__ROMPAT_MAC__
+
+	.list

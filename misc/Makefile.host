@@ -1,0 +1,23 @@
+#========================================================================================
+#  Makefile.host
+#  Copyright (C) 2003-2016 Makoto Kamada
+#
+#  This file is part of the XEiJ (X68000 Emulator in Java).
+#  You can use, modify and redistribute the XEiJ if the conditions are met.
+#  Read the XEiJ License for more details.
+#  http://stdkmd.com/xeij/
+#========================================================================================
+
+
+#  PARI/GP
+#    http://pari.math.u-bordeaux.fr/
+GP = gp-2.7
+
+GREP = grep
+
+
+all: fputestdata.s
+
+
+fputestdata.s: fputestdata.gp
+	echo 'read("fputestdata.gp");make_test()' | $(GP) -q | $(GREP) -v "realprecision" > $@

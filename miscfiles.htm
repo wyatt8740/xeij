@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>misc/* の説明</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="stylesheet" type="text/css" href="http://stdkmd.com/stdkmd.css">
+    <script type="text/javascript" charset="UTF-8" src="http://stdkmd.com/stdkmd.js"></script>
+  </head>
+  <body>
+<div id="head">
+  <span id="title">misc/* の説明</span>
+  <span id="back">- <a href="http://stdkmd.com/xeij/">XEiJ</a> - <a href="http://stdkmd.com/">STUDIO KAMADA</a></span>
+</div>
+<div id="body">
+
+    <h3>目次</h3>
+      <ol>
+	<li><a href="#makefile">Makefile</a><ol>
+		<li><a href="#makefilehost">Makefile.host</a></li>
+		<li><a href="#makefilex68k">Makefile.x68k</a></li>
+	</ol></li>
+	<li><a href="#developmenttool">XEiJ を作るときに使うファイル</a><ol>
+		<li><a href="#crc32mac">crc32.mac</a></li>
+		<li><a href="#defmequ">def_M.equ</a></li>
+		<li><a href="#doscallmac">doscall.mac</a></li>
+		<li><a href="#drawingmodepl">drawingmode.pl</a></li>
+		<li><a href="#efpgp">efp.gp</a></li>
+		<li><a href="#faviconpl">favicon.pl</a></li>
+		<li><a href="#graphpm">Graph.pm</a></li>
+		<li><a href="#hermitegp">hermite.gp</a></li>
+		<li><a href="#iocscallmac">iocscall.mac</a></li>
+		<li><a href="#itobpl">itob.pl</a></li>
+		<li><a href="#itocpl">itoc.pl</a></li>
+		<li><a href="#omusubifonts">omusubifont.s</a></li>
+		<li><a href="#opcodepl">opcode.pl</a></li>
+		<li><a href="#optdivpl">optdiv.pl</a></li>
+		<li><a href="#rompatmac">rompat.mac</a></li>
+		<li><a href="#rompat13s">rompat13.s</a></li>
+		<li><a href="#rompat13x">rompat13.x</a></li>
+		<li><a href="#rompattobytespl">rompattobytes.pl</a></li>
+		<li><a href="#sjdumppl">sjdump.pl</a></li>
+		<li><a href="#strescmac">stresc.mac</a></li>
+		<li><a href="#twopipl">two_pi.pl</a></li>
+	</ol></li>
+	<li><a href="#testprogram">テストプログラム</a><ol>
+		<li><a href="#cirs">cir.s</a></li>
+		<li><a href="#cirx">cir.x</a></li>
+		<li><a href="#fefunctestbas">fefunctest.bas</a></li>
+		<li><a href="#fputestdatagp">fputestdata.gp</a></li>
+		<li><a href="#fputests">fputest.s</a></li>
+		<li><a href="#fputestx">fputest.x</a></li>
+		<li><a href="#instructiontests">instructiontest.s</a></li>
+		<li><a href="#instructiontestx">instructiontest.x</a></li>
+		<li><a href="#vcntests">vcntest.s</a></li>
+		<li><a href="#vcntestx">vcntest.x</a></li>
+		<li><a href="#vcntest2s">vcntest2.s</a></li>
+		<li><a href="#vcntest2x">vcntest2.x</a></li>
+	</ol></li>
+      </ol>
+
+  <h2><a href="#makefile" id="makefile">1. Makefile</a></h2>
+	<p><a href="feature.htm#hostfilesystem">ホストファイルシステム</a> を使い、同じ misc ディレクトリでホストマシンと X68000 の両方で make します。</p>
+
+    <h3><a href="#makefilehost" id="makefilehost">1.1. Makefile.host</a></h3>
+	<p>ホストマシンで使う Makefile です。<a href="#fputestx">fputest.x</a> のソースの fputestdata.s を作ります。</p>
+	<pre># <kbd>make -f Makefile.host</kbd></pre>
+
+    <h3><a href="#makefilex68k" id="makefilex68k">1.2. Makefile.x68k</a></h3>
+	<p>X68000 で使う Makefile です。<a href="#rompat13x">rompat13.x</a>、omusubifont.x、<a href="#cirx">cir.x</a>、<a href="#fputestx">fputest.x</a> を作ります。シェルは command、アセンブラは has060、リンカは lk、コンプレッサは lzx、make は make になっています。環境に応じて編集してください。</p>
+	<pre>B:\&gt;<kbd>make -f Makefile.x68k</kbd></pre>
+
+  <h2><a href="#developmenttool" id="developmenttool">2. XEiJ を作るときに使うファイル</a></h2>
+
+    <h3><a href="#crc32mac" id="crc32mac">2.1. crc32.mac</a></h3>
+	<p>CRC32 を計算するマクロです。</p>
+
+    <h3><a href="#defmequ" id="defmequ">2.2. def_M.equ</a></h3>
+	<p>ビットマップを読みやすくする定数です。</p>
+
+    <h3><a href="#doscallmac" id="doscallmac">2.3. doscall.mac</a></h3>
+	<p>DOS コールのマクロです。</p>
+
+    <h3><a href="#drawingmodepl" id="drawingmodepl">2.4. drawingmode.pl</a></h3>
+	<p>DrawingMode.java を自動生成するスクリプトです。日本語の注釈を作るところから Java のコードを整形するところまで全部やっています。</p>
+
+    <h3><a href="#efpgp" id="efpgp">2.5. efp.gp</a></h3>
+	<p>浮動小数点演算ルーチンの定数データを作るプログラムです。PARI/GP を使います。</p>
+      <ul>
+	<li><a href="http://pari.math.u-bordeaux.fr/" target="_blank">PARI/GP Development Headquarters</a></li>
+      </ul>
+
+    <h3><a href="#faviconpl" id="faviconpl">2.6. favicon.pl</a></h3>
+	<p>ルックアンドフィールのファビコンのデータを作るスクリプトです。</p>
+
+    <h3><a href="#graphpm" id="graphpm">2.7. Graph.pm</a></h3>
+	<p>浮動小数点演算ルーチンの注釈の関数のグラフを描くライブラリです。</p>
+
+    <h3><a href="#hermitegp" id="hermitegp">2.8. hermite.gp</a></h3>
+	<p>ADPCM のエルミート補間のコードを作るプログラムです。PARI/GP を使います。</p>
+
+    <h3><a href="#iocscallmac" id="iocscallmac">2.9. iocscall.mac</a></h3>
+	<p>IOCS コールのマクロです。</p>
+
+    <h3><a href="#itobpl" id="itobpl">2.10. itob.pl</a></h3>
+	<p>～ = { … } の右辺を &#34;…&#34;.getBytes (XEiJ.ISO_8859_1) に変換するスクリプトです。初期化コードが巨大化してコンパイルできなくなるのを避けます。</p>
+
+    <h3><a href="#itocpl" id="itocpl">2.11. itoc.pl</a></h3>
+	<p>～ = { … } の右辺を &#34;…&#34;.toCharArray () に変換するスクリプトです。初期化コードが巨大化してコンパイルできなくなるのを避けます。</p>
+
+    <h3><a href="#omusubifonts" id="omusubifonts">2.12. omusubifont.s</a></h3>
+	<p>おむすびフォントのソースです。</p>
+
+    <h3><a href="#opcodepl" id="opcodepl">2.13. opcode.pl</a></h3>
+	<p>M68000 ファミリの命令の一覧表を作るスクリプトです。コアや逆アセンブラのコードも出力します。</p>
+
+    <h3><a href="#optdivpl" id="optdivpl">2.14. optdiv.pl</a></h3>
+	<p>整数除算を乗算とシフトに変換する方法を表示するスクリプトです。高速化のために多用しています。</p>
+	<pre>&gt; <kbd>perl misc/optdiv.pl 99999999 10000</kbd>
+  x/10000==x*109951163&gt;&gt;&gt;40 (0&lt;=x&lt;=494389998) [99999999*109951163==10995116190048837]</pre>
+	<p>これは 0&le;x&le;494389998 の範囲で整数除算の x/10000 と乗算とシフトの x*109951163&gt;&gt;&gt;40 の結果が一致するという意味です。99999999/10000 は 32 ビット整数で計算できますが 99999999*109951163&gt;&gt;&gt;40 は 64 ビット整数で計算する必要があるので Java のコードでは (int)(x*109951163L&gt;&gt;&gt;40) のような書き方になります。</p>
+
+    <h3><a href="#rompatmac" id="rompatmac">2.15. rompat.mac</a></h3>
+	<p><a href="#rompat13s">rompat13.s</a> で使うマクロです。</p>
+
+    <h3><a href="#rompat13s" id="rompat13s">2.16. rompat13.s</a></h3>
+	<p><a href="#rompat13x">rompat13.x</a> のソースです。</p>
+
+    <h3><a href="#rompat13x" id="rompat13x">2.17. rompat13.x</a></h3>
+	<p>ROM 1.3 のパッチです。実行プログラムではありません。</p>
+
+    <h3><a href="#rompattobytespl" id="rompattobytespl">2.18. rompattobytes.pl</a></h3>
+	<p><a href="#rompat13x">rompat13.x</a> を Java のソースに変換するプログラムです。</p>
+
+    <h3><a href="#sjdumppl" id="sjdumppl">2.19. sjdump.pl</a></h3>
+	<p>ダンプツールです。Java のソースの形で出力できます。コードにバイナリデータを埋め込むときに使います。</p>
+
+    <h3><a href="#strescmac" id="strescmac">2.20. stresc.mac</a></h3>
+	<p>エスケープシーケンスを処理しながら文字列を展開するマクロです。CRC32 が同じ文字列は 1 回だけ展開します。</p>
+
+    <h3><a href="#twopipl" id="twopipl">2.21. two_pi.pl</a></h3>
+	<p>浮動小数点演算ルーチンで使う 2/pi のデータを作るスクリプトです。GMP を使います。sin 関数の定義域は -∞～+∞ なので通常は引数を pi/2 で割った余りを求めて -π/4～+π/4 の範囲に移してから多項式近似で計算します。このとき 2<sup>n</sup> を pi/2 で割った余りを求めるにはおよそ n ビットの π の値が必要です。引数が浮動小数点数で指数部の範囲が限られている場合は 2/pi の値を必要なだけ定数として展開しておきます。使うときは n ビットの多倍長計算を行う必要はなくて 2/pi のデータの一部分だけを使います。</p>
+      <ul>
+	<li><a href="https://gmplib.org/" target="_blank">The GNU MP Bignum Library</a></li>
+	<li><a href="http://stdkmd.com/nrr/gmp_ja.htm">GMP の使い方</a></li>
+      </ul>
+
+  <h2><a href="#testprogram" id="testprogram">3. テストプログラム</a></h2>
+
+    <h3><a href="#cirs" id="cirs">3.1. cir.s</a></h3>
+	<p><a href="#cirx">cir.x</a> のソースです。</p>
+
+    <h3><a href="#cirx" id="cirx">3.2. cir.x</a></h3>
+	<p>060turbo モードのとき <a href="feature.htm#motherboardcoprocessor">マザーボードコプロセッサ</a> の CIR を読み書きするプログラムです。実機とエミュレータの両方で動かしてエミュレータのコプロセッサの動作を確認します。コプロセッサの注釈に実行例があります。</p>
+
+    <h3><a href="#fefunctestbas" id="fefunctestbas">3.3. fefunctest.bas</a></h3>
+	<p><a href="feature.htm#fefunction">FE ファンクション命令</a> のサンプルプログラムです。</p>
+
+    <h3><a href="#fputestdatagp" id="fputestdatagp">3.4. fputestdata.gp</a></h3>
+	<p><a href="#fputestx">fputest.x</a> のソースの fputestdata.s を作るプログラムです。「期待された結果」を計算するために PARI/GP を使います。</p>
+
+    <h3><a href="#fputests" id="fputests">3.5. fputest.s</a></h3>
+	<p><a href="#fputestx">fputest.x</a> のソースです。</p>
+
+    <h3><a href="#fputestx" id="fputestx">3.6. fputest.x</a></h3>
+	<p>FPU の演算結果とステータスレジスタの変化をテストするプログラムです。期待された結果 (実機の結果ではない) と実際の結果が 1 ビットでも違うと fputest.log に出力されます。FSGLDIV と FSGLMUL は調整中。</p>
+      <ul>
+	<li>extended … extended precision。拡張精度</li>
+	<li>single … single precision。単精度</li>
+	<li>double … double precision。倍精度</li>
+      </ul>
+      <ul>
+	<li>RN … round to nearest。最近接偶数への丸め</li>
+	<li>RZ … round toward zero。ゼロへの丸め</li>
+	<li>RM … round toward minus infinity。負の無限大への丸め</li>
+	<li>RP … round toward plus infinity。正の無限大への丸め</li>
+      </ul>
+      <ul>
+	<li>expected result … 期待された結果</li>
+	<li>actual result … 実際の結果</li>
+      </ul>
+      <ul>
+	<li>MI … N。negative。負数</li>
+	<li>ZE … Z。zero。ゼロ</li>
+	<li>IN … INF。infinity。無限大</li>
+	<li>NA … NAN。not a number or unordered。非数または比較不能</li>
+	<li>BS … BSUN。branch/set on unordered。比較不能状態での分岐またはセット</li>
+	<li>SN … SNAN。signaling not a number。シグナリング NaN</li>
+	<li>OE … OPERR。operand error。オペランドエラー</li>
+	<li>OF … OVFL。overflow。オーバーフロー</li>
+	<li>UF … UNFL。underflow。アンダーフロー</li>
+	<li>DZ … DZ。divide by zero。ゼロによる除算</li>
+	<li>X2 … INEX2。inexact operation。不正確な計算</li>
+	<li>X1 … INEX1。inexact decimal input。不正確な 10 進数の入力</li>
+	<li>AV … IOP。invalid operation。不正な計算</li>
+	<li>AO … OVFL。overflow。オーバーフロー</li>
+	<li>AU … UNFL。underflow。アンダーフロー</li>
+	<li>AZ … DZ。divide by zero。ゼロによる除算</li>
+	<li>AX … INEX。inexact。不正確な結果</li>
+      </ul>
+
+    <h3><a href="#instructiontests" id="instructiontests">3.7. instructiontest.s</a></h3>
+	<p><a href="#instructiontestx">instructiontest.x</a> のソースです。<a href="http://retropc.net/x68000/software/develop/as/has060/" target="_blank">HAS060.X</a> version 3.09+89 以上でアセンブルできます。</p>
+
+    <h3><a href="#instructiontestx" id="instructiontestx">3.8. instructiontest.x</a></h3>
+	<p>MPU の特権命令を除く整数命令の動作をテストします。テストする命令のニモニックの先頭の文字をコマンドラインで指定します。all を指定するとすべてのテストが実行されます。</p>
+	<pre>B:\&gt;<kbd>instructiontest div</kbd>
+processor:MC68030
+           instruction               expected     actual
+divs.w Dr,Dq                        $582e4721   $582e4721   OK
+divs.w (Ar),Dq                      $2aff9694   $2aff9694   OK
+divs.l Dr,Dq                        $24e8a786   $24e8a786   OK
+divs.l (Ar),Dq                      $24e8a786   $24e8a786   OK
+divs.l Dr,Dh:Dl                     $98ceff6a   $98ceff6a   OK
+divs.l (Ar),Dh:Dl                   $98ceff6a   $98ceff6a   OK
+divsl.l Dr,Dh:Dl                    $7f5578e0   $7f5578e0   OK
+divsl.l (Ar),Dh:Dl                  $7f5578e0   $7f5578e0   OK
+divu.w Dr,Dq                        $09ac1c45   $09ac1c45   OK
+divu.w (Ar),Dq                      $7b7dcdf0   $7b7dcdf0   OK
+divu.l Dr,Dq                        $947d5f9d   $947d5f9d   OK
+divu.l (Ar),Dq                      $947d5f9d   $947d5f9d   OK
+divu.l Dr,Dh:Dl                     $c53edcf3   $c53edcf3   OK
+divu.l (Ar),Dh:Dl                   $c53edcf3   $c53edcf3   OK
+divul.l Dr,Dh:Dl                    $d4f37612   $d4f37612   OK
+divul.l (Ar),Dh:Dl                  $d4f37612   $d4f37612   OK
+tested:16, passed:16(100%), failed:0(0%)
+B:\&gt;</pre>
+	<p>オペランドに書かれたレジスタまたはメモリとコンディションコードの変化およびゼロ除算などの例外発生の有無が実機 (X68030 または 060turbo) と一致しているときは OK、異なるときは ERROR と表示されます。比較は引数の形式毎に行われます。内容毎ではないので、どの引数を与えたときに実機と異なる結果になったのかこのプログラムではわかりません。コンディションコードに未定義の項目がある命令の場合は、ERROR と表示されたからといってエミュレータの実装が間違っているとは限りません。もちろん、あらゆる引数の組み合わせをテストしているわけではないので、OK と表示されたからといって間違っていないとも限りません。なお、ゼロ除算が発生したときの Z と V は MC68030 で引数以外の要因で変化することがあるので無視されます。</p>
+
+    <h3><a href="#vcntests" id="vcntests">3.9. vcntest.s</a></h3>
+	<p><a href="#vcntestx">vcntest.x</a> のソースです。</p>
+
+    <h3><a href="#vcntestx" id="vcntestx">3.10. vcntest.x</a></h3>
+	<p><img alt="vcntest.png" src="vcntest.png" style="float:left;margin:0em 0.5em 0.5em 0em">ビデオコントローラの動作を確認するためのツールです。マウスで操作します。</p>
+      <ul>
+	<li>TEST … 設定された画面を表示します</li>
+	<li>RESET … 初期状態に戻します</li>
+	<li>EXIT … 終了します。ESC キーまたはマウスの右ボタンでも終了します</li>
+      </ul>
+      <ul>
+	<li>SP PRW 0/1/2/3 … SpPr。スプライトの優先順位</li>
+	<li>TX PRW 0/1/2/3 … TxPr。テキストの優先順位</li>
+	<li>GR PRW 0/1/2/3 … GrPr。グラフィックスの優先順位</li>
+      </ul>
+      <ul>
+	<li>GR 1ST 0/1/2/3 … G1st。1 番目のグラフィックスプレーンの 4bit ページ番号</li>
+	<li>GR 2ND 0/1/2/3 … G2nd。2 番目のグラフィックスプレーンの 4bit ページ番号</li>
+	<li>GR 3RD 0/1/2/3 … G3rd。3 番目のグラフィックスプレーンの 4bit ページ番号</li>
+	<li>GR 4TH 0/1/2/3 … G4th。4 番目のグラフィックスプレーンの 4bit ページ番号</li>
+      </ul>
+      <ul>
+	<li>SP OFF/ON … SpOn。スプライトの ON/OFF</li>
+	<li>TX OFF/ON … TxOn。テキストの ON/OFF</li>
+	<li>1ST OFF/ON … G1On。1 番目のグラフィックスプレーンの ON/OFF</li>
+	<li>2ND OFF/ON … G2On。2 番目のグラフィックスプレーンの ON/OFF</li>
+	<li>3RD OFF/ON … G3On。3 番目のグラフィックスプレーンの ON/OFF</li>
+	<li>4TH OFF/ON … G4On。4 番目のグラフィックスプレーンの ON/OFF</li>
+	<li>1024 OFF/ON … GxOn。1024 ドットのグラフィックスの ON/OFF</li>
+      </ul>
+      <ul>
+	<li>512 x 16 x 4 … GrMM=0。メモリモード 0。512 ドット 16 色 4 プレーン</li>
+	<li>512 x 256 x 2 … GrMM=1。メモリモード 1。512 ドット 256 色 2 プレーン</li>
+	<li>512 x 65536 x 1 … GrMM=3。メモリモード 3。512 ドット 65536 色 1 プレーン</li>
+	<li>1024 x 16 x 1 … GrMM=4。メモリモード 4。1024 ドット 16 色 1 プレーン</li>
+      </ul>
+      <ul>
+	<li>NORMAL … AHOn=0。拡張なし</li>
+	<li>GR+TX 00 … AHOn=1。グラフィックスカラーとテキストパレット $00 のカラーを混ぜる (A)</li>
+      </ul>
+      <ul>
+	<li>NORMAL … ExOn=0。拡張なし</li>
+	<li>SPECIAL PRIORITY … ExOn=1,Half=0。拡張モードの選択。特殊プライオリティ (XW)</li>
+	<li>TRANSLUCENT … ExOn=1,Half=1。拡張モードの選択。半透明 (XP)</li>
+      </ul>
+      <ul>
+	<li>LSB OF COLOR CODE … PLSB=0。領域指定。カラー (パレットテーブルの内容) が奇数 (C)</li>
+	<li>LSB OF PALET CODE … PLSB=1。領域指定。パレット (GVRAM の内容) が奇数 (P)</li>
+      </ul>
+      <ul>
+	<li>1ST … GrGr=0,GrST=0。半透明なし</li>
+	<li>1ST+SP/TX … GrGr=0,GrST=1。1 番目と奥のスプライト・テキストを半透明 (T)</li>
+	<li>1ST+2ND … GrGr=1,GrST=0。1 番目と 2 番目を半透明 (G)</li>
+	<li>1ST+2ND+SP/TX … GrGr=1,GrST=1。1 番目と 2 番目を半透明、さらに奥のスプライト・テキストを半透明 (GT)</li>
+      </ul>
+      <ul>
+	<li>TXT FILL 00/01 … テキストのパレット</li>
+	<li>SPR FILL 00/01/10/11/20/21/30/31 … スプライトのパレット</li>
+	<li>SPR PRW 0/1/2/3 … スプライトの優先順位</li>
+	<li>BG0 FILL 00/01/10/11/20/21/30/31 … バックグラウンド 0 のパレット</li>
+	<li>BG1 FILL 00/01/10/11/20/21/30/31 … バックグラウンド 1 のパレット</li>
+      </ul>
+      <ul>
+	<li>TX 00 TRANSPARENT/BLACK+1/GRAY/SILVER/WHITE … テキストパレット $00 のカラー</li>
+	<li>TX 01 TRANSPARENT/BLACK+1/ORANGE … テキストパレット $01 のカラー</li>
+	<li>SP 10 TRANSPARENT/PURPLE … スプライトパレット $10 のカラー</li>
+	<li>SP 11 TRANSPARENT/FUCHSIA … スプライトパレット $11 のカラー</li>
+	<li>SP 20 TRANSPARENT/TEAL … スプライトパレット $20 のカラー</li>
+	<li>SP 21 TRANSPARENT/AQUA … スプライトパレット $21 のカラー</li>
+	<li>SP 30 TRANSPARENT/OLIVE … スプライトパレット $30 のカラー</li>
+	<li>SP 31 TRANSPARENT/YELLOW … スプライトパレット $31 のカラー</li>
+      </ul>
+      <ul>
+	<li>BG0 OFF/ON … バックグラウンド 0 の ON/OFF</li>
+	<li>BG1 OFF/ON … バックグラウンド 1 の ON/OFF</li>
+      </ul>
+      <ul>
+	<li>GR0 FILL 0000/0001/0002/0003/0004/0005/0006/0007/0010/0011/2020/2121 … グラフィックス 0 のパレット</li>
+	<li>GR1 FILL 0000/0001/0002/0003/0004/0005/0006/0007/0010/0011 … グラフィックス 1 のパレット</li>
+	<li>GR2 FILL 0000/0001/0002/0003/0004/0005 … グラフィックス 2 のパレット</li>
+	<li>GR3 FILL 0000/0001/0002/0003/0004/0005 … グラフィックス 3 のパレット</li>
+      </ul>
+      <ul>
+	<li>GR 0000 TRANSPARENT/BLACK+1/WHITE/WHITE+1 … グラフィックスパレット $0000 のカラー</li>
+	<li>GR 0001 TRANSPARENT/BLACK+1/LIME/LIME+1 … グラフィックスパレット $0001 のカラー</li>
+	<li>GR 0002 RED/RED+1 … グラフィックスパレット $0002 のカラー</li>
+	<li>GR 0003 BLUE/BLUE+1 … グラフィックスパレット $0003 のカラー</li>
+	<li>GR 0004 FUCHSIA/FUCHSIA+1 … グラフィックスパレット $0004 のカラー</li>
+	<li>GR 0005 AQUA/AQUA+1 … グラフィックスパレット $0005 のカラー</li>
+	<li>GR 0006 YELLOW/YELLOW+1 … グラフィックスパレット $0006 のカラー</li>
+	<li>GR 0007 PURPLE/PURPLE+1 … グラフィックスパレット $0007 のカラー</li>
+	<li>GR 0010 TEAL/TEAL+1 … グラフィックスパレット $0010 のカラー</li>
+	<li>GR 0011 OLIVE/OLIVE+1 … グラフィックスパレット $0011 のカラー</li>
+	<li>GR 2020 TRANSPARENT/BLACK+1 … グラフィックスパレット $2020 のカラー</li>
+	<li>GR 2121 WHITE/WHITE+1 … グラフィックスパレット $2121 のカラー</li>
+      </ul>
+	<p style="clear:both"></p>
+
+    <h3><a href="#vcntest2s" id="vcntest2s">3.11. vcntest2.s</a></h3>
+	<p><a href="#vcntest2x">vcntest2.x</a> のソースです。</p>
+
+    <h3><a href="#vcntest2x" id="vcntest2x">3.12. vcntest2.x</a></h3>
+	<p><img alt="vcntest2.png" src="vcntest2.png" style="float:left;margin:0em 0.5em 0.5em 0em">ビデオコントローラの注釈に書いた例を実際に試すプログラムです。キーを押すと次に進みます。「黄」の文字は黄色で、「赤」の文字は赤で表示されます。文字とその色がすべて一致していることを確認します。</p>
+
+      <h4>SE1T</h4>
+      <ul>
+	<li>A1 黄 … バックグラウンド $10 黄 ＞ グラフィックス 2 赤 ＞ テキスト $0 黒。スプライトとテキストの 4bit パレットがすべて $0 でバックグラウンドの 8bit パレットが $00 でないのでスプライトが代表。テキストを除外すると一番手前はバックグラウンドの $10 黄</li>
+	<li>A2 赤 … バックグラウンド $10 黄 ＞ グラフィックス 2 赤 ＞ テキスト $1 灰。スプライトの 4bit パレットが $0 でテキストの 4bit パレットが $0 でないのでテキストが代表。スプライトを除外すると一番手前はグラフィックスの 2 赤</li>
+      </ul>
+
+      <h4>E2_XHPG</h4>
+      <ul>
+	<li>B1 赤 … 1 番目 2 赤 ＞ 2 番目 2 赤。1 番目の 2 赤が偶数なので半透明にならない。一番手前は 1 番目の 2 赤</li>
+	<li>B2 赤 … 1 番目 2 赤 ＞ 2 番目 3 青。1 番目の 2 赤が偶数なので半透明にならない。一番手前は 1 番目の 2 赤</li>
+	<li>B3 紫 … 1 番目 3 青 ＞ 2 番目 2 赤。1 番目の 3 青が奇数なのでそれを偶数化した 2 赤と 2 番目の 2 赤を奇数化した 3 青が混ざって紫になる</li>
+	<li>B4 紫 … 1 番目 3 青 ＞ 2 番目 3 青。1 番目の 3 青が奇数なのでそれを偶数化した 2 赤と 2 番目の 3 青を奇数化した 3 青が混ざって紫になる</li>
+      </ul>
+
+      <h4>E2_XHCG</h4>
+	<p>パレットは 2 赤 (偶数)、3 青、4 赤紫、5 水色</p>
+      <ul>
+	<li>C1 赤 … 1 番目 2 赤 (偶数) ＞ 2 番目 2 赤 (偶数)。1 番目の 2 赤 (偶数) を偶数化した 2 赤 (偶数) のカラーが偶数なので半透明にならない。1 番目の 2 赤 (偶数) が偶数なので 1 番目の 2 赤 (偶数)</li>
+	<li>C2 赤 … 1 番目 2 赤 (偶数) ＞ 2 番目 3 青。1 番目の 2 赤 (偶数) を偶数化した 2 赤 (偶数) のカラーが偶数なので半透明にならない。1 番目の 2 赤 (偶数) が偶数なので 1 番目の 2 赤 (偶数)</li>
+	<li>C3 赤 … 1 番目 2 赤 (偶数) ＞ 2 番目 4 赤紫。1 番目の 2 赤 (偶数) を偶数化した 2 赤 (偶数) のカラーが偶数なので半透明にならない。1 番目の 2 赤 (偶数) が偶数なので 1 番目の 2 赤 (偶数)</li>
+	<li>C4 赤 … 1 番目 2 赤 (偶数) ＞ 2 番目 5 水色。1 番目の 2 赤 (偶数) を偶数化した 2 赤 (偶数) のカラーが偶数なので半透明にならない。1 番目の 2 赤 (偶数) が偶数なので 1 番目の 2 赤 (偶数)</li>
+	<li>C5 青 … 1 番目 3 青 ＞ 2 番目 2 赤 (偶数)。1 番目の 3 青 を偶数化した 2 赤 (偶数) のカラーが偶数なので半透明にならない。1 番目の 3 青 が奇数なので 2 番目の 2 赤 (偶数) を奇数化した 3 青</li>
+	<li>C6 青 … 1 番目 3 青 ＞ 2 番目 3 青。1 番目の 3 青 を偶数化した 2 赤 (偶数) のカラーが偶数なので半透明にならない。1 番目の 3 青 が奇数なので 2 番目の 3 青を奇数化した 3 青</li>
+	<li>C7 水 … 1 番目 3 青 ＞ 2 番目 4 赤紫。1 番目の 3 青 を偶数化した 2 赤 (偶数) のカラーが偶数なので半透明にならない。1 番目の 3 青 が奇数なので 2 番目の 4 赤紫を奇数化した 5 水色</li>
+	<li>C8 水 … 1 番目 3 青 ＞ 2 番目 5 水色。1 番目の 3 青 を偶数化した 2 赤 (偶数) のカラーが偶数なので半透明にならない。1 番目の 3 青 が奇数なので 2 番目の 5 水色を奇数化した 5 水色</li>
+      </ul>
+	<p>パレットは 2 赤 (奇数)、3 青、4 赤紫、5 水色</p>
+      <ul>
+	<li>D1 紫 … 1 番目 2 赤 (奇数) ＞ 2 番目 2 赤 (奇数)。1 番目の 2 赤 (奇数) を偶数化した 2 赤 (奇数) のカラーが奇数なのでそれと 2 番目の 2 赤 (奇数) を奇数化した 3 青が混ざって紫になる</li>
+	<li>D2 紫 … 1 番目 2 赤 (奇数) ＞ 2 番目 3 青。1 番目の 2 赤 (奇数) を偶数化した 2 赤 (奇数) のカラーが奇数なのでそれと 2 番目の 3 青を奇数化した 3 青が混ざって紫になる</li>
+	<li>D3 灰 … 1 番目 2 赤 (奇数) ＞ 2 番目 4 赤紫。1 番目の 2 赤 (奇数) を偶数化した 2 赤 (奇数) のカラーが奇数なのでそれと 2 番目の 4 赤紫を奇数化した 5 水色が混ざって灰色になる</li>
+	<li>D4 灰 … 1 番目 2 赤 (奇数) ＞ 2 番目 5 水色。1 番目の 2 赤 (奇数) を偶数化した 2 赤 (奇数) のカラーが奇数なのでそれと 2 番目の 5 水色を奇数化した 5 水色が混ざって灰色になる</li>
+	<li>D5 紫 … 1 番目 3 青 ＞ 2 番目 2 赤 (奇数)。1 番目の 3 青を偶数化した 2 赤 (奇数) のカラーが奇数なのでそれと 2 番目の 2 赤 (奇数) を奇数化した 3 青が混ざって紫になる</li>
+	<li>D6 紫 … 1 番目 3 青 ＞ 2 番目 3 青。1 番目の 3 青を偶数化した 2 赤 (奇数) のカラーが奇数なのでそれと 2 番目の 3 青を奇数化した 3 青が混ざって紫になる</li>
+	<li>D7 灰 … 1 番目 3 青 ＞ 2 番目 4 赤紫。1 番目の 3 青を偶数化した 2 赤 (奇数) のカラーが奇数なのでそれと 2 番目の 4 赤紫を奇数化した 5 水色が混ざって灰色になる</li>
+	<li>D8 灰 … 1 番目 3 青 ＞ 2 番目 5 水色。1 番目の 3 青を偶数化した 2 赤 (奇数) のカラーが奇数なのでそれと 2 番目の 5 水色を奇数化した 5 水色が混ざって灰色になる</li>
+      </ul>
+	<p style="clear:both"></p>
+
+</div>
+<div id="foot"><a href="http://stdkmd.com/">STUDIO KAMADA</a><br>Copyright &copy; 1999-2016 Makoto Kamada<div></div></div>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetBSD/x68k を動かしてみる</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="stylesheet" type="text/css" href="http://stdkmd.com/stdkmd.css">
+    <script type="text/javascript" charset="UTF-8" src="http://stdkmd.com/stdkmd.js"></script>
+  </head>
+  <body>
+<div id="head">
+  <span id="title">NetBSD/x68k を動かしてみる</span>
+  <span id="back">- <a href="http://stdkmd.com/xeij/">XEiJ</a> - <a href="http://stdkmd.com/">STUDIO KAMADA</a></span>
+</div>
+<div id="body">
+
+    <h3>目次</h3>
+      <ol>
+	<li><a href="#introduction">前置き</a></li>
+	<li><a href="#liveimage">Live Image を利用する方法</a><ol>
+		<li><a href="#liveimage_download">Live Image をダウンロードする</a></li>
+		<li><a href="#liveimage_boothds">Live Image から起動する</a></li>
+		<li><a href="#liveimage_xwindowsystem">X Window System を動かしてみる</a></li>
+		<li><a href="#liveimage_shutdown">終了する</a></li>
+	</ol></li>
+	<li><a href="#install">自分でインストールする方法</a><ol>
+		<li><a href="#install_download">インストールディスクをダウンロードする</a></li>
+		<li><a href="#install_harddisk">ハードディスクイメージの新規作成</a></li>
+		<li><a href="#install_bootiso">インストールディスクから起動する</a></li>
+		<li><a href="#install_steps">インストール手順</a></li>
+		<li><a href="#install_boothds">NetBSD/x68k を起動する</a></li>
+		<li><a href="#install_xwindowsystem">X Window System を動かしてみる</a></li>
+		<li><a href="#install_shutdown">終了する</a></li>
+	</ol></li>
+      </ol>
+
+  <h2><a href="#introduction" id="introduction">1. 前置き</a></h2>
+	<p>XEiJ にはイーサネットボードがありません。すなわち XEiJ で NetBSD/x68k を動かしてもネットワークに繋がりません。仮に実装済みの範囲に不具合がなかったとしても、できることは限られています。これは「Human68k よりもエミュレーションの難易度が高い NetBSD/x68k が XEiJ でどこまで動くか試してみた」というだけの話です。</p>
+	<p>XEiJ で NetBSD/x68k を動かす方法は 2 通りあります。</p>
+      <ul>
+	<li><a href="#liveimage">Live Image を利用する方法</a></li>
+	<li><a href="#install">自分でインストールする方法</a></li>
+      </ul>
+
+  <h2><a href="#liveimage" id="liveimage">2. Live Image を利用する方法</a></h2>
+	<p>公開されている Live Image (インストール済みハードディスクイメージ) から起動するだけです。</p>
+
+    <h3><a href="#liveimage_download" id="liveimage_download">2.1. Live Image をダウンロードする</a></h3>
+	<p><a href="https://twitter.com/tsutsuii/status/665330915095130114" target="_blank">Izumi Tsutsui さん</a> が NetBSD/x68k-7.0 の Live Image を公開されています。</p>
+	<p><a href="http://teokurebsd.org/netbsd/liveimage/20151113-x68k/NetBSD-x68k-7.0-img.hds.gz" target="_blank">NetBSD-x68k-7.0-img.hds.gz</a> (197MB) または <a href="http://teokurebsd.org/netbsd/liveimage/20151113-x68k/NetBSD-x68k-7.0-img.zip" target="_blank">NetBSD-x68k-7.0-img.zip</a> (198MB) のどちらかをダウンロードして NetBSD-x68k-7.0-img.hds (1GB) を取り出します。</p>
+
+    <h3><a href="#liveimage_boothds" id="liveimage_boothds">2.2. Live Image から起動する</a></h3>
+      <ol>
+	<li>060turbo モードに切り替えます。MPU → 機種を変更してリセット → 060turbo (50MHz)</li>
+	<li>FC2 ピンをカットします。MPU → FC2 ピンをカットする</li>
+	<li>NetBSD-x68k-7.0-img.hds から再起動します。ファイル → SCSI → 0 接続する、開く、NetBSD-x68k-7.0-img.hds、ここから再起動</li>
+      </ol>
+	<p>コマンドライン</p>
+	<pre>&gt; <kbd>java -jar XEiJ.jar -boot=NetBSD-x68k-7.0-img.hds -cutfc2pin=on -model=060turbo</kbd></pre>
+	<p>ログインプロンプトが出たら root でログインします。</p>
+	<pre>login: <kbd>root</kbd></pre>
+
+    <h3><a href="#liveimage_xwindowsystem" id="liveimage_xwindowsystem">2.3. X Window System を動かしてみる</a></h3>
+	<p>初回はデフォルトの設定をコピーします。</p>
+	<pre># <kbd>cp /etc/X11/xinit/xinitrc ~/.xinitrc</kbd></pre>
+	<p>X Window System を起動します。</p>
+	<pre># <kbd>xinit</kbd></pre>
+	<p>マウスカーソルが表示されたら F12 キーを押すかホイールクリックで <a href="feature.htm#exclusivemouse">エクスクルーシブマウスモード</a> に切り替えて操作します。</p>
+	<div style="text-align:center"><img alt="netbsd1.png" src="netbsd1.png"></div>
+
+    <h3><a href="#liveimage_shutdown" id="liveimage_shutdown">2.4. 終了する</a></h3>
+	<p>NetBSD/x68k を終了するときは shutdown -h now を実行します。</p>
+	<pre># <kbd>shutdown -h now</kbd></pre>
+	<p>System halted.  Hit any key to reboot. と表示されるまで待ってからエミュレータを終了します。</p>
+
+  <h2><a href="#install" id="install">3. 自分でインストールする方法</a></h2>
+	<p>新規作成した SCSI ハードディスクのイメージファイルに NetBSD/x68k をインストールします。</p>
+	<p>NetBSD-7.0 にあった xterm の問題は NetBSD-7.0.1 で解消されました。</p>
+
+    <h3><a href="#install_download" id="install_download">3.1. インストールディスクをダウンロードする</a></h3>
+	<p><a href="http://ftp.netbsd.org/pub/NetBSD/NetBSD-7.0.1/iso/NetBSD-7.0.1-x68k.iso" target="_blank">NetBSD-7.0.1-x68k.iso</a> (188MB) をダウンロードします。</p>
+
+    <h3><a href="#install_harddisk" id="install_harddisk">3.2. ハードディスクイメージの新規作成</a></h3>
+	<p>NetBSD/x68k のインストール先となるハードディスクのイメージファイルを作ります。</p>
+      <ol>
+	<li>ファイル → SCSI → SCSI ハードディスクイメージの新規作成</li>
+	<li>以下ではファイル名を <code><kbd>NetBSD-7.0.1.hds</kbd></code> とします。</li>
+	<li>容量は 800MB 以上必要です。以下では 1024MB とします。</li>
+	<li>セクタサイズはデフォルトの 512 バイトにします。</li>
+	<li>Human68k 用ではないので領域確保を OFF にします。</li>
+	<li>フォーマットを開始します。</li>
+      </ol>
+
+    <h3><a href="#install_bootiso" id="install_bootiso">3.3. インストールディスクから起動する</a></h3>
+      <ol>
+	<li>060turbo モードに切り替えます。MPU → 機種を変更してリセット → 060turbo (50MHz)</li>
+	<li>FC2 ピンをカットします。MPU → FC2 ピンをカットする</li>
+	<li>NetBSD-7.0.1.hds を開きます。ファイル → SCSI → 0 接続する、開く、NetBSD-7.0.1.hds、開く</li>
+	<li>NetBSD-7.0.1-x68k.iso から再起動します。ファイル → SCSI → 1 接続する、開く、NetBSD-7.0.1-x68k.iso、ここから再起動</li>
+      </ol>
+	<p>コマンドライン</p>
+	<pre>&gt; <kbd>java -jar XEiJ.jar -boot=sc1 -cutfc2pin=on -model=060turbo -sc0=NetBSD-7.0.1.hds -sc1=NetBSD-7.0.1-x68k.iso</kbd></pre>
+
+    <h3><a href="#install_steps" id="install_steps">3.4. インストール手順</a></h3>
+	<p>テキストで表示されるメニューは↑キーと↓キーで選択、Enter キーで確定です。</p>
+      <ol>
+	<li>NetBSD-7.0.1 Install System で作業を選択します。</li>
+	<li>インストールを開始します。a: Install NetBSD to hard disk</li>
+	<li>yes or no? はハードディスクを書き換えることになるが続行するか。b: Yes</li>
+	<li>Available disks でインストール先のハードディスクを選択します。a: sd0 (1.0G, XEiJ Hard Disk)</li>
+	<li>Choose your installation は既存のパーティションを使うかどうか。a: Set sizes of NetBSD partitions</li>
+	<li>パーティションの大きさを決めます。デフォルトのままにしておきます。x: Accept partition sizes.  Free space 525 MB, 5 free partitions.</li>
+	<li>swap が 128MB、残り全部が / になります。x: Partition sizes ok</li>
+	<li>Please enter a name for your NetBSD disk [Hard Disk      ]: でインストール先のハードディスクに名前を付けるようです。<code><kbd>NetBSD-7.0.1</kbd></code></li>
+	<li>yes or no? はインストール先のハードディスクに書き込んでよいかどうかの最終確認です。b: Yes</li>
+	<li>ファイルシステムが構築されます。</li>
+	<li>Hit enter to continue と表示されたら Enter キーを押します。</li>
+	<li>Select your distribution でインストール範囲を指示します。全部入れます。a: Full installation</li>
+	<li>Install from でインストール元を選択します。a: CD-ROM / DVD</li>
+	<li>インストールが始まります。手元の環境で 23～28 分くらいかかりました。</li>
+	<li>Hit enter to continue と表示されたら Enter キーを押します。</li>
+	<li>Configure the additional items as needed. でオプションを選択します。そのままにしておきます。x: Finished configuring</li>
+	<li>Hit enter to continue と表示されたら Enter キーを押します。</li>
+	<li>NetBSD-7.0.1 Install System に戻ります。</li>
+	<li>NetBSD-7.0.1-x68k.iso をイジェクトします。ファイル → SCSI → 1 イジェクトする</li>
+	<li>起動デバイスを SCSI 0 にします。設定 → 起動デバイス → SCSI → SCSI 0</li>
+	<li>再起動します。d: Reboot the computer</li>
+      </ol>
+
+    <h3><a href="#install_boothds" id="install_boothds">3.5. NetBSD/x68k を起動する</a></h3>
+	<p>060turbo モードで NetBSD-7.0.1.hds から起動します。</p>
+	<p>コマンドライン</p>
+	<pre>&gt; <kbd>java -jar XEiJ.jar -boot=NetBSD-7.0.1.hds -cutfc2pin=on -model=060turbo</kbd></pre>
+	<p>初回は Updating fontconfig cache: のところで待たされます。手元の環境で 9～11 分くらいかかりました。</p>
+	<p>ログインプロンプトが出たら root でログインします。</p>
+	<pre>login: <kbd>root</kbd></pre>
+
+    <h3><a href="#install_xwindowsystem" id="install_xwindowsystem">3.6. X Window System を動かしてみる</a></h3>
+	<p>初回はデフォルトの設定をコピーします。</p>
+	<pre># <kbd>cp /etc/X11/xinit/xinitrc ~/.xinitrc</kbd></pre>
+	<p>X Window System を起動します。</p>
+	<pre># <kbd>xinit</kbd></pre>
+	<p>マウスカーソルが表示されたら F12 キーを押すかホイールクリックで <a href="feature.htm#exclusivemouse">エクスクルーシブマウスモード</a> に切り替えて操作します。</p>
+
+    <h3><a href="#install_shutdown" id="install_shutdown">3.7. 終了する</a></h3>
+	<p>NetBSD/x68k を終了するときは shutdown -h now を実行します。</p>
+	<pre># <kbd>shutdown -h now</kbd></pre>
+	<p>System halted.  Hit any key to reboot. と表示されるまで待ってからエミュレータを終了します。</p>
+
+</div>
+<div id="foot"><a href="http://stdkmd.com/">STUDIO KAMADA</a><br>Copyright &copy; 1999-2016 Makoto Kamada<div></div></div>
+  </body>
+</html>

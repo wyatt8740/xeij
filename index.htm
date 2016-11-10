@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XEiJ (X68000 Emulator in Java)</title>
+    <link rel="icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="XEiJ.ico">
+    <link rel="stylesheet" type="text/css" href="http://stdkmd.com/stdkmd.css">
+    <script type="text/javascript" charset="UTF-8" src="http://stdkmd.com/stdkmd.js"></script>
+  </head>
+  <body>
+<div id="head">
+  <span id="title">XEiJ <small>(X68000 Emulator in Java)</small></span>
+  <span id="back">- <a href="http://stdkmd.com/">STUDIO KAMADA</a></span>
+</div>
+<div id="body">
+
+	<p>バージョン: <a href="#changes_0160817">0.16.08.17</a></p>
+	<p>作者: Makoto Kamada</p>
+	<p>ウェブページ: <a href="http://stdkmd.com/xeij/">http://stdkmd.com/xeij/</a></p>
+
+    <h3>目次</h3>
+      <ol>
+	<li><a href="#introduction">はじめに</a></li>
+	<li><a href="#changes">最近の更新</a><ul>
+		<li><a href="#changes_0160817">0.16.08.17</a></li>
+		<li><a href="#changes_0160717">0.16.07.17</a></li>
+		<li><a href="#changes_0160512">0.16.05.12</a></li>
+	</ul></li>
+	<li><a href="feature.htm">機能と特徴</a> &#9654;</li>
+	<li><a href="environment.htm">実行環境</a> &#9654;</li>
+	<li><a href="http://stdkmd.com/xeij/sample/">実行サンプル</a> &#9654;</li>
+	<li><a href="menu.htm">メニューの説明</a> &#9654;</li>
+	<li><a href="inifile.htm">設定ファイル</a> &#9654;</li>
+	<li><a href="parameter.htm">パラメータ</a> &#9654;</li>
+	<li><a href="license.htm">使用許諾条件 / 著作権 / 免責事項</a> &#9654;</li>
+	<li><a href="http://stdkmd.com/xeij/source/">ソースコード</a> &#9654;</li>
+	<li><a href="#download">ダウンロード</a><ol>
+		<li><a href="#download_latest">最新版</a></li>
+		<li><a href="#download_old">旧版</a></li>
+	</ol></li>
+	<li><a href="compile.htm">コンパイル手順</a> &#9654;</li>
+	<li><a href="execute.htm">起動方法</a> &#9654;</li>
+	<li><a href="netbsd.htm">NetBSD/x68k を動かしてみる</a> &#9654;</li>
+	<li><a href="miscfiles.htm">misc/* の説明</a> &#9654;</li>
+	<li><a href="reference.htm">参考資料</a> &#9654;</li>
+	<li><a href="link.htm">リンク集</a> &#9654;</li>
+	<li><a href="#thanks">謝辞</a></li>
+	<li><a href="#contact">連絡先</a></li>
+      </ol>
+
+  <h2><a href="#introduction" id="introduction">1. はじめに</a></h2>
+	<p>XEiJ (X68000 Emulator in Java) は Java 言語で記述された X68000 エミュレータです。エミュレータといっても周辺回路の隅々まで実機とまったく同じものを作ろうとしているわけではなく、どちらかと言えば X68000 の新しい形を考えることを楽しんでいます。実装方法のアイデアや新しい機能を思い付いたら全体像など見えなくてもとりあえずプログラムを書き始め、詰まったらまた何か湧いてくるまで脇に置いておく、そんなことを繰り返しているのでソースコードは作りかけのところばかりですが、注釈のどれか 1 つでも誰かの役に立つことがあれば公開する意味があるかも知れないと思っています。</p>
+
+  <h2><a href="#changes" id="changes">2. 最近の更新</a></h2>
+
+    <h3><a href="#changes_0160817" id="changes_0160817">0.16.08.17</a></h3>
+
+      <h4>重要</h4>
+	<p>FDC は工事中です。NetBSD/x68k でフロッピーディスクをマウントしようとしないでください。ハングアップしてしまいます。</p>
+
+      <h4>実行環境</h4>
+	<p>要求する Java SE のバージョンを 8u101 (1.8.0_101) 以上に、推奨する Java SE のバージョンを 8u102 (1.8.0_102) 以上に更新しました。</p>
+      <ul>
+	<li><a href="http://www.oracle.com/technetwork/java/javase/8u102-relnotes-3021767.html" target="_blank">Java™ SE Development Kit 8, Update 102 Release Notes</a> (Oracle)</li>
+      </ul>
+
+      <h4>アドレス変換キャッシュモニタ</h4>
+	<p><a href="feature.htm#atcmonitor">アドレス変換キャッシュモニタ</a> を追加しました。MMU のアドレス変換キャッシュの内容を表示します。</p>
+
+      <h4>MPU</h4>
+	<p>ABCD と NBCD と SBCD で引数が BCD の範囲外のときの演算結果と未定義の N と V の変化を実機に近付けました。</p>
+<table>
+<caption>ABCD と NBCD と SBCD のコンディションコード</caption>
+<thead>
+<tr><th>コンディションコード</th><th>MC68030</th><th>MC68060</th></tr>
+</thead>
+<tbody>
+<tr><th>X</th><td colspan="2">キャリーまたはボローがあるときセット、さもなくばクリア</td></tr>
+<tr><th>N</th><td>未定義 (結果の最上位ビット)</td><td>未定義 (変化しない)</td></tr>
+<tr><th>Z</th><td colspan="2">結果が 0 でないときクリア、さもなくば変化しない</td></tr>
+<tr><th>V</th><td>未定義 (クリア)</td><td>未定義 (変化しない)</td></tr>
+<tr><th>C</th><td colspan="2">キャリーまたはボローがあるときセット、さもなくばクリア</td></tr>
+</tbody>
+</table>
+	<p>ASR.W &lt;mem&gt; と ROXR.W &lt;mem&gt; で X をクリアしなければならないときにクリアしていませんでした。</p>
+	<p>BFxxx のビットフィールドのオフセットがデータレジスタで指定されたとき、オフセットが 0 未満または 32 以上のときの動作が間違っていました。</p>
+	<p>CAS.B と CAS.W と CAS2.W でオーバーフローしたときの動作が間違っていました。</p>
+	<p>CHK.W と CHK.L で例外が発生しなかったときコンディションコードが設定されていませんでした。また、未定義の Z と V と C の変化を実機に近付けました。</p>
+<table>
+<caption>CHK.* &lt;ea&gt;,Dq のコンディションコード</caption>
+<thead>
+<tr><th>コンディションコード</th><th>MC68030</th><th>MC68060</th></tr>
+</thead>
+<tbody>
+<tr><th>X</th><td colspan="2">変化しない</td></tr>
+<tr><th>N</th><td colspan="2">Dq の最上位ビット</td></tr>
+<tr><th>Z</th><td>未定義 (Dq が 0 のときセット、さもなくばクリア)</td><td rowspan="3">未定義 (変化しない)</td></tr>
+<tr><th>V</th><td>未定義 (&lt;ea&gt;-Dq がオーバーフローしたときセット、さもなくばクリア)</td></tr>
+<tr><th>C</th><td>未定義 (&lt;ea&gt;-Dq でキャリーがあるときセット、さもなくばクリア)</td></tr>
+</tbody>
+</table>
+	<p>CHK2 と CMP2 の未定義の N と V の変化を実機に近付けました。</p>
+	<p>DIVS/DIVSL/DIVU/DIVUL でゼロ除算のとき未定義の N と Z と V およびオーバーフローしたとき未定義の N と Z の変化を実機に近付けました。</p>
+	<p>DIVU.L Dr,Dh:Dl で $8000000000000000/$FFFFFFFE などの計算が間違っていました。</p>
+	<p>NEG.B &lt;mem&gt; と NEG.W &lt;mem&gt; でオーバーフローしたとき (引数が $80 と $8000 のとき) のコンディションコードが間違っていました。</p>
+
+      <h4>SCSI ROM</h4>
+	<p>IOCS _SCSIDRV で D5 レジスタに 3 以上が指定されたとき 2048 バイト/ブロックとみなすパッチを追加しました。</p>
+
+      <h4>その他</h4>
+	<p><a href="miscfiles.htm">misc/* の説明</a> を書きました。</p>
+	<p><a href="miscfiles.htm#instructiontestx">instructiontest.x</a> を追加しました。MPU のユーザモードで使用できる整数命令の動作をテストするプログラムです。</p>
+	<p><a href="miscfiles.htm#vcntest2x">vcntest2.x</a> を追加しました。ビデオコントローラの注釈に書いた例を実際に試すプログラムです。</p>
+	<p><a href="#download_old">旧版</a> をダウンロードできるようにしました。</p>
+
+    <h3><a href="#changes_0160717" id="changes_0160717">0.16.07.17</a></h3>
+
+      <h4>重要</h4>
+	<p>FDC は工事中です。NetBSD/x68k でフロッピーディスクをマウントしようとしないでください。ハングアップしてしまいます。</p>
+
+      <h4>ビデオコントローラ</h4>
+	<p>ビデオコントローラのスプライト画面とテキスト画面とグラフィックス画面を重ね合わせるコードを大幅に増やしました (手作業 2.3 万行 → 自動生成 48 万行)。</p>
+
+      <h4>グラフィックス画面</h4>
+	<p>実画面サイズが 1024×1024 ドットのグラフィックス画面に実機にない 256 色モードと 65536 色モードを追加しました。</p>
+<table>
+<thead>
+<tr><th>メモリモード</th><th>実画面サイズ</th><th>色数</th><th>ページ数</th><th>GVRAM サイズ</th></tr>
+</thead>
+<tbody>
+<tr><th>0</th><td rowspan="3">512×512 ドット</td><td>16 色</td><td>4 ページ</td><td rowspan="4">512KB</td></tr>
+<tr><th>1</th><td>256 色</td><td>2 ページ</td></tr>
+<tr><th>3</th><td>65536 色</td><td rowspan="4">1 ページ</td></tr>
+<tr><th>4</th><td rowspan="3">1024×1024 ドット</td><td>16 色</td></tr>
+<tr><th>5</th><td>256 色</td><td>1MB</td></tr>
+<tr><th>7</th><td>65536 色</td><td>2MB</td></tr>
+</tbody>
+</table>
+	<p>実画面サイズが 1024×1024 ドットのグラフィックス画面を 512×512 ドットずつ 4 分割して組み換えられるようにしました。</p>
+
+      <h4>表示モードテスト</h4>
+	<p><a href="feature.htm#screenmodetest">表示モードテスト</a> に画面の解像度、ラスタ 2 度読みとインターレースの有無、オシレータと水平同期信号と垂直同期信号の周波数などの表示を追加しました。</p>
+
+      <h4>PCM8A.X のパッチ</h4>
+	<p>PCM8A.X v1.02 がローカルメモリを 256MB 積んだ 060turbo で動かない問題を回避するパッチを追加しました。I/O ポートのアドレスの上位 8 ビットが $FF になっているところを $00 に修正します。なお、LZX 圧縮されたデバイスドライバや実行ファイルには対応していません。</p>
+
+      <h4>音声出力速度制御</h4>
+	<p>音声出力速度制御 を廃止しました。代わりに音声出力が ON のとき負荷率 90% を上限としてそれ以上動作周波数が上がらないようにしました。</p>
+
+      <h4>データブレークポイント</h4>
+	<p>バイトサイズまたはワードサイズの <a href="feature.htm#databreakpoint">データブレークポイント</a> が仕掛けられたアドレスをそれより大きいワードサイズまたはロングワードサイズでアクセスしたときも停止するようにしました。</p>
+
+      <h4>スプライト画面</h4>
+	<p>スプライトプレーンとバックグラウンドプレーンのパレットの下位 4 ビットがすべて 0 でバックグラウンドプレーン 1 のパレットブロックが 0 のときバックグラウンドプレーン 0 のパレットブロックが出力されなくなっていたバグを修正しました。</p>
+
+      <h4>CRTC</h4>
+	<p>インターレースのとき画面に縞模様ができるようになっていたバグを修正しました。</p>
+
+      <h4>フォントエディタ</h4>
+	<p><a href="feature.htm#fonteditor">フォントエディタ</a> でズームアウトすると表示が乱れるようになっていたバグを修正しました。</p>
+
+      <h4>その他</h4>
+	<p>動作確認環境を Windows 7 Professional (64 ビット) から Windows 10 Pro (64 ビット) に更新しました。</p>
+
+    <h3><a href="#changes_0160512" id="changes_0160512">0.16.05.12</a></h3>
+
+      <h4>フロッピーディスク、SASI ハードディスク、SCSI ハードディスク / CD-ROM</h4>
+	<p>レスポンスの遅い FD メディアを挿入するとメディアの判別が終わる前に FDC が READ DATA コマンドを受け付けてしまい NullPointerException が発生することがあるバグを修正しました (Thanks: 星型ピノ@delikea さん)。メディアの判別が終わるまでメディアが挿入されていないように見えるようにしました。SASI ハードディスク と SCSI ハードディスク / CD-ROM も同様の調整を行いました。</p>
+
+	<p class="closed"><span class="open">── 続きを読む ──</span><span class="close">── 続きを隠す ──</span></p>
+	<div class="openable">
+
+    <h3><a href="#changes_0160507" id="changes_0160507">0.16.05.07</a></h3>
+
+      <h4>スプライト画面</h4>
+	<p>スプライト画面を作り直しました。スプライトは表示ラスタの 2 ラスタ手前で、バックグラウンドは 1 ラスタ手前で並べて、表示ラスタで重ね合わせます。変化していないラスタの描画を省く処理は行わず、スプライトを表示できる画面モードのときは常にすべてのラスタを描画します。そのため、768×512 ドット以外の画面モードのときの動作が重くなっています。</p>
+
+      <h4>スプライトパターンビュア</h4>
+	<p><a href="feature.htm#spritepatternviewer">スプライトパターンビュア</a> を追加しました。</p>
+
+      <h4>IOCS _DEFCHR</h4>
+	<p>IPLROM 1.3 のとき IOCS _DEFCHR が X68030 の <a href="feature.htm#highmemory">ハイメモリ</a> や 060turbo の <a href="feature.htm#localmemory">ローカルメモリ</a> を ROM と誤認してフォントパターンの設定に失敗する問題を修正するパッチを追加しました。</p>
+
+    <h3><a href="#changes_0160430" id="changes_0160430">0.16.04.30</a></h3>
+
+      <h4>シームレスマウスモード</h4>
+	<p>IOCS だけでなく SX-Window (FSX.X version 3.10) も <a href="feature.htm#seamlessmouse">シームレスマウスモード</a> で操作できるようにしました。<a href="feature.htm#edgeacceleration">縁部加速</a> を ON にすると実画面モードもシームレスのまま操作できます。</p>
+
+      <h4>エクスクルーシブマウスモード</h4>
+	<p><a href="feature.htm#exclusivemouse">エクスクルーシブマウスモード</a> に入るときと出るときに X68000 のマウスカーソルが動かないようにしました。</p>
+
+      <h4>スプライト画面</h4>
+	<p>XEiJ は画面の描画処理を水平映像期間の先頭で 1 ラスタ分まとめて行いますが、このときスプライトを並べる処理も同時に行っていました。スプライトを並べる処理だけ 1 ラスタ手前にずらしました。スプライトダブラ (画面を上下に分割するラスタに走査線が差し掛かったとき上で使われたスプライトを定義し直して下で再び使うことで 1 画面あたりのスプライトの表示可能枚数を増やす技術) を用いているゲームなどで横線ノイズが表示される症状が改善される場合があります。</p>
+
+      <h4>SCSI ROM</h4>
+	<p>X68000 EXPERT/SUPER/XVI/Compact モードのとき IPLROM30.DAT から自動生成した SCSI ROM がうまく動かないバグを修正しました。060turbo モード用に追加した IPLROM 1.3 のパッチと衝突していました。</p>
+
+      <h4>逆アセンブルリスト</h4>
+	<p>CPUSHL/CPUSHP/CPUSHA 命令を逆アセンブルすると CINVL/CINVP/CINVA 命令が表示されるバグを修正しました。</p>
+
+    <h3><a href="#changes_0160426" id="changes_0160426">0.16.04.26</a></h3>
+
+      <h4>グラフィックス画面</h4>
+	<p>65536 色モードのときパレットコードの上位バイトをバイトサイズでリードすると 0 に見えるバグを修正しました。</p>
+
+      <h4>データブレークポイント</h4>
+	<p>X68000 モードのとき MOVEM 命令でメインメモリを読み書きするとデータブレークポイントで検出されないバグを修正しました。</p>
+
+    <h3><a href="#changes_0160422" id="changes_0160422">0.16.04.22</a></h3>
+
+      <h4>MC68060</h4>
+	<p>060turbo モードのとき CTRL+OPT.1+DEL や kt reset などでソフトウェアリセットをかけようとすると「バスエラーが発生しました」という白帯が表示されて結局リセットボタンを押さなければならなくなるバグを修正しました。MC68060 の MOVES 命令でファンクションコードに 3 が指定されたときユーザモードのメモリマップが選択されてスーパーバイザ領域のアクセスに失敗していました。</p>
+
+      <h4>メインメモリ</h4>
+	<p>設定メニューでメインメモリのサイズを変更したとき直後のリセットで反映されない不具合を修正しました。</p>
+
+    <h3><a href="#changes_0160421" id="changes_0160421">0.16.04.21</a></h3>
+
+      <h4>実行環境</h4>
+	<p>要求する Java SE のバージョンを 8u91 (1.8.0_91) 以上に、推奨する Java SE のバージョンを 8u92 (1.8.0_92) 以上に更新しました。</p>
+      <ul>
+	<li><a href="http://www.oracle.com/technetwork/java/javase/8u92-relnotes-2949471.html" target="_blank">Java™ SE Development Kit 8, Update 92 Release Notes</a> (Oracle)</li>
+      </ul>
+
+      <h4>ホストファイルシステム</h4>
+	<p><a href="feature.htm#hostfilesystem">ホストファイルシステム</a> でホストマシンのファイルを操作するスレッドをコアから分離しました。また、先読み・遅延書き込みバッファを介してファイルにアクセスするようにしました。ファイルアクセスが軽くなり、バッファの充填や排出を待っている間も割り込み処理を続けることができます。<a href="execute.htm#command_dennouclub">例: CD-ROM 版の電脳倶楽部を起動する</a> に書いたように XEiJ は DVD スーパーマルチドライブ (以下は E: の場合) などに CD-ROM 版の電脳倶楽部 (月刊電脳倶楽部 140 号以降や激光電脳倶楽部など) を入れて</p>
+	<pre>&gt; <kbd>java -jar XEiJ.jar -boot=E:</kbd></pre>
+	<p>とするだけで電脳倶楽部を起動できますが、このとき「◎」をクリックして新しいページに移る度にオープニング曲の演奏が途切れる症状が改善されました。</p>
+
+      <h4>SCSI ハードディスク</h4>
+	<p>XEiJ は SCSI ハードディスクイメージの新規作成で必ず装置初期化を行い、正しく装置初期化されていないファイルを SCSI ハードディスクイメージと認識しない仕様になっています。この条件が厳しすぎて、装置初期化を行わない他のエミュレータで FORMAT.X を使って装置初期化されたファイルは FORMAT.X のバグでファイルサイズと容量が一致していないため XEiJ で使用することができませんでした (Thanks: <a href="http://tanehp.ec-net.jp/heppoko-lab/" target="_blank">TANE さん</a>)。ファイルサイズに対して容量が 1 セクタ少ないファイルも SCSI ハードディスクイメージと見なすようにしました。</p>
+	<p>FORMAT.X の動作に合わせて SCSI ハードディスクの Read Capacity コマンドが最終論理ブロックアドレスの代わりに論理ブロック数を返していました。これを常に最終論理ブロックアドレスを返すように変更してしまうと XEiJ でも FORMAT.X で正しく装置初期化することができなくなってしまうので、Read Capacity コマンドが FORMAT.X から呼び出されたときだけ従来通り論理ブロック数を返し、それ以外は最終論理ブロックアドレスを返すようにしました。</p>
+	<p>060turbo.sys の SCSI コールでバスエラーが出ることがあるバグを修正するパッチを追加しました。</p>
+
+      <h4>MC68882</h4>
+	<p>MC68882 の浮動小数点コンディションコード OR、NE、GLE、SNE の動作を修正しました。</p>
+<table>
+<thead>
+<tr><th>cc</th><th>MC68882</th><th>MC68060</th></tr>
+</thead>
+<tbody>
+<tr><th>OR / GLE</th><td>Z|~NAN</td><td>~NAN</td></tr>
+<tr><th>NE / SNE</th><td>NAN|~Z</td><td>~Z</td></tr>
+</tbody>
+</table>
+
+      <h4>ハイメモリ</h4>
+	<p>ハイメモリが存在するだけで正常に動作しなくなるプログラムがあるので X68030 のハイメモリのデフォルトを OFF にしました。</p>
+
+    <h3><a href="#changes_0160412" id="changes_0160412">0.16.04.12</a></h3>
+
+      <h4>実行環境</h4>
+	<p>要求する Java SE のバージョンを 8u77 (1.8.0_77) 以上に、推奨する Java SE のバージョンを 8u77 (1.8.0_77) 以上に更新しました。</p>
+      <ul>
+	<li><a href="http://www.oracle.com/technetwork/java/javase/8u77-relnotes-2944725.html" target="_blank">Java™ SE Development Kit 8, Update 77 Release Notes</a> (Oracle)</li>
+      </ul>
+	<p>Google Chrome はバージョン 45 から Java アプレットに対応しなくなりました。<a href="http://stdkmd.com/xeij/sample/">実行サンプル</a> は <a href="execute.htm#javaws">Java Web Start</a> で起動できます。</p>
+
+      <h4>060turbo</h4>
+	<p>機種に 060turbo を追加しました。</p>
+	<p>MPU は MC68060 と命令互換のプロセッサです。命令キャッシュ、データキャッシュ、分岐キャッシュ、ストアバッファおよびスーパースカラはありません。CACR や PCR の該当ビットを 1 にしても何も変わりません。0 サイクルの命令はありません。</p>
+	<p>FPU は未実装浮動小数点命令を FPSP に任せる通常版と MC68882 と MC68060 のすべての浮動小数点命令を実行できるフルスペック版を選択できます。</p>
+	<p>MMU のアドレス変換キャッシュは独自仕様です。1-way にする代わりにハッシュ関数を工夫してアドレス変換のオーバーヘッドを減らしています。</p>
+	<p>FC2 ピンをカットできます。NetBSD/x68k で X Window System が動きます。<a href="netbsd.htm">NetBSD/x68k を動かしてみる</a> を書きました。</p>
+	<p>ローカルメモリ $10000000-$1FFFFFFF (16MB～256MB) を利用できます。設定ファイルにローカルメモリの内容を保存することができます。</p>
+	<p>リソースから読み込んだ IPLROM30.DAT に新しく作ったパッチを当てて使います。060turbo の実機の ROM は不要です。</p>
+
+      <h4>ハイメモリ</h4>
+	<p>X68030 モードのとき九十九電気 (ツクモ) の TS-6BE16 相当のハイメモリ $01000000-$01FFFFFF (16MB) を利用できます。設定ファイルにハイメモリの内容を保存することができます。</p>
+
+      <h4>浮動小数点プロセッサボード</h4>
+	<p>浮動小数点プロセッサボード CZ-6BP1 を 2 枚挿してあります。FPCP は MC68882 と命令互換のコプロセッサです。FLOAT3.X を利用できます。<a href="http://retropc.net/x68000/software/develop/c/gcc_mariko/" target="_blank">GCC（真里子版）</a> または <a href="http://retropc.net/x68000/software/develop/c/gcc2/" target="_blank">GCC2</a> でコンパイルして <a href="http://retropc.net/x68000/software/develop/lib/libc1132a/" target="_blank">libc</a> をリンクしたプログラムは FLOAT3.X を経由せずコプロセッサを直接操作します。</p>
+
+      <h4>マザーボードコプロセッサ</h4>
+	<p>ドーターボードにある MC68060 から見てマザーボードにある MC68882 をマザーボードコプロセッサと呼んでいます。実機と同様に MC68060 から MC68882 にアクセスできます。起動メッセージなどでマザーボードコプロセッサの有無と種類が表示されます。</p>
+
+      <h4>SCSI CD-ROM</h4>
+	<p>SCSI 機器の種類に CD-ROM を追加しました。*.ISO ファイルを SCSI CD-ROM と見なします。ブートセクタがあるときは「ここから再起動」で CD-ROM から直接起動できます。Human68k からは <a href="http://retropc.net/x68000/software/disk/scsi/susie/" target="_blank">susie.x</a> でアクセスできます。</p>
+
+      <h4>IPLROM</h4>
+	<p>IPLROM 1.3 を 1.5 に更新するパッチを追加しました。MC68000、MC68EC030 および MC68060 のいずれでも起動できます。SCSI CD-ROM から起動できます。起動メッセージにマザーボードコプロセッサや浮動小数点プロセッサボードの有無と種類を表示します。</p>
+	<p>IOCS _CRTMOD が指定された画面モードと異なる色数でグラフィックパレットを初期化するバグを修正するパッチを追加しました。</p>
+
+      <h4>デバッグコンソール</h4>
+	<p>コマンド入力で停止、実行、逆アセンブル、ダンプなどの処理を行います。</p>
+
+      <h4>論理空間モニタ</h4>
+	<p>論理アドレスに割り当てられている物理アドレスを表示します。</p>
+
+      <h4>物理空間モニタ</h4>
+	<p>物理アドレスに割り当てられているデバイスを表示します。</p>
+
+      <h4>ルートポインタリスト</h4>
+	<p>マルチタスク環境で停止させるタスクを選択できます。</p>
+
+      <h4>レジスタウインドウ</h4>
+	<p>レジスタウインドウに浮動小数点レジスタを追加しました。</p>
+
+      <h4>逆アセンブルリスト</h4>
+	<p>逆アセンブルリストでスーパーバイザモードとユーザモードを切り替えられるようにしました。</p>
+
+      <h4>メモリダンプリスト</h4>
+	<p>メモリダンプリストでスーパーバイザモードとユーザモードを切り替えられるようにしました。</p>
+
+      <h4>周波数固定モード</h4>
+	<p><a href="feature.htm#fixedfrequencymode">周波数固定モード</a> のときも負荷率が 100% を超えると動作周波数を抑えて負荷率を 100% まで下げます。</p>
+
+      <h4>音声出力速度制御</h4>
+	<p>音声出力速度制御 のデフォルトを ON にしました。</p>
+
+      <h4>ホストファイルシステム</h4>
+	<p><a href="http://retropc.net/x68000/software/tools/archiver/lha/" target="_blank">LHA.x</a> の誤動作を避けるため、DOS _DSKFRE が返す HFS の空き容量の上限を 2GB にしました。</p>
+	<p>DOS _FILES が属性の条件にボリューム名が含まれているときファイル名の条件を無視してボリューム名を返していました。これが原因で FORMAT.X が領域確保後のシステム転送に失敗していました。HFS の DOS _FILES がボリューム名を返すのはファイル名の条件が *.* のときだけにしました。</p>
+
+      <h4>ディスクイメージファイルの新規作成</h4>
+	<p>フロッピーディスク、SASI ハードディスク、SCSI ハードディスクのイメージファイルを新規作成するとき、適切な拡張子が指定されていなければ拡張子を追加するようにしました。</p>
+
+      <h4>ラスタコピー</h4>
+	<p>ラスタコピーを実機と同様に水平フロントポーチで行います。</p>
+
+      <h4>FPU</h4>
+	<p>「80 ビット拡張精度」と「96 ビット拡張精度」の呼び方を「拡張精度」と「三倍精度」に変更しました。</p>
+	<p>例外発生時に FPIAR またはスタックフレームの実効アドレスが正しく設定されていない場合がありました。</p>
+	<p>FTST がソースオペランドではなくデスティネーションオペランドをテストしていました。これが原因で xeyes の目玉が崩れていました。</p>
+	<p>FBGE と FBLE で FPSR の Z と NAN が同時にセットされていた場合 (通常は起こらない) の動作が実機と違いました。</p>
+
+      <h4>MC68EC030</h4>
+	<p>BFINS Dn,&lt;mem&gt;{offset:width} で 5 バイトに跨るとき 1 バイト目の範囲外のビットが破壊されていました。</p>
+	<p>BFFFO &lt;mem&gt;{offset:width},Dn で オフセットが 8 以上のときの計算が間違っていました。</p>
+
+      <h4>ソースコード</h4>
+	<p><a href="http://stdkmd.com/xeij/source/">ソースコード</a> を分割しました。</p>
+
+    <h3><a href="#changes_0150831" id="changes_0150831">0.15.08.31</a></h3>
+	<p>推奨する Java SE のバージョンを 8u60 (1.8.0_60) 以上に更新しました。</p>
+      <ul>
+	<li><a href="http://www.oracle.com/technetwork/java/javase/8u60-relnotes-2620227.html" target="_blank">Java™ SE Development Kit 8, Update 60 Release Notes</a> (Oracle)</li>
+      </ul>
+
+    <h3><a href="#changes_0150812" id="changes_0150812">0.15.08.12</a></h3>
+	<p>MOVEM.wl &lt;list&gt;,-(Ar) で &lt;list&gt; に Ar が含まれているときの動作を再修正しました。</p>
+
+    <h3><a href="#changes_0150809" id="changes_0150809">0.15.08.09</a></h3>
+	<p>MOVEM.wl &lt;list&gt;,-(Ar) で &lt;list&gt; に Ar が含まれているときの動作を修正しました。</p>
+
+    <h3><a href="#changes_0150719" id="changes_0150719">0.15.07.19</a></h3>
+	<p>ビデオコントローラの 0x00e82500 の上位バイト (スプライト画面・テキスト画面・グラフィックス画面間の優先順位) に不正な値が設定されたときの動作を X68030 の実機に合わせました。参考: <a href="https://twitter.com/kugimoto0715/status/622434268787019776" target="_blank">GIMONS さん</a></p>
+
+    <h3><a href="#changes_0150715" id="changes_0150715">0.15.07.15</a></h3>
+	<p><a href="feature.htm#disassembler">逆アセンブラ</a> を更新しました。</p>
+	<p>要求する Java SE のバージョンを 8u51 (1.8.0_51) 以上に更新しました。</p>
+      <ul>
+	<li><a href="http://www.oracle.com/technetwork/java/javase/8u51-relnotes-2587590.html" target="_blank">Java&#8482; SE Development Kit 8, Update 51 Release Notes</a> (Oracle)</li>
+      </ul>
+
+    <h3><a href="#changes_0150701" id="changes_0150701">0.15.07.01</a></h3>
+	<p><a href="feature.htm">機能と特徴</a> の文章を更新しました。また、<a href="menu.htm">メニュー</a> と <a href="parameter.htm">パラメータ</a> と <a href="inifile.htm">設定ファイル</a> の説明を書きました。</p>
+	<p>コマンドラインから起動したとき「メインメモリの内容を保存する」が ON になっていると終了時にメインメモリの内容が <a href="inifile.htm">設定ファイル</a> に保存されます。RAM ディスクで作業中にうっかりエミュレータを終了してしまっても大丈夫です。</p>
+	<p>メモリ上の Human68k にもパッチを当てます。といっても大したものは入っていません。</p>
+	<p><a href="feature.htm#fefunction">FE ファンクション命令</a> を更新しました。「FLOATn.X を組み込まない」を ON にすると CONFIG.SYS に FLOATn.X が書かれていても組み込まれなくなります。</p>
+	<p>FPCR (Floating Point Control Register) と FPSR (Floating Point Status Register) の処理を更新しました。</p>
+	<p>コアの負荷が大きいときキーを押した途端に何文字も入力されてしまうことがある問題を修正しました。</p>
+	<p>MPU が MC68EC030 のとき DIVS.L &lt;ea&gt;,Dq 命令で -2<sup>31</sup>/-1 の計算を間違えるバグを修正しました。</p>
+	<p>MPU が MC68EC030 のとき上位 8 ビットが 0 でない奇数アドレスにワードサイズでアクセスしようとするとコアが止まるバグを修正しました。</p>
+
+    <h3><a href="#changes_0150608" id="changes_0150608">0.15.06.08</a></h3>
+	<p><a href="environment.htm#browser">推奨ブラウザ</a> から Google Chrome を外し、代わりに Mozilla Firefox と Waterfox を復活させました。</p>
+	<p><a href="http://retropc.net/x68000/software/disk/floppy/9scset/" target="_blank">9SCDRV.X</a> を組み込むと Human68k と FDDEVICE.X の 2HD/2HC/2DD8/2DD9/2HQ に加えて 2DD10/2HDE/2HS のフロッピーディスクイメージにアクセスできます。2HD/2HC/2HDE/2HS のイメージから起動できます。</p>
+	<p>DIFC.X で変換された 2HD/2HC/2HQ/2HDE/2HS の DIM ファイル (オーバートラックなし) にリードオンリーでアクセスできます。2HD/2HC/2HDE/2HS の DIM ファイルから起動できます。</p>
+
+    <h3><a href="#changes_0150422" id="changes_0150422">0.15.04.22</a></h3>
+	<p>ROM デバッガの実効アドレスの計算に関係する不具合を修正するパッチを追加しました。</p>
+	<p>キーボードをマウスで操作したときマウス受信データのボタンの状態が変化しないようにしました。</p>
+	<p>ファンクションキーの表示がなくてカーソルが最下行にあるとき OPT.1+OPT.2 を押すと電卓が画面の外に表示されて見えない問題を修正するパッチを加えました。060turbo と同様にカーソルが最下行にあるときは電卓がカーソルの上の行に表示されます。</p>
+	<p>LEA.L 4.W,A0;MOVEM.L D0-D1,-(A0) を実行すると ArrayIndexOutOfBoundsException が出てコアが止まるバグを修正しました。</p>
+
+    <h3><a href="#changes_0150415" id="changes_0150415">0.15.04.15</a></h3>
+	<p>音声出力速度制御 をデフォルトで OFF にしました。</p>
+	<p>ROM デバッガ 2.32 で FSINCOS.X FPm,FPc:FPs をアセンブルしようとすると bus error in debugger が発生するバグを修正するパッチを加えました。</p>
+	<p>要求する Java SE のバージョンを 8u45 (1.8.0_45) 以上に更新しました。<a href="http://www.oracle.com/technetwork/java/javase/8u45-relnotes-2494160.html" target="_blank">Java&#8482; SE Development Kit 8, Update 45 Release Notes</a></p>
+
+    <h3><a href="#changes_0150330" id="changes_0150330">0.15.03.30</a></h3>
+	<p>スタイルシートをサイトに合わせました。</p>
+	<p>FFT を更新しました。</p>
+	<p>推奨する Java SE のバージョンを 8u40 (1.8.0_40) 以上に更新しました。<a href="http://www.oracle.com/technetwork/java/javase/8u40-relnotes-2389089.html" target="_blank">Java&#8482; SE Development Kit 8, Update 40 Release Notes</a></p>
+
+    <h3><a href="#changes_0150129" id="changes_0150129">0.15.01.29</a></h3>
+	<p><a href="http://stdkmd.com/xeij/">http://stdkmd.com/xeij/</a> に引っ越しました。Java コントロールパネルのセキュリティタブの例外サイトリストに http://mada.la.coocan.jp/ を登録されている場合は http://stdkmd.com/ への変更をお願いします。</p>
+
+    <h3><a href="#changes_0150125" id="changes_0150125">0.15.01.25</a></h3>
+	<p>ウインドウの位置、ディスクイメージファイル名、SRAM の内容などを終了時に設定ファイルに保存して次回の起動時に復元します。コマンドラインから起動したときの設定ファイルは、Windows のとき %APPDATA%/XEiJ/XEiJ.ini、それ以外は ~/XEiJ.ini または ./XEiJ.ini です。Java アプレットのときは Web Storage を、Java Web Start のときは PersistenceService を使用して設定をローカルファイルに保存します。</p>
+	<p>表示モードテストのパターンテストを更新しました。背景に敷き詰められると邪魔な 0 番の番号を省き、反転を示す印は小さく、手前のスプライトを明るく、奥のスプライトとバックグラウンドを暗く表示します。</p>
+	<p>デバッガ db.x とソースコードデバッガ scd.x にある「リモートコンソールモードのとき受信バッファに溜まった入力が 1 文字置きに欠落する」というバグを回避して、入力を 1 行ずつ転送するターミナルとの相性を改善しました。</p>
+	<p>音声出力速度制御 を OFF にできるようにしました。音程が不安定になるのは音が途切れるよりも気持ち悪いという人は OFF にしてください。</p>
+	<p>要求する Java SE のバージョンを 8u31 (1.8.0_31) 以上に更新しました。<a href="http://www.oracle.com/technetwork/java/javase/8u31-relnotes-2389094.html" target="_blank">Java&#8482; SE Development Kit 8, Update 31 Release Notes</a></p>
+
+    <h3><a href="#changes_0141226" id="changes_0141226">0.14.12.26</a></h3>
+	<p>CRTC のステージを再構築しました。CRTC IRQ と V-DISP は水平フロントポーチで遷移します。ラスタブレークも一緒で H-SYNC はブレーク後数命令ないし数十命令後に遷移します。</p>
+	<p>ビデオコントローラの重ね合わせの処理を変更しました。スプライト画面とテキスト画面のどちらか代表する画面を選んでからグラフィックス画面と重ね合わせます。</p>
+	<p>表示モードテストを追加しました。CRTC やビデオコントローラなどの表示モードの確認と、任意のテストデータで動作テストを行えます。</p>
+	<p>音声モニタの出力波形は左クリックと右クリックで時間方向、Shift キーを押しながらだと振幅方向に拡大縮小します。</p>
+
+    <h3><a href="#changes_0141123" id="changes_0141123">0.14.11.23</a></h3>
+	<p>OPM モニタ改め音声モニタに、出力波形、周波数分布、キーオンとリリースを示す鍵盤、音色定義データおよび ADPCM の状態を表示します。</p>
+	<p>ADPCM の出力が ON または OFF されたとき、-1 または 0 のマスクの代わりに滑らかな曲線を掛けることでプチノイズを除去します。</p>
+	<p>ADPCM で 0x00 または 0x88 が出力されたとき、変位の符号によって 0x08 または 0x80 に読み替えることで変位の偏りを抑制します。</p>
+	<p>ADPCM の原発振周波数を通常の 8MHz/4MHz と改造された 8MHz/16MHz から選べます。8MHz/16MHz のとき PCM8A.X -M1 -F2 とすると ADPCM のサンプリング周波数が 31.3kHz になります。</p>
+	<p>ADPCM の予測指標が 45 以上のとき波形が乱れる不具合を修正しました。</p>
+
+    <h3><a href="#changes_0141111" id="changes_0141111">0.14.11.11</a></h3>
+	<p>IPLROM 1.3 を使用していて ROM デバッガがないのに ROM デバッガを組み込もうとしたとき、エラーが出ないようにダミーのコードを走らせてそのまま起動できるようにしました。</p>
+
+    <h3><a href="#changes_0141107" id="changes_0141107">0.14.11.07</a></h3>
+	<p>コアのバグを修正しました。また、ゼロプライオリティといくつかの特殊プライオリティ／半透明モードを追加・修正しました。</p>
+
+    <h3><a href="#changes_0141103" id="changes_0141103">0.14.11.03</a></h3>
+	<p>DMA を更新しました。</p>
+	<p>データブレークポイントを追加しました。指定されたアドレスとサイズで指定された範囲のデータの読み書きがあると停止します。</p>
+
+    <h3><a href="#changes_0141029" id="changes_0141029">0.14.10.29</a></h3>
+	<p>HFS の _CREATE の不具合を修正しました。また、MFP の割り込み要求が 1 命令遅れて受け付けられるようにしてみました。</p>
+
+    <h3><a href="#changes_0141021" id="changes_0141021">0.14.10.21</a></h3>
+	<p>SASI ハードディスクイメージの書き出しと SCSI ハードディスクイメージの新規作成の不具合を修正しました。</p>
+
+    <h3><a href="#changes_0141020" id="changes_0141020">0.14.10.20</a></h3>
+	<p>マウスモード (エクスクルーシブ) のときマウスカーソルの移動速度を調節できるようにしました。</p>
+
+    <h3><a href="#changes_0141018" id="changes_0141018">0.14.10.18</a></h3>
+	<p>ラスタブレークポイントを追加しました。垂直帰線割り込み、水平帰線割り込み、ラスタ割り込みをトレースしたいときに使います。</p>
+
+    <h3><a href="#changes_0141015" id="changes_0141015">0.14.10.15</a></h3>
+	<p>要求する Java SE 実行環境のバージョンを <a href="http://www.oracle.com/technetwork/java/javase/8u25-relnotes-2296185.html" target="_blank">Java SE 8 Update 25</a> (8u25, 1.8.0_25) 以上に更新しました。</p>
+
+    <h3><a href="#changes_0141014" id="changes_0141014">0.14.10.14</a></h3>
+	<p>パラメータ -model=(EXPERT|SUPER|XVI|Compact|Hybrid|X68030) またはメニューで機種を選択できます。IPLROM*.DAT は機種に対応するものがリソースから読み込まれるので別途用意する必要はありません。</p>
+	<p>SCSI ハードディスクイメージ (*.HDS) に対応しました。SCSIINROM.DAT と SCSIEXROM.DAT はリソースにある IPLROM30.DAT を使って内部で生成されるので別途用意する必要はありません。</p>
+
+    <h3><a href="#changes_0140923" id="changes_0140923">0.14.09.23</a></h3>
+	<p>FMOVE.D FPn,(Ar)+/-(Ar) を修正しました。</p>
+
+    <h3><a href="#changes_0140922" id="changes_0140922">0.14.09.22</a></h3>
+	<p>ieeerem/rem のアルゴリズムを変更しました。sin(2^10000) を計算できるようにしました。</p>
+
+    <h3><a href="#changes_0140908" id="changes_0140908">0.14.09.08</a></h3>
+	<p>atanh のアルゴリズムを変更しました。また、JRE 7 への対応を廃止しました。</p>
+
+    <h3><a href="#changes_0140904" id="changes_0140904">0.14.09.04</a></h3>
+	<p>atan/exp2/tan のアルゴリズムを変更しました。</p>
+
+    <h3><a href="#changes_0140829" id="changes_0140829">0.14.08.29</a></h3>
+	<p>浮動小数点命令の処理を更新しました。</p>
+
+    <h3><a href="#changes_0140822" id="changes_0140822">0.14.08.22</a></h3>
+	<p>デバッガで浮動小数点命令を逆アセンブルできるようにしました。</p>
+
+    <h3><a href="#changes_0140821" id="changes_0140821">0.14.08.21</a></h3>
+	<p>拡張精度浮動小数点数 (19 桁) または三倍精度浮動小数点数 (24 桁) のどちらかを選択できるようにしました。</p>
+
+    <h3><a href="#changes_0140820" id="changes_0140820">0.14.08.20</a></h3>
+	<p>FETOXM1 の誤差を減らしました。</p>
+
+    <h3><a href="#changes_0140819" id="changes_0140819">0.14.08.19</a></h3>
+	<p>X68030 モードのとき浮動小数点命令の一部 (演算命令と分岐命令) を実行できるようにしました。例外処理は未実装です。</p>
+
+    <h3><a href="#changes_0140717" id="changes_0140717">0.14.07.17</a></h3>
+	<p>要求する Java SE のバージョンを更新しました。</p>
+
+    <h3><a href="#changes_0140506" id="changes_0140506">0.14.05.06</a></h3>
+	<p>割り込み禁止の状態で暴走したときもインタラプトスイッチが効くようにしました。</p>
+
+    <h3><a href="#changes_0140505" id="changes_0140505">0.14.05.05</a></h3>
+	<p>分岐ログを更新してプログラムフロービジュアライザを追加しました。プログラムカウンタが通った跡をリアルタイムに可視化します。</p>
+
+    <h3><a href="#changes_0140501" id="changes_0140501">0.14.05.01</a></h3>
+	<p>デバッグウインドウが開いているときは F11 キーが全画面表示ではなく停止ボタンとして機能します。</p>
+
+    <h3><a href="#changes_0140430" id="changes_0140430">0.14.04.30</a></h3>
+	<p>コアのバグを修正しました。</p>
+
+    <h3><a href="#changes_0140429" id="changes_0140429">0.14.04.29</a></h3>
+	<p>キー入力の処理を TimerTask を使わない方法に変更しました。</p>
+
+    <h3><a href="#changes_0140428" id="changes_0140428">0.14.04.28</a></h3>
+	<p>FDC を更新しました。FDDEVICE.X を組み込むと 2DD (640KB)、2DD (720KB)、2HQ のイメージファイルを操作できます。</p>
+
+    <h3><a href="#changes_0140427" id="changes_0140427">0.14.04.27</a></h3>
+	<p>描画するフレームの間隔を空けることで描画の負荷を軽くすることができます。</p>
+
+    <h3><a href="#changes_0140426" id="changes_0140426">0.14.04.26</a></h3>
+	<p>FDC を動かしてみるテスト。FORMAT /5 B: で 2HC モードでフォーマットできます。</p>
+
+    <h3><a href="#changes_0140423" id="changes_0140423">0.14.04.23</a></h3>
+	<p>HUMAN.SYS が入っていないディレクトリでも起動できるようにしました。COMMAND.X は入れておいてください。</p>
+
+    <h3><a href="#changes_0140421" id="changes_0140421">0.14.04.21</a></h3>
+	<p>実行サンプルの Human68k version 3.02 のシステムディスクの設定を 10MHz、最近傍補間、音声なしに変更しました。</p>
+
+    <h3><a href="#changes_0140419" id="changes_0140419">0.14.04.19</a></h3>
+	<p>Firefox と Opera でも全画面表示が使えるようになりました。</p>
+
+	</div>
+
+  <h2><a href="feature.htm" id="feature">3. 機能と特徴</a> &#9654;</h2>
+
+  <h2><a href="environment.htm" id="environment">4. 実行環境</a> &#9654;</h2>
+
+  <h2><a href="http://stdkmd.com/xeij/sample/" id="sample">5. 実行サンプル</a> &#9654;</h2>
+
+  <h2><a href="menu.htm" id="menu">6. メニューの説明</a> &#9654;</h2>
+
+  <h2><a href="inifile.htm" id="inifile">7. 設定ファイル</a> &#9654;</h2>
+
+  <h2><a href="parameter.htm" id="parameter">8. パラメータ</a> &#9654;</h2>
+
+  <h2><a href="license.htm" id="license">9. 使用許諾条件 / 著作権 / 免責事項</a> &#9654;</h2>
+
+  <h2><a href="http://stdkmd.com/xeij/source/" id="source">10. ソースコード</a> &#9654;</h2>
+
+  <h2><a href="#download" id="download">11. ダウンロード</a></h2>
+
+    <h3><a href="#download_latest" id="download_latest">11.1. 最新版</a></h3>
+      <ul>
+	<li><a href="http://stdkmd.com/xeij/XEiJ_0160817.zip">XEiJ_0160817.zip</a> (8459KB) … XEiJ (X6000 Emulator in Java) version 0.16.08.17</li>
+      </ul>
+
+    <h3><a href="#download_old" id="download_old">11.2. 旧版</a></h3>
+      <ul>
+	<li><a href="http://stdkmd.com/xeij/XEiJ_0160717.zip">XEiJ_0160717.zip</a> (8465KB) … XEiJ (X6000 Emulator in Java) version 0.16.07.17</li>
+	<li><a href="http://stdkmd.com/xeij/XEiJ_0160512.zip">XEiJ_0160512.zip</a> (5241KB) … XEiJ (X6000 Emulator in Java) version 0.16.05.12</li>
+	<li><a href="http://stdkmd.com/xeij/XEiJ_0160507.zip">XEiJ_0160507.zip</a> (5236KB) … XEiJ (X6000 Emulator in Java) version 0.16.05.07</li>
+	<li><a href="http://stdkmd.com/xeij/XEiJ_0160430.zip">XEiJ_0160430.zip</a> (5223KB) … XEiJ (X6000 Emulator in Java) version 0.16.04.30</li>
+	<li><a href="http://stdkmd.com/xeij/XEiJ_0160426.zip">XEiJ_0160426.zip</a> (5214KB) … XEiJ (X6000 Emulator in Java) version 0.16.04.26</li>
+	<li><a href="http://stdkmd.com/xeij/XEiJ_0160422.zip">XEiJ_0160422.zip</a> (5213KB) … XEiJ (X6000 Emulator in Java) version 0.16.04.22</li>
+	<li><a href="http://stdkmd.com/xeij/XEiJ_0160421.zip">XEiJ_0160421.zip</a> (5213KB) … XEiJ (X6000 Emulator in Java) version 0.16.04.21</li>
+	<li><a href="http://stdkmd.com/xeij/XEiJ_0160412.zip">XEiJ_0160412.zip</a> (5318KB) … XEiJ (X6000 Emulator in Java) version 0.16.04.12</li>
+      </ul>
+
+  <h2><a href="compile.htm" id="compile">12. コンパイル手順</a> &#9654;</h2>
+
+  <h2><a href="execute.htm" id="execute">13. 起動方法</a> &#9654;</h2>
+
+  <h2><a href="netbsd.htm" id="netbsd">14. NetBSD/x68k を動かしてみる</a> &#9654;</h2>
+
+  <h2><a href="miscfiles.htm" id="miscfiles">15. misc/* の説明</a> &#9654;</h2>
+
+  <h2><a href="reference.htm" id="reference">16. 参考資料</a> &#9654;</h2>
+
+  <h2><a href="link.htm" id="link">17. リンク集</a> &#9654;</h2>
+
+  <h2><a href="#thanks" id="thanks">18. 謝辞</a></h2>
+	<p>X68000 の基本的なソフトウェアの無償公開に尽力された権利各社およびシャープ・プロダクツ・ユーザーズ・フォーラムの方々、美しいフォントを公開されている平木敬太郎さん、門真なむさん、実行サンプルとして使わせていただいたフリーソフトウェアの作者の方々、動作報告と応援のメッセージを寄せてくださった皆さん、ありがとうございます。</p>
+
+  <h2><a href="#contact" id="contact">19. 連絡先</a></h2>
+
+    <h3>Makoto Kamada</h3>
+
+      <h4>ツイッター</h4>
+	<p><a href="https://twitter.com/kamadox" target="_blank">@kamadox</a></p>
+
+      <h4>メール</h4>
+	<p><img alt="E-mail" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIgAAAAQCAYAAADNjzd8AAABHElEQVR42u1Y0Q7DIAjs/yf9wn3Mlj3sxYSDE1DqIGnamIogJxxeV0uLJvf9ep9uz1fn76kag6q2HQ+QUd8uf7V1GyAb7JF07fC5AVIcINJ3x6EBIr47DpOGjadNInnjuPYPSvkoeGj9GWBY/MjyLwsgyAZP/CCJs4AHfWvzJTAyJNNiPwKItGlR/q3gIEwMmfhN1WZ6AeN8Ro/ktDZuLTVWgEQS41mAeGyhAKKlR0apVKKyAKKNZQIE+XcMQFDtQrWUTcFofiZArOWF3UDNv6MyiPVSKZKDrCoxbP1+EgdZChCGwEWdsEySyoBE6mIqZBCtC1pGUi011lujmVPrbXOZVjSKg1ja6GiAeNrcp1wklrkH6s1poU7fP8sHhzUVpQf+9uwAAAAASUVORK5CYII="></p>
+
+</div>
+<div id="foot"><a href="http://stdkmd.com/">STUDIO KAMADA</a><br>Copyright &copy; 1999-2016 Makoto Kamada<div></div></div>
+  </body>
+</html>

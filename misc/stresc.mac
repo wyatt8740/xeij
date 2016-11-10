@@ -1,0 +1,304 @@
+;========================================================================================
+;  stresc.mac
+;  Copyright (C) 2003-2016 Makoto Kamada
+;
+;  This file is part of the XEiJ (X68000 Emulator in Java).
+;  You can use, modify and redistribute the XEiJ if the conditions are met.
+;  Read the XEiJ License for more details.
+;  http://stdkmd.com/xeij/
+;========================================================================================
+
+	.include	crc32.mac
+
+	.nlist
+
+	.ifndef	__STRESC_MAC__
+__STRESC_MAC__	equ	1
+
+;----------------------------------------------------------------
+;	文法
+;		~~stresc_str
+;	内容
+;		.dc.bの引数。~~strescが作る。stresc,dclstr,leastr,peastrが使う
+;----------------------------------------------------------------
+~~stresc_str reg ''
+
+;----------------------------------------------------------------
+;	文法
+;		~~stresc	str
+;	機能
+;		stresc,dclstr,leastr,peastrの下請け。~~stresc_strとCRC32を作る
+;----------------------------------------------------------------
+~~stresc	.macro	str
+~~stresc_str reg ''
+CRC32 = 0
+@e = 0					;エスケープシーケンスの状態。0=エスケープシーケンスの処理中ではない,1=\,2=\[0-3],3=\[0-3][0-7],4=\x,5=\x[0-9A-Fa-f]
+@n = -1					;エスケープシーケンスの処理中の文字または最後に出力した文字。-1=なし,$0001～$FFFF=文字コード
+  .irpc c,str
+    .if @e=0				;エスケープシーケンスの処理中ではない
+      .if '&c'='\'			;\
+@e = 1					;→\
+      .else				;その他の文字
+@n = '&c'
+        .if @n<=$FF
+~~stresc_str reg ~~stresc_str,%@n	;1バイト文字
+	crc32b	%@n
+        .else
+~~stresc_str reg ~~stresc_str,.high.(%@n),.low.(%@n)	;2バイト文字
+	crc32w	%@n
+        .endif
+      .endif
+    .elif @e=1				;\→
+      .if '&c'='\'			;\→\\
+@n = $5C
+~~stresc_str reg ~~stresc_str,%@n	;$5C
+	crc32b	%@n
+@e = 0
+      .elif '&c'='a'			;\→\a
+@n = $07
+~~stresc_str reg ~~stresc_str,%@n	;$07
+	crc32b	%@n
+@e = 0
+      .elif '&c'='b'			;\→\b
+@n = $08
+~~stresc_str reg ~~stresc_str,%@n	;$08
+	crc32b	%@n
+@e = 0
+      .elif '&c'='e'			;\→\e
+@n = $1B
+~~stresc_str reg ~~stresc_str,%@n	;$1B
+	crc32b	%@n
+@e = 0
+      .elif '&c'='f'			;\→\f
+@n = $0C
+~~stresc_str reg ~~stresc_str,%@n	;$0C
+	crc32b	%@n
+@e = 0
+      .elif '&c'='n'			;\→\n
+@n = $0A
+~~stresc_str reg ~~stresc_str,%@n	;$0A
+	crc32b	%@n
+@e = 0
+      .elif '&c'='q'			;\→\q
+@n = $27
+~~stresc_str reg ~~stresc_str,%@n	;$27
+	crc32b	%@n
+@e = 0
+      .elif '&c'='r'			;\→\r
+@n = $0D
+~~stresc_str reg ~~stresc_str,%@n	;$0D
+	crc32b	%@n
+@e = 0
+      .elif '&c'='t'			;\→\t
+@n = $09
+~~stresc_str reg ~~stresc_str,%@n	;$09
+	crc32b	%@n
+@e = 0
+      .elif '&c'='v'			;\→\v
+@n = $0B
+~~stresc_str reg ~~stresc_str,%@n	;$0B
+	crc32b	%@n
+@e = 0
+      .elif ('0'<='&c').and.('&c'<='3')	;\→\[0-3]
+@e = 2					;→\[0-3]
+@n = '&c'-'0'
+      .elif '&c'='x'			;\→\x
+@e = 4					;→\x
+      .else				;\→その他の文字
+	.fail	1			;未対応のエスケープシーケンス
+      .endif
+    .elif @e=2				;\[0-3]→
+      .if ('0'<='&c').and.('&c'<='7')	;\[0-3]→\[0-3][0-7]
+@e = 3					;→\[0-3][0-7]
+@n = (@n.shl.3).or.('&c'-'0')
+      .elif '&c'='\'			;\[0-3]→\[0-3]\
+~~stresc_str reg ~~stresc_str,%@n	;\[0-3]
+	crc32b	%@n
+@e = 1					;→\
+      .else				;\[0-3]→\[0-3]その他の文字
+~~stresc_str reg ~~stresc_str,%@n	;\[0-3]
+	crc32b	%@n
+@n = '&c'
+        .if @n<=$FF
+~~stresc_str reg ~~stresc_str,%@n	;1バイト文字
+	crc32b	%@n
+        .else
+~~stresc_str reg ~~stresc_str,.high.(%@n),.low.(%@n)	;2バイト文字
+	crc32w	%@n
+        .endif
+@e = 0
+      .endif
+    .elif @e=3				;\[0-3][0-7]→
+      .if ('0'<='&c').and.('&c'<='7')	;\[0-3][0-7]→\[0-3][0-7]{2}
+@n = (@n.shl.3).or.('&c'-'0')
+~~stresc_str reg ~~stresc_str,%@n	;\[0-3][0-7]{2}
+	crc32b	%@n
+@e = 0
+      .elif '&c'='\'			;\[0-3][0-7]→\[0-3][0-7]\→\
+~~stresc_str reg ~~stresc_str,%@n	;\[0-3][0-7]
+	crc32b	%@n
+@e = 1					;→\
+      .else				;\[0-3][0-7]→\[0-3][0-7]その他の文字
+~~stresc_str reg ~~stresc_str,%@n	;\[0-3][0-7]
+	crc32b	%@n
+@n = '&c'
+        .if @n<=$FF
+~~stresc_str reg ~~stresc_str,%@n	;1バイト文字
+	crc32b	%@n
+        .else
+~~stresc_str reg ~~stresc_str,.high.(%@n),.low.(%@n)	;2バイト文字
+	crc32w	%@n
+        .endif
+@e = 0
+      .endif
+    .elif @e=4				;\x→
+      .if ('0'<='&c').and.('&c'<='9')	;\x→\x[0-9]
+@e = 5					;→\x[0-9A-Fa-f]
+@n = ('&c'-'0')
+      .elif ('A'<='&c').and.('&c'<='F')	;\x→\x[A-F]
+@e = 5					;→\x[0-9A-Fa-f]
+@n = ('&c'-'A'+10)
+      .elif ('a'<='&c').and.('&c'<='f')	;\x→\x[a-f]
+@e = 5					;→\x[0-9A-Fa-f]
+@n = ('&c'-'a'+10)
+      .else				;\x→\xその他の文字
+	.fail	1			;未対応のエスケープシーケンス
+      .endif
+    .elif @e=5				;\x[0-9A-Fa-f]→
+      .if ('0'<='&c').and.('&c'<='9')	;\x[0-9A-Fa-f]→\x[0-9A-Fa-f][0-9]
+@n = (@n.shl.4).or.('&c'-'0')
+~~stresc_str reg ~~stresc_str,%@n	;\x[0-9A-Fa-f]{2}
+	crc32b	%@n
+@e = 0
+      .elif ('A'<='&c').and.('&c'<='F')	;\x[0-9A-Fa-f]→\x[0-9A-Fa-f][A-F]
+@n = (@n.shl.4).or.('&c'-'A'+10)
+~~stresc_str reg ~~stresc_str,%@n	;\x[0-9A-Fa-f]{2}
+	crc32b	%@n
+@e = 0
+      .elif ('a'<='&c').and.('&c'<='f')	;\x[0-9A-Fa-f]→\x[0-9A-Fa-f][a-f]
+@n = (@n.shl.4).or.('&c'-'a'+10)
+~~stresc_str reg ~~stresc_str,%@n	;\x[0-9A-Fa-f]{2}
+	crc32b	%@n
+@e = 0
+      .elif '&c'='\'			;\x[0-9A-Fa-f]→\x[0-9A-Fa-f]\→\
+~~stresc_str reg ~~stresc_str,%@n	;\x[0-9A-Fa-f]
+	crc32b	%@n
+@e = 1					;→\
+      .else				;\x[0-9A-Fa-f]→\x[0-9A-Fa-f]その他の文字
+~~stresc_str reg ~~stresc_str,%@n	;\x[0-9A-Fa-f]
+	crc32b	%@n
+@n = '&c'
+        .if @n<=$FF
+~~stresc_str reg ~~stresc_str,%@n	;1バイト文字
+	crc32b	%@n
+        .else
+~~stresc_str reg ~~stresc_str,.high.(%@n),.low.(%@n)	;2バイト文字
+	crc32w	%@n
+        .endif
+@e = 0
+      .endif
+    .endif
+  .endm					;.irpc c,str
+  .if @e=1				;\→終わり
+	.fail	1			;エスケープシーケンスの途中で文字列が終わってしまった
+  .elif @e=2				;\[0-3]→終わり
+~~stresc_str reg ~~stresc_str,%@n	;\[0-3]
+	crc32b	%@n
+  .elif @e=3				;\[0-3][0-7]→終わり
+~~stresc_str reg ~~stresc_str,%@n	;\[0-3][0-7]
+	crc32b	%@n
+  .elif @e=4				;\x→終わり
+	.fail	1			;エスケープシーケンスの途中で文字列が終わってしまった
+  .elif @e=5				;\x[0-9A-Fa-f]→終わり
+~~stresc_str reg ~~stresc_str,%@n	;\x[0-9A-Fa-f]
+	crc32b	%@n
+  .endif
+  .if @n!=0				;文字列の末尾が$00でないとき
+~~stresc_str reg ~~stresc_str,$00	;$00を追加する
+	crc32b	$00
+  .endif
+	.endm				;~~stresc
+
+;----------------------------------------------------------------
+;	文法
+;		stresc	'文字列'
+;	機能
+;		文字列のエスケープシーケンスを変換して.dc.bで出力する
+;		文字列の末尾が$00でないとき$00を追加する
+;	エスケープシーケンス
+;		\\	$5C	REVERSE SOLIDUS
+;		\a	$07	BELL
+;		\b	$08	BACKSPACE
+;		\e	$1B	ESCAPE
+;		\f	$0C	FORM FEED
+;		\n	$0A	LINE FEED
+;		\q	$27	APOSTROPHE
+;		\r	$0D	CARRIAGE RETURN
+;		\t	$09	CHARACTER TABULATION
+;		\v	$0B	LINE TABULATION
+;		\[0-3][0-7]{0,2}	8進数
+;		\x[0-9A-Fa-f]{1,2}	16進数
+;	例
+;		stresc	'\\\a\b\e\f\n\q\r\t\v\0\3\00\37\000\377\x0\xf\x00\xffソa'
+;		は以下と同じ
+;		.dc.b	$5C,$07,$08,$1B,$0C,$0A,$27,$0D,$09,$0B,$00,$03,$00,$1F,$00,$FF,$00,$0F,$00,$FF,$83,$5C,$61,$00
+;----------------------------------------------------------------
+stresc	.macro	str
+	~~stresc	str
+	.dc.b	~~stresc_str
+	.endm
+
+;----------------------------------------------------------------
+;	文法
+;		dclstr	'文字列'
+;	機能
+;		文字列のエスケープシーケンスを変換してデータセクションに.dc.bで出力し、その先頭アドレスをテキストセクションに.dc.lで出力する
+;----------------------------------------------------------------
+dclstr	.macro	str
+	~~stresc	str		;文字列のエスケープシーケンスを変換する
+  .ifndef ~~stresc_%CRC32		;同じ文字列がないとき
+	.data
+~~stresc_%CRC32:
+	.dc.b	~~stresc_str
+  .endif
+	.text
+	.dc.l	~~stresc_%CRC32		;文字列の先頭アドレスを.dc.lで出力する
+	.endm
+
+;----------------------------------------------------------------
+;	文法
+;		leastr	'文字列',アドレスレジスタ
+;	機能
+;		文字列のエスケープシーケンスを変換してデータセクションに.dc.bで出力し、その先頭アドレスをテキストセクションにleaで出力する
+;----------------------------------------------------------------
+leastr	.macro	str,an
+	~~stresc	str		;文字列のエスケープシーケンスを変換する
+  .ifndef ~~stresc_%CRC32		;同じ文字列がないとき
+	.data
+~~stresc_%CRC32:
+	.dc.b	~~stresc_str
+  .endif
+	.text
+	lea.l	~~stresc_%CRC32,an	;文字列の先頭アドレスをleaで出力する
+	.endm
+
+;----------------------------------------------------------------
+;	文法
+;		peastr	'文字列'
+;	機能
+;		文字列のエスケープシーケンスを変換してデータセクションに.dc.bで出力し、その先頭アドレスをテキストセクションにpeaで出力する
+;----------------------------------------------------------------
+peastr	.macro	str
+	~~stresc	str		;文字列のエスケープシーケンスを変換する
+  .ifndef ~~stresc_%CRC32		;同じ文字列がないとき
+	.data
+~~stresc_%CRC32:
+	.dc.b	~~stresc_str
+  .endif
+	.text
+	pea.l	~~stresc_%CRC32		;文字列の先頭アドレスをpeaで出力する
+	.endm
+
+	.endif				;__STRESC_MAC__
+
+	.list
